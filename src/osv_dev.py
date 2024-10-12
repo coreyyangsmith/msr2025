@@ -1,6 +1,12 @@
 import requests
 
 
+"""
+test_code to hit OSV dev API and observe results,
+for test package in Maven Central Repository
+"""
+
+
 def check_cve_for_release(package_name, ecosystem, version, cve_id):
     url = "https://api.osv.dev/v1/query"
 
