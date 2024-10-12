@@ -1,0 +1,14 @@
+*.dump
+/Goblin
+/goblinDependencyMiner
+/goblinWeaver
+/Neo4jWeaverDocker
+/Gephi
+
+*.csv
+
+/data
+/goblin_source
+
+*.env
+*.graphml
