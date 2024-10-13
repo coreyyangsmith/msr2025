@@ -58,7 +58,10 @@ for batch_number in range(total_batches):
     WITH a, r
     ORDER BY r.timestamp DESC
     WITH a, COLLECT(r)[0] AS latestRelease
-    RETURN a.id AS artifactId, latestRelease
+    RETURN a.id AS artifactId,
+           latestRelease.id AS releaseId,
+           latestRelease.timestamp AS releaseTimestamp,
+           latestRelease.version AS releaseVersion
     """
 
     query_payload = {
