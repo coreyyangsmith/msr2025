@@ -2,6 +2,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+
+# old?
+
 # Read the CSV file
 df = pd.read_csv("data/artifacts_with_cves.csv")
 

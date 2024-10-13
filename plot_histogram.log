@@ -6,3 +6,11 @@
 2024-10-13 12:05:34,020 - INFO - Successfully read 'data/releases_with_cves.csv' with 187288 records.
 2024-10-13 12:05:34,415 - INFO - Plot saved successfully as 'figure.tiff'.
 2024-10-13 12:06:27,126 - INFO - CVE Severity Histogram Plotting completed.
+2024-10-13 15:32:42,188 - INFO - Starting CVE Severity Histogram Plotting.
+2024-10-13 15:32:42,288 - INFO - Successfully read 'data/releases_with_cves.csv' with 187288 records.
+2024-10-13 15:32:42,816 - INFO - Plot saved successfully as 'figure.tiff'.
+2024-10-13 15:32:46,550 - INFO - CVE Severity Histogram Plotting completed.
+2024-10-13 15:53:14,279 - INFO - Starting CVE Severity Histogram Plotting.
+2024-10-13 15:53:14,403 - INFO - Successfully read 'data/releases_with_cves.csv' with 187288 records.
+2024-10-13 15:53:14,961 - INFO - Plot saved successfully as 'figure.tiff'.
+2024-10-13 15:53:40,882 - INFO - CVE Severity Histogram Plotting completed.

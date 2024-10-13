@@ -98,7 +98,9 @@ def plot_cve_severity_histogram(input_csv, output_plot):
 
     # Set title and labels
     ax.set_title(
-        "CVE Incident Counts by Severity Level", fontsize=16, fontweight="bold"
+        "CVE Incident Counts by Severity Level for Releases",
+        fontsize=16,
+        fontweight="bold",
     )
     ax.set_xlabel("Severity Level", labelpad=10)
     ax.set_ylabel("Number of CVE Incidents", labelpad=10)

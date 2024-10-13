@@ -89,9 +89,9 @@ for batch_number in range(total_batches):
                     artifact_id = item.get("artifactId")
                 if item.get("releaseId") is not None:
                     release_id = item.get("releaseId")
-                if item.get("timestamp") is not None:
+                if item.get("releaseTimestamp") is not None:
                     release_timestamp = item.get("releaseTimestamp")
-                if item.get("version") is not None:
+                if item.get("releaseVersion") is not None:
                     release_version = item.get("releaseVersion")
 
             if release_id:
