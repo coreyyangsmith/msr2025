@@ -1,4 +1,3 @@
-artifact,release_count,cve_count,releases_with_cves,low_severity_count,medium_severity_count,high_severity_count,critical_severity_count,unknown_severity_count
 ai.h2o:h2o-core,250,489,250,0,0,250,239,0
 ai.djl:api,31,29,29,0,0,0,29,0
 be.cylab:snakeyaml,1,1,1,0,1,0,0,0
@@ -549,7 +548,6 @@ org.apache.cxf.fediz:fediz-spring,25,36,17,0,15,21,0,0
 org.apache.cxf:cxf-rt-frontend-jaxrs,195,137,79,0,118,19,0,0
 org.apache.helix:helix-core,35,32,32,0,0,0,32,0
 org.apache.derby:derby,29,90,28,0,34,7,49,0
-org.apache.guacamole:guacamole-common,13,9,5,0,0,4,0,5
 org.apache.cxf.fediz:fediz-jetty8,11,10,8,0,2,8,0,0
 org.apache.dolphinscheduler:dolphinscheduler-dao,45,33,33,0,33,0,0,0
 org.apache.dubbo:dubbo-rpc-http-invoker,2,2,2,0,2,0,0,0
@@ -575,7 +573,6 @@ org.apache.iotdb:iotdb-server,40,30,24,0,0,30,0,0
 org.apache.flink:flink-core,123,73,73,0,73,0,0,0
 org.apache.inlong:manager-web,17,24,5,0,2,11,11,0
 org.apache.httpcomponents:httpclient,55,153,53,0,130,22,1,0
-org.apache.guacamole:guacamole-common-js,15,7,7,0,0,0,0,7
 org.apache.cxf:apache-cxf,203,1127,172,0,482,645,0,0
 org.apache.jackrabbit:oak-core,301,28,28,0,0,28,0,0
 org.apache.inlong:manager-workflow,13,5,5,0,0,5,0,0
