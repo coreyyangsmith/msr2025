@@ -1,0 +1,8 @@
+2024-10-13 12:05:12,402 - INFO - Starting CVE Severity Histogram Plotting.
+2024-10-13 12:05:12,508 - INFO - Successfully read 'data/releases_with_cves.csv' with 187288 records.
+2024-10-13 12:05:13,239 - INFO - Plot saved successfully as 'figure.tiff'.
+2024-10-13 12:05:31,569 - INFO - CVE Severity Histogram Plotting completed.
+2024-10-13 12:05:33,925 - INFO - Starting CVE Severity Histogram Plotting.
+2024-10-13 12:05:34,020 - INFO - Successfully read 'data/releases_with_cves.csv' with 187288 records.
+2024-10-13 12:05:34,415 - INFO - Plot saved successfully as 'figure.tiff'.
+2024-10-13 12:06:27,126 - INFO - CVE Severity Histogram Plotting completed.

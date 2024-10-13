@@ -66,7 +66,7 @@ for batch_number in range(total_batches):
 
     query_payload = {
         "query": cypher_query,
-        "addedValues": [],
+        "parameters": {},  # Use "parameters" instead of "addedValues"
     }
 
     try:
@@ -76,20 +76,30 @@ for batch_number in range(total_batches):
 
         # Parse the response
         data = response.json()
-        results = data.get("values", [])
+        columns = data.get("columns", [])
+        rows = data.get("data", [])
+
+        # Determine the index of each column
+        try:
+            artifact_id_idx = columns.index("artifactId")
+            release_id_idx = columns.index("releaseId")
+            release_timestamp_idx = columns.index("releaseTimestamp")
+            release_version_idx = columns.index("releaseVersion")
+        except ValueError as e:
+            logging.error(f"Expected column missing in response: {e}")
+            continue  # Skip this batch
 
         # Append the results to the output CSV file
         with open("latest_releases.csv", "a", newline="", encoding="utf-8") as csvfile:
             writer = csv.writer(csvfile)
-            for item in results:
-                artifact_id = item.get("artifactId")
-                latest_release = item.get("latestRelease")
+            for row in rows:
+                artifact_id = row[artifact_id_idx]
+                release_id = row[release_id_idx]
+                release_timestamp = row[release_timestamp_idx]
+                release_version = row[release_version_idx]
 
-                if latest_release:
+                if release_id:
                     # Extract properties from the latest release
-                    release_id = latest_release.get("id", "N/A")
-                    release_timestamp = latest_release.get("timestamp", "N/A")
-                    release_version = latest_release.get("version", "N/A")
                     writer.writerow(
                         [
                             artifact_id,
@@ -110,3 +120,5 @@ for batch_number in range(total_batches):
         )
     except KeyError as e:
         logging.error(f"Unexpected response format in batch {batch_number + 1}: {e}")
+    except ValueError as e:
+        logging.error(f"Error processing columns in batch {batch_number + 1}: {e}")
