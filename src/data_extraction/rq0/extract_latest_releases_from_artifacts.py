@@ -85,10 +85,14 @@ for batch_number in range(total_batches):
             release_timestamp = None
             release_version = None
             for item in results:
-                artifact_id = item.get("artifactId")
-                latest_release = item.get("releaseId")
-                release_timestamp = item.get("latestRelease")
-                release_version = item.get("latestRelease")
+                if item.get("artifactId") is not None:
+                    artifact_id = item.get("artifactId")
+                if item.get("releaseId") is not None:
+                    latest_release = item.get("releaseId")
+                if item.get("latestRelease") is not None:
+                    release_timestamp = item.get("latestRelease")
+                if item.get("latestRelease") is not None:
+                    release_version = item.get("latestRelease")
 
             if latest_release:
                 # Extract properties from the latest release
