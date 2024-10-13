@@ -140,3 +140,13 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+# GRAPH NOTES
+
+# Look up Spectral Methods
+# Look up Spatial (Message Passing) Methods
+
+
+# Eigenspace/Eigenvector
+# Foruier, Signal Processing
