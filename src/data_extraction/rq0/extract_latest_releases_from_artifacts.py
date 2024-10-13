@@ -99,7 +99,7 @@ with open("latest_releases.csv", "a", newline="", encoding="utf-8") as csvfile:
 
         query_payload = {
             "query": cypher_query,
-            "parameters": {"artifactId": artifact_id},
+            "addedValues": [],
         }
 
         try:
