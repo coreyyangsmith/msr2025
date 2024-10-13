@@ -88,13 +88,13 @@ for batch_number in range(total_batches):
                 if item.get("artifactId") is not None:
                     artifact_id = item.get("artifactId")
                 if item.get("releaseId") is not None:
-                    latest_release = item.get("releaseId")
+                    release_id = item.get("releaseId")
                 if item.get("latestRelease") is not None:
                     release_timestamp = item.get("latestRelease")
                 if item.get("latestRelease") is not None:
                     release_version = item.get("latestRelease")
 
-            if latest_release:
+            if release_id:
                 # Extract properties from the latest release
                 writer.writerow(
                     [
