@@ -1,0 +1,3 @@
+artifact,release_count,cve_count,releases_with_cves,low_severity_count,medium_severity_count,high_severity_count,critical_severity_count,unknown_severity_count
+org.apache.guacamole:guacamole-common,13,9,5,0,0,4,0,5
+org.apache.guacamole:guacamole-common-js,15,7,7,0,0,0,0,7

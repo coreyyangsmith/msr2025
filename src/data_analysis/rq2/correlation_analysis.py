@@ -77,29 +77,58 @@ def preprocess_data(df, metrics):
     return df_clean
 
 
-def analyze_correlation(df, metrics):
+def analyze_correlation(df, metrics, target_metric=None):
     """
     Analyze and visualize the correlation between specified metrics.
 
     Parameters:
     - df (DataFrame): The DataFrame containing the data.
     - metrics (list): List of column names to analyze.
+    - target_metric (str, optional): If provided, only the correlations
+      with this metric will be visualized.
     """
     # Calculate the correlation matrix
-    corr_matrix = df.corr()
+    corr_matrix = df[metrics].corr()
     print("\nCorrelation Matrix:")
     print(corr_matrix)
 
-    # Set up the matplotlib figure
-    plt.figure(figsize=(10, 8))
+    # Determine what to plot
+    if target_metric:
+        if target_metric not in corr_matrix.columns:
+            raise ValueError(f"'{target_metric}' is not in the list of metrics.")
 
-    # Generate a custom diverging colormap
-    cmap = sns.diverging_palette(220, 10, as_cmap=True)
+        # Extract the target column
+        single_corr = corr_matrix[[target_metric]].sort_values(
+            by=target_metric, ascending=False
+        )
+        # Optionally, you can transpose for better visualization
+        single_corr = single_corr.transpose()
 
-    # Draw the heatmap with the mask and correct aspect ratio
-    sns.heatmap(corr_matrix, annot=True, cmap=cmap, fmt=".2f", linewidths=0.5)
+        # Set up the matplotlib figure
+        plt.figure(figsize=(8, 2))  # Adjust the size as needed
 
-    plt.title("Correlation Matrix Heatmap")
+        # Generate a custom diverging colormap
+        cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+        # Draw the heatmap
+        sns.heatmap(
+            single_corr, annot=True, cmap=cmap, fmt=".2f", linewidths=0.5, cbar=True
+        )
+
+        plt.title(f"Correlation with '{target_metric}'")
+    else:
+        # Set up the matplotlib figure
+        plt.figure(figsize=(10, 8))
+
+        # Generate a custom diverging colormap
+        cmap = sns.diverging_palette(220, 10, as_cmap=True)
+
+        # Draw the heatmap with the mask and correct aspect ratio
+        sns.heatmap(corr_matrix, annot=True, cmap=cmap, fmt=".2f", linewidths=0.5)
+
+        plt.title("Correlation Matrix Heatmap")
+
+    plt.tight_layout()
     plt.show()
 
 
@@ -131,7 +160,7 @@ def main():
     df_clean = preprocess_data(df, metrics)
 
     # Analyze and visualize correlation
-    analyze_correlation(df_clean, metrics)
+    analyze_correlation(df_clean, metrics, target_metric="severity_encoded")
 
 
 if __name__ == "__main__":

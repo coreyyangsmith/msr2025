@@ -2,7 +2,7 @@ import csv
 from src.classes import EnrichedArtifact
 
 input_file_path = "data/artifacts_with_cves.csv"
-output_file_path = "data/cve_lifetimes.csv"
+output_file_path = "data/rq1_cve_lifetimes.csv"
 
 with open(input_file_path, "r", encoding="utf-8") as infile:
     artifacts = [

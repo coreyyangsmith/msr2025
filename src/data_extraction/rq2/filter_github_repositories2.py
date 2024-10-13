@@ -112,11 +112,10 @@ def process_artifact(artifact):
 
 
 def main():
-    # Path to your CSV file
-    csv_file_path = "data/cve_lifetimes_updated.csv"  # Update this path as needed
+    input_path = "data/cve_lifetimes_updated.csv"  # Update this path as needed
+    output_csv = "data/filtered_github_artifacts.csv"
 
-    # Read artifacts from CSV
-    artifacts = read_artifacts_from_csv(csv_file_path)
+    artifacts = read_artifacts_from_csv(input_path)
     if not artifacts:
         print("No artifacts to process.")
         return
@@ -152,8 +151,6 @@ def main():
             f"{art['groupId']}:{art['artifactId']}:{art['version']} - {art.get('githubUrl', '')}"
         )
 
-    # Optionally, write the results to a new CSV file
-    output_csv = "data/filtered_github_artifacts.csv"
     try:
         with open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile:
             fieldnames = ["groupId", "artifactId", "version", "githubUrl"]
