@@ -548,7 +548,7 @@ def calculate_combined_statistics(df, units):
 
 
 def main():
-    import_path = "data/cve_lifetimes.csv"
+    import_path = "data/rq1_cve_lifetimes.csv"
     print(f"Importing data from: {import_path}")
     try:
         df = pd.read_csv(import_path)
@@ -597,7 +597,7 @@ def main():
     df["Severity"] = df["Severity"].str.capitalize()
 
     # Define the desired order of severities
-    severity_order = ["Unknown", "Low", "Moderate", "High", "Critical"]
+    severity_order = ["Low", "Moderate", "High", "Critical"]
 
     # Convert 'Severity' column to categorical with the specified order
     df["Severity"] = pd.Categorical(

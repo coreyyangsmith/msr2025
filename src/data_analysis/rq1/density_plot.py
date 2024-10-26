@@ -83,7 +83,7 @@ def plot_duration_density_over_time_seaborn(df: pd.DataFrame):
 
 
 # Example usage with your CSV data
-import_path = "data/cve_lifetimes.csv"
+import_path = "data/rq1_cve_lifetimes.csv"
 print(f"Importing data from: {import_path}")
 df = pd.read_csv(import_path)
 df = df[["Start", "End", "Duration"]]

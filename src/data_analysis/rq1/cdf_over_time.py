@@ -73,23 +73,7 @@ def plot_duration_cdf(df: pd.DataFrame):
 
 # Example usage with sample data
 if __name__ == "__main__":
-    # Sample data (you can replace this with your actual data)
-    sample_data = [
-        ("2005-08-01 03:52:02", "2013-02-20 13:20:05", "2760 days, 9:28:03"),
-        ("2010-01-15 08:30:00", "2015-06-20 12:45:30", "2015 days, 4:15:30"),
-        ("2012-05-22 14:10:10", "2014-11-30 16:25:50", "911 days, 2:15:40"),
-        ("2016-07-10 09:15:45", "2018-12-25 18:30:55", "893 days, 9:15:10"),
-        ("2019-03-05 11:45:30", "2021-08-14 22:50:25", "895 days, 11:04:55"),
-        # Add more data points as needed
-    ]
-
-    # Create a DataFrame from the sample data
-    df_sample = pd.DataFrame(
-        sample_data, columns=["start_date", "end_date", "duration"]
-    )
-
-    # If you have a CSV file, uncomment the following lines and provide the correct path
-    import_path = "data/cve_lifetimes.csv"
+    import_path = "data/rq1_cve_lifetimes.csv"
     print(import_path)
     df = pd.read_csv(import_path)
     df = df[["Start", "End", "Duration"]]

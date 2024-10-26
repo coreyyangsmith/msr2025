@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Read the CSV file
-df = pd.read_csv("data/cve_lifetimes.csv")
+df = pd.read_csv("data/rq1_cve_lifetimes.csv")
 
 # Mapping of severities from CSV to severity_levels labels
 severity_mapping = {
