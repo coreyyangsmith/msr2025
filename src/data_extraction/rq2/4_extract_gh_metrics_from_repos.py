@@ -112,11 +112,10 @@ def fetch_metrics(
     return metrics
 
 
-def write_metrics(csv_file: str, metrics: List[Dict[str, str]]):
+def write_metrics(csv_file: str, output_file: str, metrics: List[Dict[str, str]]):
     """
     Writes the metrics to a CSV file.
     """
-    output_file = "repository_metrics.csv"
     fieldnames = ["owner", "repo", "release_count", "download_count"]
     try:
         with open(output_file, mode="w", newline="", encoding="utf-8") as file:
@@ -131,11 +130,12 @@ def write_metrics(csv_file: str, metrics: List[Dict[str, str]]):
 
 
 def main():
-    csv_file = "data/cve_lifetimes_gh_filtered"
+    csv_file = "data/rq2_cve_lifetimes_gh_filtered.csv"
+    output_file = "data/repository_metrics.csv"
     token = get_github_token()
     repositories = read_repositories(csv_file)
     metrics = fetch_metrics(repositories, token)
-    write_metrics(csv_file, metrics)
+    write_metrics(csv_file, metrics, output_file=output_file)
 
 
 if __name__ == "__main__":

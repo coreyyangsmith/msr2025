@@ -1,232 +1,219 @@
-import json
 import csv
+import logging
 import re
-import sys
-from typing import List, Dict, Any, Union
-from urllib.parse import urlparse
+import requests
+import time
+import xml.etree.ElementTree as ET
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from io import StringIO
+from typing import Dict, List, Optional
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 """
-Just filters the URL references provided from OSV.DEV
+Parses POM XML to find matching GitHub URLs
 """
 
 
-def load_json(file_path: str) -> List[Dict[str, Any]]:
+def get_pom(
+    group_id: str, artifact_id: str, version: str, retries: int = 3
+) -> Optional[str]:
     """
-    Loads JSON data from a file.
-
-    :param file_path: Path to the JSON file.
-    :return: List of JSON objects.
+    Constructs the POM URL and retrieves the POM file content with retries.
     """
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            data = json.load(f)
-            if not isinstance(data, list):
-                raise ValueError("JSON data is not a list of items.")
-            return data
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        print(f"Error: Failed to decode JSON - {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        sys.exit(1)
+    group_path = group_id.replace(".", "/")
+    url = f"https://repo1.maven.org/maven2/{group_path}/{artifact_id}/{version}/{artifact_id}-{version}.pom"
+    backoff = 1  # Initial backoff delay in seconds
+    for attempt in range(1, retries + 1):
+        try:
+            response = requests.get(url, timeout=10)
+            if response.status_code == 200:
+                logging.debug(
+                    f"Successfully retrieved POM for {group_id}:{artifact_id}:{version}"
+                )
+                return response.text
+            else:
+                print(url)
+                logging.warning(
+                    f"Attempt {attempt}: Failed to retrieve POM for {group_id}:{artifact_id}:{version} "
+                    f"- Status Code: {response.status_code}"
+                )
+        except requests.RequestException as e:
+            print(url)
+            logging.warning(
+                f"Attempt {attempt}: Error fetching POM for {group_id}:{artifact_id}:{version} - {e}"
+            )
 
-
-def load_csv(file_path: str, api_refs_delimiter: str = ";") -> List[Dict[str, Any]]:
-    """
-    Loads CSV data from a file.
-
-    :param file_path: Path to the CSV file.
-    :param api_refs_delimiter: Delimiter used to separate API references in the CSV field.
-    :return: List of CSV rows as dictionaries.
-    """
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            reader = csv.DictReader(f)
-            data = []
-            for row in reader:
-                # Parse "API_References" from a delimited string to a list
-                api_refs = row.get("API_References", "")
-                if api_refs:
-                    row["API_References"] = [
-                        ref.strip() for ref in api_refs.split(api_refs_delimiter)
-                    ]
-                else:
-                    row["API_References"] = []
-                data.append(row)
-            return data
-    except FileNotFoundError:
-        print(f"Error: File '{file_path}' not found.")
-        sys.exit(1)
-    except csv.Error as e:
-        print(f"Error: Failed to read CSV - {e}")
-        sys.exit(1)
-    except Exception as e:
-        print(f"Unexpected error: {e}")
-        sys.exit(1)
-
-
-def extract_github_url(api_refs: List[str]) -> Union[str, None]:
-    """
-    Extracts the first GitHub URL from a list of API references.
-
-    :param api_refs: List of API reference strings.
-    :return: The first GitHub URL found, or None if none exists.
-    """
-    # Regex pattern to match GitHub URLs
-    github_pattern = re.compile(
-        r'https?://[^ \t\n\r\f\v"]*github[^ \t\n\r\f\v"]*', re.IGNORECASE
-    )
-
-    for ref in api_refs:
-        # Split the reference string into individual URLs
-        urls = re.findall(r'https?://[^\s,;"\'<>]+', ref)
-        for url in urls:
-            if github_pattern.search(url):
-                return url  # Return the first GitHub URL found
+        if attempt < retries:
+            time.sleep(backoff)
+            backoff *= 2  # Exponential backoff
+    logging.error(f"Exceeded maximum retries for {group_id}:{artifact_id}:{version}")
     return None
 
 
-def filter_items(data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def get_github_url_from_pom(pom_xml: str) -> Optional[str]:
     """
-    Filters items that have at least one GitHub URL in their "API_References"
-    and adds a new field "GitHub_URL" containing the extracted URL.
+    Parses the POM XML to find the GitHub URL in the SCM section.
+    """
+    try:
+        root = ET.fromstring(pom_xml)
 
-    :param data: List of JSON or CSV objects.
-    :return: Filtered list of objects with "GitHub_URL" field added.
+        # Extract the namespace, if any
+        namespace_match = re.match(r"\{(.*)\}", root.tag)
+        namespace = namespace_match.group(1) if namespace_match else ""
+        ns = {"ns": namespace} if namespace else {}
+
+        # Search for the SCM element
+        scm = root.find(".//ns:scm", ns) if namespace else root.find(".//scm")
+        if scm is not None:
+            github_url = _extract_github_url_from_scm(scm, ns)
+            if github_url:
+                return github_url
+        return None
+    except ET.ParseError as e:
+        print(pom_xml)
+        logging.error(f"Error parsing POM XML: {e}")
+        return None
+
+
+def _extract_github_url_from_scm(
+    scm_element: ET.Element, ns: Dict[str, str]
+) -> Optional[str]:
     """
-    filtered = []
-    for item in data:
-        api_refs = item.get("API_References", [])
-        if not isinstance(api_refs, list):
-            print(
-                f"Warning: 'API_References' is not a list in item {item}. Skipping this item."
-            )
-            continue
-        github_url = extract_github_url(api_refs)
+    Extracts GitHub URL from the SCM element.
+    """
+    tags = ["url", "connection", "developerConnection"]
+    for tag in tags:
+        if ns:
+            url_elem = scm_element.find(f"ns:{tag}", ns)
+        else:
+            url_elem = scm_element.find(tag)
+        if url_elem is not None and url_elem.text and "github.com" in url_elem.text:
+            return url_elem.text.strip()
+    return None
+
+
+def parse_maven_artifact(artifact_string: str) -> Dict[str, str]:
+    # Split the artifact string by colon
+    try:
+        group_id, artifact_id = artifact_string.split(":")
+        return {"group_id": group_id, "artifact_id": artifact_id}
+    except ValueError:
+        raise ValueError(
+            "Artifact string is not in the correct format. Expected 'group_id:artifact_id'."
+        )
+
+
+def read_artifacts_from_csv(csv_file_path: str) -> List[Dict[str, str]]:
+    """
+    Reads artifacts from a CSV file and returns a list of dictionaries.
+    """
+    artifacts = []
+    try:
+        with open(csv_file_path, mode="r", newline="", encoding="utf-8") as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                # Ensure required fields are present
+                if "Artifact" in row and "Start Version" in row:
+                    info = parse_maven_artifact(row["Artifact"].strip())
+                    artifacts.append(
+                        {
+                            "groupId": info["group_id"],
+                            "artifactId": info["artifact_id"],
+                            "version": row["Start Version"].strip(),
+                        }
+                    )
+                else:
+                    logging.warning(f"Missing fields in row: {row}")
+    except FileNotFoundError:
+        logging.error(f"CSV file not found: {csv_file_path}")
+    except Exception as e:
+        logging.error(f"Error reading CSV file: {e}")
+    return artifacts
+
+
+def process_artifact(artifact: Dict[str, str]) -> Dict[str, str]:
+    """
+    Processes a single artifact to determine if it's hosted on GitHub.
+    Returns the artifact dictionary with an additional key 'hostedOnGitHub' and 'githubUrl' if applicable.
+    """
+    pom = get_pom(artifact["groupId"], artifact["artifactId"], artifact["version"])
+    if pom:
+        github_url = get_github_url_from_pom(pom)
         if github_url:
-            # Add the GitHub URL to the item
-            item["GitHub_URL"] = github_url
-            filtered.append(item)
-    return filtered
-
-
-def save_json(data: List[Dict[str, Any]], file_path: str):
-    """
-    Saves JSON data to a file.
-
-    :param data: List of JSON objects to save.
-    :param file_path: Path to the output JSON file.
-    """
-    try:
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=4)
-        print(f"Filtered data has been saved to '{file_path}'.")
-    except Exception as e:
-        print(f"Error: Failed to save JSON - {e}")
-        sys.exit(1)
-
-
-def save_csv(
-    data: List[Dict[str, Any]],
-    file_path: str,
-    api_refs_delimiter: str = ";",
-    github_delimiter: str = ", ",
-):
-    """
-    Saves CSV data to a file.
-
-    :param data: List of CSV rows as dictionaries.
-    :param file_path: Path to the output CSV file.
-    :param api_refs_delimiter: Delimiter to join API references in the CSV field.
-    :param github_delimiter: Delimiter to join GitHub URLs in the CSV field.
-    """
-    if not data:
-        print("Warning: No data to save.")
-        return
-
-    # Get all field names from the first item, including 'GitHub_URL'
-    fieldnames = list(data[0].keys())
-
-    try:
-        with open(file_path, "w", encoding="utf-8", newline="") as f:
-            writer = csv.DictWriter(f, fieldnames=fieldnames)
-            writer.writeheader()
-            for row in data:
-                # Join "API_References" list into a delimited string
-                api_refs = row.get("API_References", [])
-                if isinstance(api_refs, list):
-                    row["API_References"] = api_refs_delimiter.join(api_refs)
-                else:
-                    row["API_References"] = ""
-
-                # Handle "GitHub_URL"
-                github_url = row.get("GitHub_URL", "")
-                if isinstance(github_url, list):
-                    row["GitHub_URL"] = github_delimiter.join(github_url)
-                elif isinstance(github_url, str):
-                    row["GitHub_URL"] = github_url
-                else:
-                    row["GitHub_URL"] = ""
-
-                writer.writerow(row)
-        print(f"Filtered data has been saved to '{file_path}'.")
-    except Exception as e:
-        print(f"Error: Failed to save CSV - {e}")
-        sys.exit(1)
+            artifact["hostedOnGitHub"] = True
+            artifact["githubUrl"] = github_url
+        else:
+            artifact["hostedOnGitHub"] = False
+    else:
+        artifact["hostedOnGitHub"] = False
+    return artifact
 
 
 def main():
-    """
-    Main function to execute the script.
-    Usage: python filter_github_references.py <input_file> <output_file>
-    Supports JSON and CSV formats based on the file extension.
-    """
+    input_path = (
+        "data/rq1_cve_lifetimes_updated_trimmed.csv"  # Update this path as needed
+    )
+    output_csv = "data/rq2_filtered_github_artifacts.csv"
 
-    # For flexibility, accept input and output file paths as command-line arguments
+    artifacts = read_artifacts_from_csv(input_path)
+    if not artifacts:
+        logging.info("No artifacts to process.")
+        return
 
-    input_file = "data/cve_lifetimes_updated.csv"
-    output_file = "data/cve_lifetimes_gh_filtered.csv"
+    logging.info(f"Total artifacts to process: {len(artifacts)}")
 
-    # Determine the file format based on the file extension
-    input_ext = input_file.split(".")[-1].lower()
-    output_ext = output_file.split(".")[-1].lower()
+    github_artifacts = []
+    non_github_artifacts = []
 
-    if input_ext not in ["json", "csv"]:
-        print("Error: Input file must be a JSON or CSV file.")
-        sys.exit(1)
+    # Use ThreadPoolExecutor for concurrent processing
+    max_workers = min(
+        10, len(artifacts)
+    )  # Adjust number of workers based on artifact count
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # Submit all tasks
+        future_to_artifact = {
+            executor.submit(process_artifact, artifact): artifact
+            for artifact in artifacts
+        }
+        for future in as_completed(future_to_artifact):
+            artifact = future_to_artifact[future]
+            try:
+                result = future.result()
+                if result.get("hostedOnGitHub"):
+                    github_artifacts.append(result)
+                else:
+                    non_github_artifacts.append(result)
+            except Exception as e:
+                logging.error(f"Error processing artifact {artifact}: {e}")
 
-    if output_ext not in ["json", "csv"]:
-        print("Error: Output file must be a JSON or CSV file.")
-        sys.exit(1)
+    # Output the results
+    logging.info(f"Artifacts hosted on GitHub: {len(github_artifacts)}")
+    for art in github_artifacts:
+        logging.debug(
+            f"{art['groupId']}:{art['artifactId']}:{art['version']} - {art.get('githubUrl', '')}"
+        )
 
-    # Load data
-    print(f"Loading data from '{input_file}'...")
-    if input_ext == "json":
-        data = load_json(input_file)
-    elif input_ext == "csv":
-        data = load_csv(input_file)
-    else:
-        print("Error: Unsupported input file format.")
-        sys.exit(1)
-
-    # Filter data
-    print("Filtering items with GitHub URLs in 'API_References'...")
-    filtered_data = filter_items(data)
-
-    print(f"Found {len(filtered_data)} items with GitHub URLs.")
-
-    # Save data
-    print(f"Saving filtered data to '{output_file}'...")
-    if output_ext == "json":
-        save_json(filtered_data, output_file)
-    elif output_ext == "csv":
-        save_csv(filtered_data, output_file)
-    else:
-        print("Error: Unsupported output file format.")
-        sys.exit(1)
+    try:
+        with open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile:
+            fieldnames = ["groupId", "artifactId", "version", "githubUrl"]
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for art in github_artifacts:
+                writer.writerow(
+                    {
+                        "groupId": art["groupId"],
+                        "artifactId": art["artifactId"],
+                        "version": art["version"],
+                        "githubUrl": art.get("githubUrl", ""),
+                    }
+                )
+        logging.info(f"GitHub-hosted artifacts have been written to {output_csv}")
+    except Exception as e:
+        logging.error(f"Error writing to output CSV: {e}")
 
 
 if __name__ == "__main__":
