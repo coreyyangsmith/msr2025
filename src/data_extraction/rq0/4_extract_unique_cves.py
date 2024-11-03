@@ -1,12 +1,17 @@
 import csv
 from src.classes import EnrichedArtifact
 
-from ...utils.config import RQ0_4_INPUT, RQ0_4_OUTPUT_UNIQUE_CVES
+from ...utils.config import (
+    RQ0_4_INPUT,
+    RQ0_4_OUTPUT_UNIQUE_CVES,
+    FILTER_FOR_INVALID_DATA,
+)
 
 input_file_path = RQ0_4_INPUT
 output_file_path = RQ0_4_OUTPUT_UNIQUE_CVES
 
-# Extract Artifacts List from Input File
+filtered_cve_count = 0
+total_cve_count = 0
 artifacts = []
 
 with open(input_file_path, mode="r", encoding="utf-8", newline="") as infile:
@@ -69,6 +74,13 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
                 api_id = info.get("api_id", "N/A")
                 api_aliases = info.get("api_aliases", "N/A")
 
+                # Check for invalid data if the flag is True
+                total_cve_count += 1
+                if FILTER_FOR_INVALID_DATA:
+                    if cve_publish_date == "" and cve_duration == "N/A":
+                        filtered_cve_count += 1
+                        continue  # Skip to the next cve_lifetime
+
                 print(cve)
 
                 writer.writerow(
@@ -113,3 +125,8 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
                     "N/A",
                 ]
             )
+
+# After processing all artifacts, print the total number of filtered cve_lifetimes
+print(
+    f"Number of filtered CVE lifetimes due to invalid data: {filtered_cve_count}/{total_cve_count}"
+)

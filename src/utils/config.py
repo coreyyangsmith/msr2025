@@ -1,12 +1,15 @@
 ### Generic Parameters ###
 NEO4J_URL = "http://localhost:8080/cypher"
 ARTIFACT_RELEASES_URL = "http://localhost:8080/artifact/releases"
+GITHUB_API_URL = "https://api.github.com"
+
 ECOSYSTEM = "Maven"
 REQ_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
+GITHUB_HEADERS = {"Accept": "application/vnd.github.v3+json"}
 
 ### META DATA
 ### FILL THIS OUT FOR EACH RUN
-### CURRENT DB RUN Saturday November 2nd 1:36pm MST
+### CURRENT DB RUN Saturday November 3rd 1:36pm MST
 
 ####################
 ### RQ0 Pipeline ###
@@ -33,5 +36,26 @@ RQ0_3_OUTPUT_RELEASES_CVES = "data/rq0_3_releases_cves.csv"
 
 # RQ0_4 Extract Unique CVEs Data
 """Extract Unique CVEs Data"""
+FILTER_FOR_INVALID_DATA = True
 RQ0_4_INPUT = RQ0_2_OUTPUT_ARTIFACTS_CVES
 RQ0_4_OUTPUT_UNIQUE_CVES = "data/rq0_4_unique_cves.csv"
+
+####################
+### RQ2 Pipeline ###
+####################
+
+# RQ2_1 Filter GitHub Hosted Repositories
+RQ2_1_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
+RQ2_1_OUTPUT = "data/rq2_1_github_repositories_by_cve.csv"
+
+# RQ2_2 Enrich Data from GitHub API
+RQ2_2_INPUT = RQ2_1_OUTPUT
+RQ2_2_OUTPUT = "data/rq2_2_github_cves_with_gh_metrics.csv"
+
+# RQ2_3 Enrich Data from Google BigQuery
+RQ2_3_INPUT = RQ2_2_OUTPUT
+RQ2_3_OUTPUT = "data/rq2_3_github_cves_with_file_and_historical_metrics.csv"
+
+####################
+### RQ3 Pipeline ###
+####################

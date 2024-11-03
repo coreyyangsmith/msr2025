@@ -189,19 +189,17 @@ class EnrichedArtifact:
 
         # Calculate durations after processing all releases
         for cve_id, data in cve_lifetimes.items():
+            # Check cve_publish_date
+            if data["cve_publish_date"] == "" or None:
+                print(f"Missing Publish Date for {cve_id}")
+                continue
+
             if data["patched_version_timestamp"] is not None:
                 # Duration until the CVE was patched
                 duration = int(data["patched_version_timestamp"]) - int(
                     convert_datetime_to_timestamp_numbers(data["cve_publish_date"])
                 )
-                print("patch date")
-                print(
-                    convert_timestamp_numbers_to_datetime(
-                        data["patched_version_timestamp"]
-                    )
-                )
             else:
-                # Duration until now if the CVE hasn't been patched
                 current_time_millis = int(time.time() * 1000)
                 duration = current_time_millis - int(
                     convert_datetime_to_timestamp_numbers(data["cve_publish_date"])

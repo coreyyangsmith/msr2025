@@ -1,5 +1,11 @@
 combined_name,group_id,artifact_id,latest_release,release_count,releases_with_cves,total_releases_cve_count,low_severity_count,moderate_severity_count,high_severity_count,critical_severity_count,unknown_severity_count
-ai.h2o:h2o-core,ai.h2o,h2o-core,,250,250,489,0,0,250,239,0
-ai.djl:api,ai.djl,api,,31,29,29,0,0,0,29,0
-be.cylab:snakeyaml,be.cylab,snakeyaml,,1,1,1,0,1,0,0,0
-axis:axis,axis,axis,,13,13,77,0,39,25,13,0
+com.amazon.redshift:redshift-jdbc42,com.amazon.redshift,redshift-jdbc42,2.1.0.30,35,32,56,0,0,24,32,0
+com.adobe.acs:acs-aem-commons,com.adobe.acs,acs-aem-commons,6.6.4,51,22,38,0,30,8,0,0
+com.adobe.cq:core.wcm.components.core,com.adobe.cq,core.wcm.components.core,2.26.0,79,57,57,0,57,0,0,0
+com.alibaba.oneagent:one-java-agent-plugin,com.alibaba.oneagent,one-java-agent-plugin,0.0.2,2,1,1,0,1,0,0,0
+com.adobe.xmp:xmpcore,com.adobe.xmp,xmpcore,6.1.11,10,3,3,0,0,3,0,0
+com.amazonaws:aws-android-sdk-mobile-client,com.amazonaws,aws-android-sdk-mobile-client,2.77.0,167,143,143,0,0,0,143,0
+com.alipay.sofa:hessian,com.alipay.sofa,hessian,3.5.4,26,23,29,0,0,21,8,0
+com.amazonaws:aws-encryption-sdk-java,com.amazonaws,aws-encryption-sdk-java,3.0.1,29,20,36,0,17,19,0,0
+com.amazonaws:aws-dynamodb-encryption-java,com.amazonaws,aws-dynamodb-encryption-java,1.15.2,14,7,7,7,0,0,0,0
+com.aerospike:aerospike-client,com.aerospike,aerospike-client,7.2.2,133,121,121,0,0,0,121,0
