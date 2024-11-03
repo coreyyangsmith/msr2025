@@ -1,0 +1,5 @@
+combined_name,group_id,artifact_id,latest_release,release_count,releases_with_cves,total_releases_cve_count,low_severity_count,moderate_severity_count,high_severity_count,critical_severity_count,unknown_severity_count
+ai.h2o:h2o-core,ai.h2o,h2o-core,,250,250,489,0,0,250,239,0
+ai.djl:api,ai.djl,api,,31,29,29,0,0,0,29,0
+be.cylab:snakeyaml,be.cylab,snakeyaml,,1,1,1,0,1,0,0,0
+axis:axis,axis,axis,,13,13,77,0,39,25,13,0
