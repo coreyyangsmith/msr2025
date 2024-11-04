@@ -54,8 +54,12 @@ RQ2_2_OUTPUT = "data/rq2_2_github_cves_with_gh_metrics.csv"
 
 # RQ2_3 Enrich Data from Google BigQuery
 RQ2_3_INPUT = RQ2_2_OUTPUT
-RQ2_3_OUTPUT = "data/rq2_3_github_cves_with_file_and_historical_metrics.csv"
+RQ2_3_OUTPUT = "data/rq2_3_github_cves_with_gh_bq_metrics.csv"
 
 ####################
 ### RQ3 Pipeline ###
 ####################
+
+
+### DATA ANALYSIS
+RQ0_BAR_PLOT_CVE_SEVERITY_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
