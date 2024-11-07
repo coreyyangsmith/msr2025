@@ -45,6 +45,7 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
         "artifact_id",
         "release_version",
         "release_timestamp",
+        "release_date",
         "cve_id",
         "cve_severity",
     ]
@@ -88,6 +89,7 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
                             group_id,
                             artifact_id,
                             release_version,
+                            release_timestamp,
                             release_date,
                             cve_id,
                             cve_severity,

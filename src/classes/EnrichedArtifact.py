@@ -144,10 +144,12 @@ class EnrichedArtifact:
                     # Initialize CVE lifetime information
                     cve_lifetimes[cve_id] = {
                         "severity": severity,
-                        "start_version_timestamp": enriched_release.release_timestamp,
-                        "end_version_timestamp": enriched_release.release_timestamp,
                         "start_version": enriched_release.release_version,
+                        "start_version_timestamp": enriched_release.release_timestamp,
+                        "start_version_date": enriched_release.release_date,
                         "end_version": enriched_release.release_version,
+                        "end_version_timestamp": enriched_release.release_timestamp,
+                        "end_version_date": enriched_release.release_date,
                         "cve_publish_date": cve_publish_date,
                         "api_id": api_id,
                         "api_aliases": api_aliases,
@@ -167,6 +169,9 @@ class EnrichedArtifact:
                         cve_lifetimes[cve_id]["end_version"] = (
                             enriched_release.release_version
                         )
+                        cve_lifetimes[cve_id]["end_version_date"] = (
+                            enriched_release.release_date
+                        )
                     active_cves.add(cve_id)
 
             # Identify CVEs that are no longer present (patched) in the current release
@@ -174,12 +179,16 @@ class EnrichedArtifact:
             for cve_id in active_cves:
                 if cve_id not in current_release_cves:
                     # Record the current release as the patched version
+                    # I think this needs to be rewritten
                     if cve_lifetimes[cve_id]["patched_version_timestamp"] is None:
                         cve_lifetimes[cve_id]["patched_version_timestamp"] = (
                             enriched_release.release_timestamp
                         )
                         cve_lifetimes[cve_id]["patched_version"] = (
                             enriched_release.release_version
+                        )
+                        cve_lifetimes[cve_id]["patched_version_date"] = (
+                            enriched_release.release_date
                         )
                     cves_to_remove.append(cve_id)
 

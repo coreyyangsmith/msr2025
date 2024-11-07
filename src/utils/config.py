@@ -56,10 +56,22 @@ RQ2_2_OUTPUT = "data/rq2_2_github_cves_with_gh_metrics.csv"
 RQ2_3_INPUT = RQ2_2_OUTPUT
 RQ2_3_OUTPUT = "data/rq2_3_github_cves_with_gh_bq_metrics.csv"
 
+# RQ2_X OpenDigger API
+RQ2_OPENDIGGER_INPUT = RQ2_1_OUTPUT
+OPENDIGGER_BASE_URL = "https://oss.x-lab.info/open-digger/github"
+RQ2_OPENDIGGER_OUTPUT = "data/rq2_x_opendigger/"
+
 ####################
 ### RQ3 Pipeline ###
 ####################
 
+# RQ3_1
+
 
 ### DATA ANALYSIS
 RQ0_BAR_PLOT_CVE_SEVERITY_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
+
+
+## RQ1 - MEAN TIME TO MITIGATE BY SEVERITY
+MTTM_UNIT = "days"
+RQ1_MTTM_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES

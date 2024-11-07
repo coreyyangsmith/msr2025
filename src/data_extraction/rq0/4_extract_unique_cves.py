@@ -1,4 +1,5 @@
 import csv
+import time
 from src.classes import EnrichedArtifact
 
 from ...utils.config import (
@@ -6,6 +7,13 @@ from ...utils.config import (
     RQ0_4_OUTPUT_UNIQUE_CVES,
     FILTER_FOR_INVALID_DATA,
 )
+
+
+def format_time(seconds):
+    mins, secs = divmod(int(seconds), 60)
+    hours, mins = divmod(mins, 60)
+    return f"{hours:02d}:{mins:02d}:{secs:02d}"
+
 
 input_file_path = RQ0_4_INPUT
 output_file_path = RQ0_4_OUTPUT_UNIQUE_CVES
@@ -24,26 +32,35 @@ with open(input_file_path, mode="r", encoding="utf-8", newline="") as infile:
         if combined_name:  # Ensure it's not empty after stripping
             artifacts.append(combined_name)
 
+total_artifacts = len(artifacts)
+print(f"Total number of artifacts to process: {total_artifacts}")
+
+start_time = time.time()
+processed_artifacts = 0
+
 with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
     writer = csv.writer(file)
-    # Updated header to include Start Version and End Version
     writer.writerow(
         [
+            "data_class",
             "combined_name",
             "group_id",
             "artifact_id",
             "cve_id",
             "severity",
-            "start_version",
-            "end_version",
-            "patched_version",
-            "latest_version",
-            "start_version_timestamp",
-            "end_version_timestamp",
-            "patched_version_timestamp",
-            "cve_publish_date",
             "cve_patched",
+            "cve_publish_date",
             "cve_duration",
+            "start_version",
+            "start_version_timestamp",
+            "start_version_date",
+            "end_version",
+            "end_version_timestamp",
+            "end_version_date",
+            "patched_version",
+            "patched_version_timestamp",
+            "patched_version_date",
+            "latest_version",
             "api_id",
             "api_aliases",
         ]
@@ -61,18 +78,37 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
             for cve, info in cve_lifetimes.items():
                 cve_id = cve
                 severity = info.get("severity", "N/A")
+
                 start_version = info.get("start_version", "N/A")
-                end_version = info.get("end_version", "N/A")
-                patched_version = info.get("patched_version", "N/A")
-                latest_version = enriched_artifact.latest_release
                 start_version_timestamp = info.get("start_version_timestamp", "N/A")
+                start_version_date = info.get("start_version_date", "N/A")
+
+                end_version = info.get("end_version", "N/A")
                 end_version_timestamp = info.get("end_version_timestamp", "N/A")
+                end_version_date = info.get("end_version_date", "N/A")
+
+                patched_version = info.get("patched_version", "N/A")
                 patched_version_timestamp = info.get("patched_version_timestamp", "N/A")
-                cve_publish_date = info.get("cve_publish_date", "N/A")
+                patched_version_date = info.get("patched_version_date", "N/A")
+
+                latest_version = enriched_artifact.latest_release
+
                 cve_patched = enriched_artifact.is_latest_release(end_version)
+                cve_publish_date = info.get("cve_publish_date", "N/A")
                 cve_duration = info.get("duration", "N/A")
+
                 api_id = info.get("api_id", "N/A")
                 api_aliases = info.get("api_aliases", "N/A")
+
+                if cve_duration != "N/A":
+                    if cve_patched and cve_duration < 0:
+                        data_class = 0
+                    elif cve_patched and cve_duration >= 0:
+                        data_class = 1
+                    else:
+                        data_class = 2
+                else:
+                    data_class = -1
 
                 # Check for invalid data if the flag is True
                 total_cve_count += 1
@@ -85,21 +121,25 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
 
                 writer.writerow(
                     [
+                        data_class,
                         combined_name,
                         group_id,
                         artifact_id,
                         cve_id,
                         severity,
-                        start_version,
-                        end_version,
-                        patched_version,
-                        latest_version,
-                        start_version_timestamp,
-                        end_version_timestamp,
-                        patched_version_timestamp,
-                        cve_publish_date,
                         cve_patched,
+                        cve_publish_date,
                         cve_duration,
+                        start_version,
+                        start_version_timestamp,
+                        start_version_date,
+                        end_version,
+                        end_version_timestamp,
+                        end_version_date,
+                        patched_version,
+                        patched_version_timestamp,
+                        patched_version_date,
+                        latest_version,
                         api_id,
                         api_aliases,
                     ]
@@ -107,15 +147,20 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
         else:
             writer.writerow(
                 [
+                    data_class,
                     combined_name,
                     group_id,
                     artifact_id,
-                    "No CVEs found",
+                    "No CVE Found",
                     "N/A",
                     "N/A",
                     "N/A",
                     "N/A",
-                    latest_version,
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
+                    "N/A",
                     "N/A",
                     "N/A",
                     "N/A",
@@ -125,6 +170,21 @@ with open(output_file_path, mode="w", newline="", encoding="utf-8") as file:
                     "N/A",
                 ]
             )
+
+        # Update the progress counter after each artifact
+        processed_artifacts += 1
+        percentage_complete = (processed_artifacts / total_artifacts) * 100
+        elapsed_time = time.time() - start_time
+        average_time_per_artifact = elapsed_time / processed_artifacts
+        time_remaining = average_time_per_artifact * (
+            total_artifacts - processed_artifacts
+        )
+        time_remaining_formatted = format_time(time_remaining)
+
+        print(
+            f"Progress: {processed_artifacts}/{total_artifacts} artifacts processed "
+            f"({percentage_complete:.2f}% complete). Estimated time remaining: {time_remaining_formatted}"
+        )
 
 # After processing all artifacts, print the total number of filtered cve_lifetimes
 print(
