@@ -9,7 +9,12 @@ from urllib.parse import urlparse
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List, Optional, Tuple
 
-from ...utils.config import RQ2_1_INPUT, RQ2_1_OUTPUT
+from ...utils.config import (
+    RQ2_1_INPUT,
+    RQ2_1_OUTPUT,
+    RQ2_1_FILTERED_OUTPUT,
+    RQ2_1_NON_GITHUB_OUTPUT,  # New configuration constant for the third file
+)
 
 logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
@@ -54,9 +59,9 @@ def get_pom(
     return None
 
 
-def get_github_url_from_pom(pom_xml: str) -> Optional[str]:
+def get_scm_url_from_pom(pom_xml: str) -> Optional[str]:
     """
-    Parses the POM XML to find the GitHub URL in the SCM section.
+    Parses the POM XML to find the SCM URL in the SCM section.
     """
     try:
         root = ET.fromstring(pom_xml)
@@ -69,20 +74,17 @@ def get_github_url_from_pom(pom_xml: str) -> Optional[str]:
         # Search for the SCM element
         scm = root.find(".//ns:scm", ns) if namespace else root.find(".//scm")
         if scm is not None:
-            github_url = _extract_github_url_from_scm(scm, ns)
-            if github_url:
-                return github_url
+            scm_url = _extract_scm_url(scm, ns)
+            return scm_url
         return None
     except ET.ParseError as e:
         logging.error(f"Error parsing POM XML: {e}")
         return None
 
 
-def _extract_github_url_from_scm(
-    scm_element: ET.Element, ns: Dict[str, str]
-) -> Optional[str]:
+def _extract_scm_url(scm_element: ET.Element, ns: Dict[str, str]) -> Optional[str]:
     """
-    Extracts GitHub URL from the SCM element.
+    Extracts the SCM URL from the SCM element.
     """
     tags = ["url", "connection", "developerConnection"]
     for tag in tags:
@@ -90,7 +92,7 @@ def _extract_github_url_from_scm(
             url_elem = scm_element.find(f"ns:{tag}", ns)
         else:
             url_elem = scm_element.find(tag)
-        if url_elem is not None and url_elem.text and "github.com" in url_elem.text:
+        if url_elem is not None and url_elem.text:
             return url_elem.text.strip()
     return None
 
@@ -126,7 +128,7 @@ def read_artifacts_from_csv(
 
 def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
     """
-    Processes a single artifact to determine if it's hosted on GitHub.
+    Processes a single artifact to determine if it's hosted on GitHub or other SCM.
     Returns a new artifact dictionary with additional keys if applicable.
     """
     # Create a copy of the artifact to avoid modifying the original
@@ -136,21 +138,50 @@ def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
     version = artifact.get("start_version", "").strip()
     pom = get_pom(group_id, artifact_id, version)
     if pom:
-        github_url = get_github_url_from_pom(pom)
-        if github_url:
-            result_artifact["github_url"] = github_url
-            result_artifact["github_api_url"] = convert_github_url_to_api(github_url)
-            owner, repo = extract_owner_repo_from_github_url(github_url)
-            result_artifact["github_owner"] = owner
-            result_artifact["github_repo"] = repo
+        scm_url = get_scm_url_from_pom(pom)
+        if scm_url:
+            if "github.com" in scm_url:
+                github_url = extract_github_url(scm_url)
+                if github_url:
+                    result_artifact["scm_url"] = scm_url
+                    result_artifact["github_url"] = github_url
+                    result_artifact["github_api_url"] = convert_github_url_to_api(
+                        github_url
+                    )
+                    owner, repo = extract_owner_repo_from_github_url(github_url)
+                    result_artifact["github_owner"] = owner
+                    result_artifact["github_repo"] = repo
+                else:
+                    result_artifact["invalidGithubUrl"] = True
+            else:
+                # Non-GitHub SCM URL found
+                result_artifact["scm_url"] = scm_url
+                result_artifact["nonGithubLinkFound"] = True
         else:
-            result_artifact["githubLinkNotFound"] = True
+            result_artifact["scmLinkNotFound"] = True
     else:
         result_artifact["pomNotFound"] = True
-        result_artifact["githubLinkNotFound"] = (
-            True  # Since no POM, GitHub link is also not found
+        result_artifact["scmLinkNotFound"] = (
+            True  # Since no POM, SCM link is also not found
         )
     return result_artifact
+
+
+def extract_github_url(scm_url: str) -> Optional[str]:
+    """
+    Extracts and standardizes the GitHub URL from the SCM URL.
+    """
+    # Pattern to match common GitHub URL structures and extract owner/repo
+    pattern = re.compile(
+        r"(?:github\.com[:/]|@github\.com[:/])([^/]+?)/([^/]+?)(?:\.git|/|$)"
+    )
+    match = pattern.search(scm_url)
+    if match:
+        owner, repo = match.groups()
+        return f"https://github.com/{owner}/{repo}"
+    else:
+        logging.warning(f"Invalid GitHub URL structure in SCM URL: {scm_url}")
+        return None
 
 
 def extract_owner_repo_from_github_url(
@@ -185,11 +216,6 @@ def convert_github_url_to_api(github_url):
     """
     Convert a standard GitHub URL to its corresponding GitHub API URL.
 
-    Supported URL types:
-    - Repository URLs (with or without .git)
-    - Tree URLs
-    - Blob URLs
-
     Args:
         github_url (str): The GitHub URL to convert.
 
@@ -201,7 +227,7 @@ def convert_github_url_to_api(github_url):
 
     # Ensure the URL is from github.com
     if parsed_url.netloc not in ["github.com", "www.github.com"]:
-        print(f"Invalid GitHub URL: {github_url}")
+        logging.warning(f"Invalid GitHub URL: {github_url}")
         return None
 
     # Split the path and remove any trailing slash
@@ -212,30 +238,25 @@ def convert_github_url_to_api(github_url):
         path = path[:-4]
 
     # Split the path into components
-    path_parts = path.split("/")
+    path_parts = path.strip("/").split("/")
 
     # The first two parts should be the owner and repo
-    if len(path_parts) < 3:
-        print(f"Invalid GitHub repository URL: {github_url}")
-        return None
-
-    owner = path_parts[1]
-    repo = path_parts[2]
-
-    # Initialize the base API URL
-    api_url = f"https://api.github.com/repos/{owner}/{repo}"
-
-    # Handle different URL types based on additional path segments
-    if len(path_parts) > 2:
+    if len(path_parts) >= 2:
+        owner = path_parts[0]
+        repo = path_parts[1]
+        # Initialize the base API URL
+        api_url = f"https://api.github.com/repos/{owner}/{repo}"
         return api_url
     else:
-        print(f"Unsupported or invalid URL structure: {github_url}")
+        logging.warning(f"Invalid GitHub URL structure: {github_url}")
         return None
 
 
 def main():
     input_path = RQ2_1_INPUT
     output_csv = RQ2_1_OUTPUT
+    filtered_output_csv = RQ2_1_FILTERED_OUTPUT  # File for artifacts with GitHub URLs
+    non_github_output_csv = RQ2_1_NON_GITHUB_OUTPUT  # New file for non-GitHub SCM URLs
 
     artifacts, fieldnames = read_artifacts_from_csv(input_path)
     if not artifacts:
@@ -249,71 +270,138 @@ def main():
         logging.error("No fieldnames found in input CSV.")
         return
 
-    if "github_url" not in fieldnames:
-        fieldnames.append("github_url")
-
-    if "github_api_url" not in fieldnames:
-        fieldnames.append("github_api_url")
-
-    if "github_owner" not in fieldnames:
-        fieldnames.append("github_owner")
-
-    if "github_repo" not in fieldnames:
-        fieldnames.append("github_repo")
+    # Ensure all necessary fieldnames are included
+    for field in [
+        "scm_url",
+        "github_url",
+        "github_api_url",
+        "github_owner",
+        "github_repo",
+    ]:
+        if field not in fieldnames:
+            fieldnames.append(field)
 
     pom_not_found_count = 0
+    scm_link_not_found_count = 0
     github_link_not_found_count = 0
+    non_github_link_found_count = 0
+    successful_count = 0
 
-    result_artifacts = []
+    total_artifacts = len(artifacts)
+    processed_count = 0
+    start_time = time.time()
 
-    # Use ThreadPoolExecutor for concurrent processing
-    max_workers = min(
-        10, len(artifacts)
-    )  # Adjust number of workers based on artifact count
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        # Submit all tasks
-        future_to_artifact = {
-            executor.submit(process_artifact, artifact): artifact
-            for artifact in artifacts
-        }
-        for future in as_completed(future_to_artifact):
-            try:
-                result = future.result()
-                if result.get("github_url"):
-                    result_artifacts.append(result)
-                if result.get("pomNotFound"):
-                    pom_not_found_count += 1
-                if result.get("githubLinkNotFound"):
-                    github_link_not_found_count += 1
-            except Exception as e:
-                logging.error(f"Error processing artifact: {e}")
+    try:
+        with open(
+            output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_all, open(
+            filtered_output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_filtered, open(
+            non_github_output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_non_github:
+            # Initialize the CSV writers
+            writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
+            writer_all.writeheader()
+
+            writer_filtered = csv.DictWriter(csvfile_filtered, fieldnames=fieldnames)
+            writer_filtered.writeheader()
+
+            writer_non_github = csv.DictWriter(
+                csvfile_non_github, fieldnames=fieldnames
+            )
+            writer_non_github.writeheader()
+
+            # Use ThreadPoolExecutor for concurrent processing
+            max_workers = min(10, total_artifacts)
+            with ThreadPoolExecutor(max_workers=max_workers) as executor:
+                # Submit all tasks
+                future_to_artifact = {
+                    executor.submit(process_artifact, artifact): artifact
+                    for artifact in artifacts
+                }
+                for future in as_completed(future_to_artifact):
+                    artifact = future_to_artifact[future]
+                    try:
+                        result = future.result()
+
+                        # Remove temporary keys before writing
+                        result_copy = result.copy()
+                        result_copy.pop("pomNotFound", None)
+                        result_copy.pop("scmLinkNotFound", None)
+                        result_copy.pop("nonGithubLinkFound", None)
+                        result_copy.pop("invalidGithubUrl", None)
+
+                        # Write result to the main CSV
+                        writer_all.writerow(result_copy)
+
+                        # If artifact has a GitHub URL, write to the filtered CSV
+                        if result.get("github_url"):
+                            writer_filtered.writerow(result_copy)
+                            successful_count += 1
+                        elif result.get("nonGithubLinkFound"):
+                            # Write artifacts with non-GitHub SCM URLs to the third CSV
+                            writer_non_github.writerow(result_copy)
+                            non_github_link_found_count += 1
+
+                        processed_count += 1
+
+                        # Print progress every 10 artifacts or at the end
+                        if (
+                            processed_count % 10 == 0
+                            or processed_count == total_artifacts
+                        ):
+                            elapsed_time = time.time() - start_time
+                            avg_time_per_artifact = elapsed_time / processed_count
+                            remaining_artifacts = total_artifacts - processed_count
+                            est_remaining_time = (
+                                avg_time_per_artifact * remaining_artifacts
+                            )
+                            logging.info(
+                                f"Processed {processed_count}/{total_artifacts} artifacts. "
+                                f"Estimated time remaining: {est_remaining_time:.2f} seconds."
+                            )
+
+                        if result.get("pomNotFound"):
+                            pom_not_found_count += 1
+                        if result.get("scmLinkNotFound"):
+                            scm_link_not_found_count += 1
+                        if (
+                            result.get("github_url") is None
+                            and result.get("nonGithubLinkFound") is None
+                        ):
+                            github_link_not_found_count += 1
+
+                    except Exception as e:
+                        logging.error(f"Error processing artifact: {e}")
+                        processed_count += 1
+    except Exception as e:
+        logging.error(f"Error writing to output CSV: {e}")
 
     # Output the counts
     logging.info(f"Total POM files that could not be found: {pom_not_found_count}")
+    logging.info(f"Total SCM links that could not be found: {scm_link_not_found_count}")
     logging.info(
         f"Total GitHub links that could not be found: {github_link_not_found_count}"
     )
+    logging.info(f"Total non-GitHub SCM links found: {non_github_link_found_count}")
+    logging.info(
+        f"Total artifacts successfully written with GitHub URLs: {successful_count}"
+    )
 
-    # Output the results
-    logging.info(f"Total artifacts with GitHub URLs: {len(result_artifacts)}")
-    for art in result_artifacts:
-        logging.debug(
-            f"{art['group_id']}:{art['artifact_id']}:{art['start_version']} - {art.get('githubUrl', '')}"
-        )
+    # Calculate and display the percentage of successful artifacts
+    if total_artifacts > 0:
+        success_percentage = (successful_count / total_artifacts) * 100
+        logging.info(f"Success rate (GitHub URLs): {success_percentage:.2f}%")
+    else:
+        logging.info("No artifacts were processed.")
 
-    try:
-        with open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile:
-            # Only include artifacts with 'githubUrl' and write those to the CSV
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for art in result_artifacts:
-                # Remove temporary keys before writing
-                art.pop("pomNotFound", None)
-                art.pop("githubLinkNotFound", None)
-                writer.writerow(art)
-        logging.info(f"Artifacts with GitHub URLs have been written to {output_csv}")
-    except Exception as e:
-        logging.error(f"Error writing to output CSV: {e}")
+    logging.info(f"All artifacts have been written to {output_csv}")
+    logging.info(
+        f"Artifacts with GitHub URLs have been written to {filtered_output_csv}"
+    )
+    logging.info(
+        f"Artifacts with non-GitHub SCM URLs have been written to {non_github_output_csv}"
+    )
 
 
 if __name__ == "__main__":
