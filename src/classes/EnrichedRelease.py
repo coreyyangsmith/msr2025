@@ -6,6 +6,9 @@ to get info from desired release
 import requests
 from datetime import datetime
 from ..utils.config import REQ_HEADERS, ARTIFACT_RELEASES_URL
+from ..utils.extract_combined_name_from_version_id import (
+    extract_combined_name_from_version_id,
+)
 
 """
 What info to include with EnrichedRelease?
@@ -14,6 +17,8 @@ What info to include with EnrichedRelease?
 
 class EnrichedRelease:
     def __init__(self, node):
+        self.id = node.get("id", "UNKNOWN")
+        self.combined_name = extract_combined_name_from_version_id(self.id)
         self.release_version = node.get("version", "UNKNOWN")
         self.release_timestamp = node.get("timestamp", None)
         self.release_date = self.set_release_date()

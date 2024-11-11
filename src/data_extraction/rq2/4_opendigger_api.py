@@ -2,38 +2,10 @@ import requests
 import csv
 import time
 import os
-from ...utils.config import RQ2_4_INPUT
+from ...utils.config import RQ2_4_INPUT, OPENDIGGER_VALUES
 
 # Define the base URL
 BASE_URL = "https://oss.x-lab.info/open_digger/github/"
-
-# Define the list of type_ values to iterate through
-VALUES = [
-    "issues_new",
-    "issues_closed",
-    "issue_comments",
-    "issue_response_time",
-    "issue_resolution_duration",
-    "issue_age",
-    "code_change_lines_add",
-    "code_change_lines_remove",
-    "code_change_lines_sum",
-    "change_requests",
-    "change_requests_accepted",
-    "change_requests_reviews",
-    "change_request_response_time",
-    "change_request_resolution_duration",
-    "change_request_age",
-    "bus_factor",
-    "inactive_contributors",
-    "activity",
-    "new_contributors",
-    "attention",
-    "stars",
-    "technical_fork",
-    "participants",
-    "openrank",
-]
 
 
 # Function to fetch JSON data from the API
@@ -116,7 +88,7 @@ def main():
             start_time = time.time()
             for idx, repo_name in enumerate(rows):
                 print(f"\nProcessing {idx + 1}/{total_rows}: {repo_name}")
-                for type_ in VALUES:
+                for type_ in OPENDIGGER_VALUES:
                     print(f"  Processing type: {type_}")
                     # Fetch data from the API
                     data = fetch_data(BASE_URL, repo_name, type_)

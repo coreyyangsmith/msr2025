@@ -1,0 +1,817 @@
+2024-11-10 17:15:32,537 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:15:32,553 - INFO - Processing dependency pair 1/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:33,729 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:40,760 - INFO - Processing dependency pair 2/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:41,077 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:47,375 - INFO - Processing dependency pair 3/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:47,695 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:53,931 - INFO - Processing dependency pair 4/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:15:54,762 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:16:01,000 - INFO - Processing dependency pair 5/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:16:01,509 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:16:08,428 - INFO - Processing dependency pair 6/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:16:08,963 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:22,414 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:17:22,428 - INFO - Processing dependency pair 1/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:23,041 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:29,218 - INFO - Processing dependency pair 2/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:29,518 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:35,681 - INFO - Processing dependency pair 3/168136: io.projectreactor.netty:reactor-netty
+2024-11-10 17:17:35,992 - INFO - Found 20 versions for io.projectreactor.netty:reactor-netty
+2024-11-10 17:21:51,993 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:21:52,007 - INFO - Processing dependency pair 1/168136: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-10 17:21:53,125 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-10 17:21:58,192 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-10 17:21:58,194 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk
+2024-11-10 17:21:58,812 - INFO - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-10 17:21:59,231 - INFO - Found matching dependency in version 0.4.1
+2024-11-10 17:21:59,610 - INFO - Found matching dependency in version 0.4.0
+2024-11-10 17:21:59,921 - INFO - Found matching dependency in version 0.3.11
+2024-11-10 17:22:00,251 - INFO - Found matching dependency in version 0.3.10
+2024-11-10 17:22:00,552 - INFO - Found matching dependency in version 0.3.0
+2024-11-10 17:22:00,904 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:22:01,214 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:22:01,535 - INFO - Found matching dependency in version 0.1.13
+2024-11-10 17:22:01,834 - INFO - Found matching dependency in version 0.1.12
+2024-11-10 17:22:02,155 - INFO - Found matching dependency in version 0.1.11
+2024-11-10 17:22:02,465 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:22:02,776 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:22:02,780 - INFO - Processing dependency pair 3/168136: org.jetlinks:jetlinks-supports
+2024-11-10 17:22:03,917 - INFO - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-10 17:22:04,337 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:22:12,206 - INFO - Processing dependency pair 4/168136: org.apache.james:james-server-protocols-imap4
+2024-11-10 17:22:12,526 - INFO - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-10 17:22:12,837 - INFO - Found matching dependency in version 3.7.5
+2024-11-10 17:22:14,057 - INFO - Found matching dependency in version 3.7.4
+2024-11-10 17:22:14,475 - INFO - Found matching dependency in version 3.7.3
+2024-11-10 17:22:14,939 - INFO - Found matching dependency in version 3.7.2
+2024-11-10 17:22:15,329 - INFO - Found matching dependency in version 3.7.1
+2024-11-10 17:22:19,887 - INFO - Processing dependency pair 5/168136: io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-10 17:22:20,291 - INFO - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-10 17:22:20,703 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:22:20,704 - INFO - Processing dependency pair 6/168136: org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-10 17:22:21,332 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-10 17:22:21,686 - INFO - Found matching dependency in version 2.2.8.RELEASE
+2024-11-10 17:22:22,137 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:22:22,607 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:22:23,210 - INFO - Found matching dependency in version 2.2.5.RELEASE
+2024-11-10 17:22:23,648 - INFO - Found matching dependency in version 2.2.4.RELEASE
+2024-11-10 17:22:24,088 - INFO - Found matching dependency in version 2.2.3.RELEASE
+2024-11-10 17:22:24,411 - INFO - Found matching dependency in version 2.2.2.RELEASE
+2024-11-10 17:22:24,729 - INFO - Found matching dependency in version 2.1.7.RELEASE
+2024-11-10 17:22:25,049 - INFO - Found matching dependency in version 2.2.1.RELEASE
+2024-11-10 17:22:25,369 - INFO - Found matching dependency in version 2.2.0.RELEASE
+2024-11-10 17:22:25,679 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-10 17:22:26,001 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-10 17:22:26,321 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-10 17:22:26,632 - INFO - Found matching dependency in version 2.1.3.RELEASE
+2024-11-10 17:22:26,941 - INFO - Found matching dependency in version 2.1.2.RELEASE
+2024-11-10 17:22:27,902 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-10 17:22:28,533 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-10 17:22:28,535 - INFO - Processing dependency pair 7/168136: org.flowable:flowable-http-common
+2024-11-10 17:22:29,118 - INFO - Found 11 versions for org.flowable:flowable-http-common
+2024-11-10 17:22:29,563 - INFO - Found matching dependency in version 7.1.0
+2024-11-10 17:22:29,983 - INFO - Found matching dependency in version 6.8.1
+2024-11-10 17:22:30,394 - INFO - Found matching dependency in version 7.0.1
+2024-11-10 17:22:30,835 - INFO - Found matching dependency in version 7.0.0
+2024-11-10 17:22:31,215 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-10 17:22:31,556 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-10 17:22:31,976 - INFO - Found matching dependency in version 6.8.0
+2024-11-10 17:22:32,366 - INFO - Found matching dependency in version 6.7.2
+2024-11-10 17:22:32,757 - INFO - Found matching dependency in version 6.7.1
+2024-11-10 17:22:33,344 - INFO - Found matching dependency in version 6.7.0
+2024-11-10 17:22:33,811 - INFO - Found matching dependency in version 6.6.0
+2024-11-10 17:22:33,813 - INFO - Processing dependency pair 8/168136: com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-10 17:22:34,128 - INFO - Found 2 versions for com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-10 17:22:34,517 - INFO - Found matching dependency in version 0.0.7
+2024-11-10 17:22:34,828 - INFO - Found matching dependency in version 0.0.6
+2024-11-10 17:22:34,830 - INFO - Processing dependency pair 9/168136: io.opentracing.contrib:opentracing-spring-web
+2024-11-10 17:22:35,774 - INFO - Found 20 versions for io.opentracing.contrib:opentracing-spring-web
+2024-11-10 17:22:36,088 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:22:36,480 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:22:36,781 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:22:37,091 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:22:37,400 - INFO - Found matching dependency in version 2.1.3
+2024-11-10 17:22:37,711 - INFO - Found matching dependency in version 2.1.1
+2024-11-10 17:22:38,021 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:22:38,339 - INFO - Found matching dependency in version 2.0.0
+2024-11-10 17:22:38,652 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:22:38,963 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:22:39,261 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:22:42,059 - INFO - Processing dependency pair 10/168136: com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-10 17:22:42,358 - INFO - Found 17 versions for com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-10 17:22:42,677 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:22:47,832 - INFO - Processing dependency pair 11/168136: com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-10 17:22:48,309 - INFO - Found 8 versions for com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-10 17:22:48,704 - INFO - Found matching dependency in version 0.9.8
+2024-11-10 17:22:49,112 - INFO - Found matching dependency in version 0.9.7
+2024-11-10 17:22:49,564 - INFO - Found matching dependency in version 0.9.6
+2024-11-10 17:22:49,953 - INFO - Found matching dependency in version 0.9.5
+2024-11-10 17:22:50,282 - INFO - Found matching dependency in version 0.9.4
+2024-11-10 17:22:50,698 - INFO - Found matching dependency in version 0.9.3
+2024-11-10 17:22:51,104 - INFO - Found matching dependency in version 0.9.2
+2024-11-10 17:22:51,415 - INFO - Found matching dependency in version 0.9.1
+2024-11-10 17:22:51,417 - INFO - Processing dependency pair 12/168136: org.springframework.cloud:spring-cloud-vault-config
+2024-11-10 17:22:52,769 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-vault-config
+2024-11-10 17:22:53,088 - INFO - Found matching dependency in version 4.1.3
+2024-11-10 17:22:53,568 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:22:54,048 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:22:54,367 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:22:54,770 - INFO - Found matching dependency in version 3.1.4
+2024-11-10 17:23:34,069 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:23:34,083 - INFO - Processing dependency pair 1/168136: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos (ETA: 0:37:30)
+2024-11-10 17:23:35,102 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-10 17:23:38,562 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-10 17:23:38,564 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk (ETA: 4 days, 8:57:31)
+2024-11-10 17:23:39,267 - INFO - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-10 17:23:39,575 - INFO - Found matching dependency in version 0.4.1
+2024-11-10 17:23:39,878 - INFO - Found matching dependency in version 0.4.0
+2024-11-10 17:23:40,175 - INFO - Found matching dependency in version 0.3.11
+2024-11-10 17:23:40,499 - INFO - Found matching dependency in version 0.3.10
+2024-11-10 17:23:40,796 - INFO - Found matching dependency in version 0.3.0
+2024-11-10 17:23:41,097 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:23:41,409 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:23:41,769 - INFO - Found matching dependency in version 0.1.13
+2024-11-10 17:23:42,080 - INFO - Found matching dependency in version 0.1.12
+2024-11-10 17:23:42,389 - INFO - Found matching dependency in version 0.1.11
+2024-11-10 17:23:42,698 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:23:43,018 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:23:43,022 - INFO - Processing dependency pair 3/168136: org.jetlinks:jetlinks-supports (ETA: 5 days, 19:22:28)
+2024-11-10 17:23:43,972 - INFO - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-10 17:23:44,290 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:23:50,710 - INFO - Processing dependency pair 4/168136: org.apache.james:james-server-protocols-imap4 (ETA: 8 days, 2:17:34)
+2024-11-10 17:23:51,028 - INFO - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-10 17:23:51,340 - INFO - Found matching dependency in version 3.7.5
+2024-11-10 17:23:52,302 - INFO - Found matching dependency in version 3.7.4
+2024-11-10 17:23:52,611 - INFO - Found matching dependency in version 3.7.3
+2024-11-10 17:23:52,922 - INFO - Found matching dependency in version 3.7.2
+2024-11-10 17:23:53,233 - INFO - Found matching dependency in version 3.7.1
+2024-11-10 17:23:57,512 - INFO - Processing dependency pair 5/168136: io.wcm.caravan:io.wcm.caravan.rhyme.spring (ETA: 9 days, 2:57:56)
+2024-11-10 17:23:57,824 - INFO - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-10 17:23:58,127 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:23:58,129 - INFO - Processing dependency pair 6/168136: org.springframework.cloud:spring-cloud-sleuth-core (ETA: 7 days, 19:16:26)
+2024-11-10 17:23:59,145 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-10 17:23:59,458 - INFO - Found matching dependency in version 2.2.8.RELEASE
+2024-11-10 17:23:59,769 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:24:00,078 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:24:00,388 - INFO - Found matching dependency in version 2.2.5.RELEASE
+2024-11-10 17:24:00,699 - INFO - Found matching dependency in version 2.2.4.RELEASE
+2024-11-10 17:24:01,022 - INFO - Found matching dependency in version 2.2.3.RELEASE
+2024-11-10 17:24:01,334 - INFO - Found matching dependency in version 2.2.2.RELEASE
+2024-11-10 17:24:01,652 - INFO - Found matching dependency in version 2.1.7.RELEASE
+2024-11-10 17:24:01,972 - INFO - Found matching dependency in version 2.2.1.RELEASE
+2024-11-10 17:24:02,283 - INFO - Found matching dependency in version 2.2.0.RELEASE
+2024-11-10 17:24:02,604 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-10 17:24:02,923 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-10 17:24:03,230 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-10 17:24:03,531 - INFO - Found matching dependency in version 2.1.3.RELEASE
+2024-11-10 17:24:03,831 - INFO - Found matching dependency in version 2.1.2.RELEASE
+2024-11-10 17:24:04,773 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-10 17:24:05,465 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-10 17:24:05,467 - INFO - Processing dependency pair 7/168136: org.flowable:flowable-http-common (ETA: 8 days, 17:28:48)
+2024-11-10 17:24:06,255 - INFO - Found 11 versions for org.flowable:flowable-http-common
+2024-11-10 17:24:06,573 - INFO - Found matching dependency in version 7.1.0
+2024-11-10 17:24:06,864 - INFO - Found matching dependency in version 6.8.1
+2024-11-10 17:24:07,186 - INFO - Found matching dependency in version 7.0.1
+2024-11-10 17:24:07,505 - INFO - Found matching dependency in version 7.0.0
+2024-11-10 17:24:07,815 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-10 17:24:08,147 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-10 17:24:08,482 - INFO - Found matching dependency in version 6.8.0
+2024-11-10 17:24:08,826 - INFO - Found matching dependency in version 6.7.2
+2024-11-10 17:24:09,127 - INFO - Found matching dependency in version 6.7.1
+2024-11-10 17:24:09,447 - INFO - Found matching dependency in version 6.7.0
+2024-11-10 17:24:09,747 - INFO - Found matching dependency in version 6.6.0
+2024-11-10 17:24:09,749 - INFO - Processing dependency pair 8/168136: com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike (ETA: 8 days, 16:17:28)
+2024-11-10 17:25:13,433 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:25:13,452 - INFO - Processing dependency pair 1/168136: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos (ETA: 0:48:00)
+2024-11-10 17:25:14,367 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-10 17:25:14,705 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-10 17:25:14,747 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk (ETA: 1 day, 6:38:45)
+2024-11-10 17:25:15,275 - INFO - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-10 17:25:15,605 - INFO - Found matching dependency in version 0.3.11
+2024-11-10 17:25:15,605 - INFO - Found matching dependency in version 0.4.1
+2024-11-10 17:25:15,605 - INFO - Found matching dependency in version 0.3.0
+2024-11-10 17:25:15,616 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:25:15,616 - INFO - Found matching dependency in version 0.1.12
+2024-11-10 17:25:15,616 - INFO - Found matching dependency in version 0.3.10
+2024-11-10 17:25:15,617 - INFO - Found matching dependency in version 0.1.11
+2024-11-10 17:25:15,617 - INFO - Found matching dependency in version 0.4.0
+2024-11-10 17:25:15,617 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:25:15,617 - INFO - Found matching dependency in version 0.1.13
+2024-11-10 17:25:15,625 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:25:15,625 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:25:15,626 - INFO - Processing dependency pair 3/168136: org.jetlinks:jetlinks-supports (ETA: 1 day, 10:07:23)
+2024-11-10 17:25:15,936 - INFO - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-10 17:25:16,267 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:25:16,295 - INFO - Processing dependency pair 4/168136: org.apache.james:james-server-protocols-imap4 (ETA: 1 day, 9:23:55)
+2024-11-10 17:25:16,607 - INFO - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-10 17:25:16,943 - INFO - Found matching dependency in version 3.7.4
+2024-11-10 17:25:16,943 - INFO - Found matching dependency in version 3.7.3
+2024-11-10 17:25:16,945 - INFO - Found matching dependency in version 3.7.5
+2024-11-10 17:25:16,945 - INFO - Found matching dependency in version 3.7.1
+2024-11-10 17:25:16,946 - INFO - Found matching dependency in version 3.7.2
+2024-11-10 17:25:16,962 - INFO - Processing dependency pair 5/168136: io.wcm.caravan:io.wcm.caravan.rhyme.spring (ETA: 1 day, 8:56:58)
+2024-11-10 17:25:17,278 - INFO - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-10 17:25:17,588 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:25:17,591 - INFO - Processing dependency pair 6/168136: org.springframework.cloud:spring-cloud-sleuth-core (ETA: 1 day, 8:21:04)
+2024-11-10 17:25:17,927 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-10 17:25:18,420 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-10 17:25:18,421 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-10 17:25:18,422 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:25:18,422 - INFO - Found matching dependency in version 2.1.3.RELEASE
+2024-11-10 17:25:18,423 - INFO - Found matching dependency in version 2.2.4.RELEASE
+2024-11-10 17:25:18,423 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-10 17:25:18,424 - INFO - Found matching dependency in version 2.2.3.RELEASE
+2024-11-10 17:25:18,424 - INFO - Found matching dependency in version 2.1.7.RELEASE
+2024-11-10 17:25:18,425 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-10 17:25:18,425 - INFO - Found matching dependency in version 2.1.2.RELEASE
+2024-11-10 17:25:18,426 - INFO - Found matching dependency in version 2.2.1.RELEASE
+2024-11-10 17:25:18,427 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:25:18,428 - INFO - Found matching dependency in version 2.2.5.RELEASE
+2024-11-10 17:25:18,428 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-10 17:25:18,430 - INFO - Found matching dependency in version 2.2.2.RELEASE
+2024-11-10 17:25:18,431 - INFO - Found matching dependency in version 2.2.8.RELEASE
+2024-11-10 17:25:18,546 - INFO - Found matching dependency in version 2.2.0.RELEASE
+2024-11-10 17:25:18,547 - INFO - Processing dependency pair 7/168136: org.flowable:flowable-http-common (ETA: 1 day, 10:06:44)
+2024-11-10 17:25:19,435 - INFO - Found 11 versions for org.flowable:flowable-http-common
+2024-11-10 17:25:20,154 - INFO - Found matching dependency in version 6.7.1
+2024-11-10 17:25:20,158 - INFO - Found matching dependency in version 7.0.1
+2024-11-10 17:25:20,160 - INFO - Found matching dependency in version 7.1.0
+2024-11-10 17:25:20,162 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-10 17:25:20,162 - INFO - Found matching dependency in version 6.6.0
+2024-11-10 17:25:20,163 - INFO - Found matching dependency in version 6.8.1
+2024-11-10 17:25:20,164 - INFO - Found matching dependency in version 7.0.0
+2024-11-10 17:25:20,164 - INFO - Found matching dependency in version 6.7.0
+2024-11-10 17:25:20,165 - INFO - Found matching dependency in version 6.7.2
+2024-11-10 17:25:20,165 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-10 17:25:20,166 - INFO - Found matching dependency in version 6.8.0
+2024-11-10 17:25:20,169 - INFO - Processing dependency pair 8/168136: com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike (ETA: 1 day, 15:19:01)
+2024-11-10 17:25:20,860 - INFO - Found 2 versions for com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-10 17:25:21,681 - INFO - Found matching dependency in version 0.0.6
+2024-11-10 17:25:21,683 - INFO - Found matching dependency in version 0.0.7
+2024-11-10 17:25:21,685 - INFO - Processing dependency pair 9/168136: io.opentracing.contrib:opentracing-spring-web (ETA: 1 day, 18:48:53)
+2024-11-10 17:25:22,476 - INFO - Found 20 versions for io.opentracing.contrib:opentracing-spring-web
+2024-11-10 17:25:22,777 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:25:22,791 - INFO - Found matching dependency in version 2.1.3
+2024-11-10 17:25:22,808 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:25:22,808 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:25:22,818 - INFO - Found matching dependency in version 2.0.0
+2024-11-10 17:25:22,818 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:25:22,829 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:25:22,831 - INFO - Found matching dependency in version 2.1.1
+2024-11-10 17:25:22,831 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:25:22,832 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:25:22,832 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:25:22,838 - INFO - Processing dependency pair 10/168136: com.github.ljtfreitas:java-restify-spring-autoconfigure (ETA: 1 day, 19:55:05)
+2024-11-10 17:25:23,149 - INFO - Found 17 versions for com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-10 17:25:23,488 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:25:23,489 - INFO - Processing dependency pair 11/168136: com.jauntsdn.rsocket:rsocket-transport-netty (ETA: 1 day, 18:41:17)
+2024-11-10 17:25:23,998 - INFO - Found 8 versions for com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-10 17:25:24,323 - INFO - Found matching dependency in version 0.9.7
+2024-11-10 17:25:24,324 - INFO - Found matching dependency in version 0.9.2
+2024-11-10 17:25:24,324 - INFO - Found matching dependency in version 0.9.8
+2024-11-10 17:25:24,331 - INFO - Found matching dependency in version 0.9.5
+2024-11-10 17:25:24,332 - INFO - Found matching dependency in version 0.9.6
+2024-11-10 17:25:24,332 - INFO - Found matching dependency in version 0.9.1
+2024-11-10 17:25:24,332 - INFO - Found matching dependency in version 0.9.3
+2024-11-10 17:25:24,332 - INFO - Found matching dependency in version 0.9.4
+2024-11-10 17:25:24,336 - INFO - Processing dependency pair 12/168136: org.springframework.cloud:spring-cloud-vault-config (ETA: 1 day, 18:25:39)
+2024-11-10 17:25:25,262 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-vault-config
+2024-11-10 17:25:25,594 - INFO - Found matching dependency in version 4.1.3
+2024-11-10 17:25:25,595 - INFO - Found matching dependency in version 3.1.4
+2024-11-10 17:25:25,602 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:25:25,603 - INFO - Found matching dependency in version 3.1.3
+2024-11-10 17:25:25,604 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:25:25,604 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:25:25,610 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:25:25,620 - INFO - Found matching dependency in version 3.1.2
+2024-11-10 17:25:25,683 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:25:25,684 - INFO - Found matching dependency in version 3.1.1
+2024-11-10 17:25:25,692 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:25:25,700 - INFO - Found matching dependency in version 4.0.1
+2024-11-10 17:25:25,718 - INFO - Found matching dependency in version 3.0.4
+2024-11-10 17:25:25,719 - INFO - Found matching dependency in version 3.0.3
+2024-11-10 17:25:25,732 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:25:25,732 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:25:25,740 - INFO - Found matching dependency in version 3.0.2
+2024-11-10 17:25:25,772 - INFO - Found matching dependency in version 3.1.0
+2024-11-10 17:25:25,796 - INFO - Found matching dependency in version 3.0.5
+2024-11-10 17:25:25,903 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:25:25,906 - INFO - Processing dependency pair 13/168136: com.vlkan:reactor-pubsub (ETA: 1 day, 20:48:04)
+2024-11-10 17:25:26,210 - INFO - Found 6 versions for com.vlkan:reactor-pubsub
+2024-11-10 17:25:26,533 - INFO - Found matching dependency in version 0.1.2
+2024-11-10 17:25:26,533 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:25:26,534 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:25:26,542 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:25:26,542 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:25:26,612 - INFO - Found matching dependency in version 0.2.2
+2024-11-10 17:27:28,303 - INFO - Starting extraction of relevant releases...
+2024-11-10 17:27:28,316 - INFO - Processing dependency pair 1/168136: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos (ETA: 0:34:06)
+2024-11-10 17:27:28,656 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-10 17:27:28,997 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-10 17:27:29,000 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk (ETA: 16:14:32)
+2024-11-10 17:27:29,307 - INFO - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-10 17:27:29,638 - INFO - Found matching dependency in version 0.3.0
+2024-11-10 17:27:29,651 - INFO - Found matching dependency in version 0.4.0
+2024-11-10 17:27:29,651 - INFO - Found matching dependency in version 0.3.11
+2024-11-10 17:27:29,652 - INFO - Found matching dependency in version 0.4.1
+2024-11-10 17:27:29,652 - INFO - Found matching dependency in version 0.1.12
+2024-11-10 17:27:29,653 - INFO - Found matching dependency in version 0.1.13
+2024-11-10 17:27:29,653 - INFO - Found matching dependency in version 0.3.10
+2024-11-10 17:27:29,654 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:27:29,660 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:27:29,661 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:27:29,662 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:27:29,662 - INFO - Found matching dependency in version 0.1.11
+2024-11-10 17:27:29,665 - INFO - Processing dependency pair 3/168136: org.jetlinks:jetlinks-supports (ETA: 21:10:55)
+2024-11-10 17:27:30,439 - INFO - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-10 17:27:30,783 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:27:31,171 - INFO - Processing dependency pair 4/168136: org.apache.james:james-server-protocols-imap4 (ETA: 1 day, 9:28:19)
+2024-11-10 17:27:31,479 - INFO - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-10 17:27:31,803 - INFO - Found matching dependency in version 3.7.5
+2024-11-10 17:27:31,805 - INFO - Found matching dependency in version 3.7.3
+2024-11-10 17:27:31,805 - INFO - Found matching dependency in version 3.7.4
+2024-11-10 17:27:31,821 - INFO - Found matching dependency in version 3.7.2
+2024-11-10 17:27:31,838 - INFO - Found matching dependency in version 3.7.1
+2024-11-10 17:27:32,183 - INFO - Processing dependency pair 5/168136: io.wcm.caravan:io.wcm.caravan.rhyme.spring (ETA: 1 day, 12:13:40)
+2024-11-10 17:27:32,479 - INFO - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-10 17:27:32,801 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:27:32,804 - INFO - Processing dependency pair 6/168136: org.springframework.cloud:spring-cloud-sleuth-core (ETA: 1 day, 11:01:36)
+2024-11-10 17:27:33,121 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-10 17:27:33,443 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:27:33,444 - INFO - Found matching dependency in version 2.2.8.RELEASE
+2024-11-10 17:27:33,453 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:27:33,455 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-10 17:27:33,456 - INFO - Found matching dependency in version 2.2.4.RELEASE
+2024-11-10 17:27:33,464 - INFO - Found matching dependency in version 2.1.7.RELEASE
+2024-11-10 17:27:33,465 - INFO - Found matching dependency in version 2.2.3.RELEASE
+2024-11-10 17:27:33,465 - INFO - Found matching dependency in version 2.2.1.RELEASE
+2024-11-10 17:27:33,466 - INFO - Found matching dependency in version 2.2.2.RELEASE
+2024-11-10 17:27:33,467 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-10 17:27:33,467 - INFO - Found matching dependency in version 2.2.5.RELEASE
+2024-11-10 17:27:33,500 - INFO - Found matching dependency in version 2.2.0.RELEASE
+2024-11-10 17:27:33,753 - INFO - Found matching dependency in version 2.1.3.RELEASE
+2024-11-10 17:27:33,775 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-10 17:27:33,777 - INFO - Found matching dependency in version 2.1.2.RELEASE
+2024-11-10 17:27:33,782 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-10 17:27:33,791 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-10 17:27:33,793 - INFO - Processing dependency pair 7/168136: org.flowable:flowable-http-common (ETA: 1 day, 12:37:07)
+2024-11-10 17:27:34,637 - INFO - Found 11 versions for org.flowable:flowable-http-common
+2024-11-10 17:27:34,957 - INFO - Found matching dependency in version 6.8.1
+2024-11-10 17:27:34,958 - INFO - Found matching dependency in version 7.1.0
+2024-11-10 17:27:34,958 - INFO - Found matching dependency in version 7.0.1
+2024-11-10 17:27:34,967 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-10 17:27:34,968 - INFO - Found matching dependency in version 6.6.0
+2024-11-10 17:27:34,969 - INFO - Found matching dependency in version 6.8.0
+2024-11-10 17:27:34,969 - INFO - Found matching dependency in version 6.7.1
+2024-11-10 17:27:34,970 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-10 17:27:34,970 - INFO - Found matching dependency in version 6.7.0
+2024-11-10 17:27:34,973 - INFO - Found matching dependency in version 6.7.2
+2024-11-10 17:27:34,974 - INFO - Found matching dependency in version 7.0.0
+2024-11-10 17:27:34,978 - INFO - Processing dependency pair 8/168136: com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike (ETA: 1 day, 14:57:46)
+2024-11-10 17:27:35,283 - INFO - Found 2 versions for com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-10 17:27:35,607 - INFO - Found matching dependency in version 0.0.6
+2024-11-10 17:27:35,608 - INFO - Found matching dependency in version 0.0.7
+2024-11-10 17:27:35,610 - INFO - Processing dependency pair 9/168136: io.opentracing.contrib:opentracing-spring-web (ETA: 1 day, 13:54:40)
+2024-11-10 17:27:36,379 - INFO - Found 20 versions for io.opentracing.contrib:opentracing-spring-web
+2024-11-10 17:27:36,693 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:27:36,705 - INFO - Found matching dependency in version 2.1.1
+2024-11-10 17:27:36,705 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:27:36,706 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:27:36,715 - INFO - Found matching dependency in version 2.1.3
+2024-11-10 17:27:36,715 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:27:36,715 - INFO - Found matching dependency in version 2.0.0
+2024-11-10 17:27:36,716 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:27:36,716 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:27:36,716 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:27:36,716 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:27:37,040 - INFO - Processing dependency pair 10/168136: com.github.ljtfreitas:java-restify-spring-autoconfigure (ETA: 1 day, 16:47:49)
+2024-11-10 17:27:37,434 - INFO - Found 17 versions for com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-10 17:27:37,768 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:27:38,101 - INFO - Processing dependency pair 11/168136: com.jauntsdn.rsocket:rsocket-transport-netty (ETA: 1 day, 17:35:39)
+2024-11-10 17:27:38,417 - INFO - Found 8 versions for com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-10 17:27:38,750 - INFO - Found matching dependency in version 0.9.2
+2024-11-10 17:27:38,750 - INFO - Found matching dependency in version 0.9.6
+2024-11-10 17:27:38,750 - INFO - Found matching dependency in version 0.9.1
+2024-11-10 17:27:38,757 - INFO - Found matching dependency in version 0.9.3
+2024-11-10 17:27:38,759 - INFO - Found matching dependency in version 0.9.7
+2024-11-10 17:27:38,759 - INFO - Found matching dependency in version 0.9.4
+2024-11-10 17:27:38,760 - INFO - Found matching dependency in version 0.9.5
+2024-11-10 17:27:38,760 - INFO - Found matching dependency in version 0.9.8
+2024-11-10 17:27:38,763 - INFO - Processing dependency pair 12/168136: org.springframework.cloud:spring-cloud-vault-config (ETA: 1 day, 16:42:16)
+2024-11-10 17:27:39,488 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-vault-config
+2024-11-10 17:27:39,817 - INFO - Found matching dependency in version 4.1.3
+2024-11-10 17:27:39,818 - INFO - Found matching dependency in version 3.1.4
+2024-11-10 17:27:39,819 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:27:39,820 - INFO - Found matching dependency in version 3.1.2
+2024-11-10 17:27:39,821 - INFO - Found matching dependency in version 3.1.3
+2024-11-10 17:27:39,821 - INFO - Found matching dependency in version 4.0.1
+2024-11-10 17:27:39,830 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:27:39,831 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:27:39,838 - INFO - Found matching dependency in version 3.0.5
+2024-11-10 17:27:39,838 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:27:39,839 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:27:39,839 - INFO - Found matching dependency in version 3.1.1
+2024-11-10 17:27:40,152 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-10 17:27:40,152 - INFO - Found matching dependency in version 3.0.3
+2024-11-10 17:27:40,153 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:27:40,154 - INFO - Found matching dependency in version 3.0.2
+2024-11-10 17:27:40,154 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:27:40,155 - INFO - Found matching dependency in version 3.1.0
+2024-11-10 17:27:40,155 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-10 17:27:40,160 - INFO - Found matching dependency in version 3.0.4
+2024-11-10 17:27:40,171 - INFO - Processing dependency pair 13/168136: com.vlkan:reactor-pubsub (ETA: 1 day, 18:37:46)
+2024-11-10 17:27:40,597 - INFO - Found 6 versions for com.vlkan:reactor-pubsub
+2024-11-10 17:27:40,912 - INFO - Found matching dependency in version 0.1.2
+2024-11-10 17:27:40,913 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:27:40,919 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:27:40,919 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:27:40,920 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:27:40,921 - INFO - Found matching dependency in version 0.2.2
+2024-11-10 17:27:40,922 - ERROR - Invalid dependency format: io.projectreactor.netty
+2024-11-10 17:27:40,922 - INFO - Processing dependency pair 15/168136: ru.sokomishalov.skraper:skrapers (ETA: 1 day, 15:17:03)
+2024-11-10 17:27:41,623 - INFO - Found 15 versions for ru.sokomishalov.skraper:skrapers
+2024-11-10 17:27:42,043 - INFO - Found matching dependency in version 0.13.0
+2024-11-10 17:27:42,044 - INFO - Found matching dependency in version 0.9.1
+2024-11-10 17:27:42,044 - INFO - Found matching dependency in version 0.11.1
+2024-11-10 17:27:42,051 - INFO - Found matching dependency in version 0.8.2
+2024-11-10 17:27:42,053 - INFO - Found matching dependency in version 0.11.0
+2024-11-10 17:27:42,068 - INFO - Found matching dependency in version 0.12.1
+2024-11-10 17:27:42,079 - INFO - Found matching dependency in version 0.10.0
+2024-11-10 17:27:42,100 - INFO - Found matching dependency in version 0.12.0
+2024-11-10 17:27:42,100 - INFO - Found matching dependency in version 0.9.0
+2024-11-10 17:27:42,100 - INFO - Found matching dependency in version 0.9.2
+2024-11-10 17:27:42,121 - INFO - Found matching dependency in version 0.8.3
+2024-11-10 17:27:42,150 - INFO - Found matching dependency in version 0.8.4
+2024-11-10 17:27:42,450 - INFO - Found matching dependency in version 0.7.0
+2024-11-10 17:27:42,471 - INFO - Found matching dependency in version 0.8.1
+2024-11-10 17:27:42,610 - INFO - Found matching dependency in version 0.8.0
+2024-11-10 17:27:42,615 - INFO - Processing dependency pair 16/168136: io.opns.otl:otl-integ (ETA: 1 day, 17:46:15)
+2024-11-10 17:27:42,930 - INFO - Found 1 versions for io.opns.otl:otl-integ
+2024-11-10 17:27:43,241 - INFO - Found matching dependency in version 0.2.16-alpha
+2024-11-10 17:27:43,244 - INFO - Processing dependency pair 17/168136: io.memoria.jutils:jackson-adapter (ETA: 1 day, 17:02:25)
+2024-11-10 17:27:44,494 - INFO - Found 20 versions for io.memoria.jutils:jackson-adapter
+2024-11-10 17:27:45,488 - INFO - Processing dependency pair 18/168136: io.micrometer:micrometer-core (ETA: 1 day, 20:34:57)
+2024-11-10 17:27:45,815 - INFO - Found 20 versions for io.micrometer:micrometer-core
+2024-11-10 17:27:46,507 - INFO - Processing dependency pair 19/168136: com.expediagroup.molten:molten-http-client (ETA: 1 day, 20:44:25)
+2024-11-10 17:27:47,227 - INFO - Found 10 versions for com.expediagroup.molten:molten-http-client
+2024-11-10 17:27:47,625 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:27:47,638 - INFO - Found matching dependency in version 1.1.3
+2024-11-10 17:27:47,639 - INFO - Found matching dependency in version 1.2.1
+2024-11-10 17:27:47,648 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:27:47,655 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:27:47,667 - INFO - Found matching dependency in version 1.2.0
+2024-11-10 17:27:47,698 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:27:47,706 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:27:47,754 - INFO - Found matching dependency in version 1.0.0-beta.2
+2024-11-10 17:27:47,837 - INFO - Found matching dependency in version 1.2.3
+2024-11-10 17:27:47,840 - INFO - Processing dependency pair 20/168136: io.xiaper:xiaper-spring-boot-router-rabbitmq (ETA: 1 day, 21:36:53)
+2024-11-10 17:27:48,376 - INFO - Found 3 versions for io.xiaper:xiaper-spring-boot-router-rabbitmq
+2024-11-10 17:27:48,700 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-10 17:27:48,701 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-10 17:27:48,708 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-10 17:27:48,710 - INFO - Processing dependency pair 21/168136: com.github.ljtfreitas:java-restify-spring-reactive (ETA: 1 day, 21:22:40)
+2024-11-10 17:27:49,037 - INFO - Found 2 versions for com.github.ljtfreitas:java-restify-spring-reactive
+2024-11-10 17:27:49,371 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:27:49,374 - INFO - Processing dependency pair 22/168136: org.apache.camel:camel-stitch (ETA: 1 day, 20:43:28)
+2024-11-10 17:27:49,698 - INFO - Found 20 versions for org.apache.camel:camel-stitch
+2024-11-10 17:27:50,032 - INFO - Found matching dependency in version 4.8.0
+2024-11-10 17:27:50,032 - INFO - Found matching dependency in version 4.7.0
+2024-11-10 17:27:50,033 - INFO - Found matching dependency in version 4.8.1
+2024-11-10 17:27:50,037 - INFO - Found matching dependency in version 4.4.4
+2024-11-10 17:27:50,047 - INFO - Found matching dependency in version 4.6.0
+2024-11-10 17:27:50,109 - INFO - Found matching dependency in version 4.0.6
+2024-11-10 17:27:50,127 - INFO - Found matching dependency in version 3.22.2
+2024-11-10 17:27:50,138 - INFO - Found matching dependency in version 4.5.0
+2024-11-10 17:27:50,147 - INFO - Found matching dependency in version 3.21.5
+2024-11-10 17:27:50,157 - INFO - Found matching dependency in version 4.0.5
+2024-11-10 17:27:50,189 - INFO - Found matching dependency in version 4.4.3
+2024-11-10 17:27:50,208 - INFO - Found matching dependency in version 4.4.2
+2024-11-10 17:27:50,349 - INFO - Found matching dependency in version 4.4.0
+2024-11-10 17:27:50,439 - INFO - Found matching dependency in version 4.3.0
+2024-11-10 17:27:50,460 - INFO - Found matching dependency in version 3.21.4
+2024-11-10 17:27:50,461 - INFO - Found matching dependency in version 3.21.3
+2024-11-10 17:27:50,469 - INFO - Found matching dependency in version 4.0.4
+2024-11-10 17:27:50,477 - INFO - Found matching dependency in version 3.22.1
+2024-11-10 17:27:50,528 - INFO - Found matching dependency in version 3.22.0
+2024-11-10 17:27:50,548 - INFO - Found matching dependency in version 4.4.1
+2024-11-10 17:27:50,550 - INFO - Processing dependency pair 23/168136: org.bremersee:common-xml-spring-webflux (ETA: 1 day, 21:10:01)
+2024-11-10 17:27:50,859 - INFO - Found 2 versions for org.bremersee:common-xml-spring-webflux
+2024-11-10 17:27:51,261 - INFO - Found matching dependency in version 3.1.0
+2024-11-10 17:27:51,280 - INFO - Found matching dependency in version 3.0.1
+2024-11-10 17:27:51,282 - INFO - Processing dependency pair 24/168136: org.springframework:spring-messaging (ETA: 1 day, 20:42:35)
+2024-11-10 17:27:51,620 - INFO - Found 20 versions for org.springframework:spring-messaging
+2024-11-10 17:27:52,330 - INFO - Processing dependency pair 25/168136: com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test (ETA: 1 day, 20:52:44)
+2024-11-10 17:27:52,823 - INFO - Found 20 versions for com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test
+2024-11-10 17:27:53,142 - INFO - Found matching dependency in version 4.2.1
+2024-11-10 17:27:53,223 - INFO - Found matching dependency in version 4.2.0
+2024-11-10 17:27:53,225 - INFO - Found matching dependency in version 3.2.6
+2024-11-10 17:27:53,230 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:27:53,251 - INFO - Found matching dependency in version 3.2.11
+2024-11-10 17:27:53,261 - INFO - Found matching dependency in version 3.3.0
+2024-11-10 17:27:53,275 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:27:53,275 - INFO - Found matching dependency in version 4.0.3
+2024-11-10 17:27:53,291 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:27:53,321 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:27:53,331 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:27:53,392 - INFO - Found matching dependency in version 3.2.10
+2024-11-10 17:27:53,571 - INFO - Found matching dependency in version 3.2.5
+2024-11-10 17:27:53,651 - INFO - Found matching dependency in version 3.1.7
+2024-11-10 17:27:53,670 - INFO - Found matching dependency in version 3.2.3
+2024-11-10 17:27:53,683 - INFO - Found matching dependency in version 3.1.8
+2024-11-10 17:27:53,683 - INFO - Found matching dependency in version 3.2.4
+2024-11-10 17:27:53,692 - INFO - Found matching dependency in version 3.2.0
+2024-11-10 17:27:53,711 - INFO - Found matching dependency in version 3.2.1
+2024-11-10 17:27:53,752 - INFO - Found matching dependency in version 3.1.6
+2024-11-10 17:27:53,756 - INFO - Processing dependency pair 26/168136: com.alipay.sofa:sofa-ark-springboot-starter (ETA: 1 day, 21:42:45)
+2024-11-10 17:27:54,572 - INFO - Found 20 versions for com.alipay.sofa:sofa-ark-springboot-starter
+2024-11-10 17:27:54,893 - INFO - Found matching dependency in version 3.1.8
+2024-11-10 17:27:54,905 - INFO - Found matching dependency in version 2.2.15
+2024-11-10 17:27:54,973 - INFO - Found matching dependency in version 2.2.11
+2024-11-10 17:27:54,992 - INFO - Found matching dependency in version 2.2.14
+2024-11-10 17:27:54,993 - INFO - Found matching dependency in version 3.1.6
+2024-11-10 17:27:55,002 - INFO - Found matching dependency in version 3.1.7
+2024-11-10 17:27:55,013 - INFO - Found matching dependency in version 3.1.4
+2024-11-10 17:27:55,021 - INFO - Found matching dependency in version 3.0.7
+2024-11-10 17:27:55,074 - INFO - Found matching dependency in version 2.2.13
+2024-11-10 17:27:55,075 - INFO - Found matching dependency in version 3.1.5
+2024-11-10 17:27:55,083 - INFO - Found matching dependency in version 2.2.12
+2024-11-10 17:27:55,160 - INFO - Found matching dependency in version 3.0.6
+2024-11-10 17:27:55,256 - INFO - Found matching dependency in version 3.1.3
+2024-11-10 17:27:55,289 - INFO - Found matching dependency in version 3.0.5
+2024-11-10 17:27:55,501 - INFO - Found matching dependency in version 2.2.9
+2024-11-10 17:27:55,502 - INFO - Found matching dependency in version 2.2.10
+2024-11-10 17:27:55,503 - INFO - Found matching dependency in version 3.0.4
+2024-11-10 17:27:55,503 - INFO - Found matching dependency in version 3.0.3
+2024-11-10 17:27:55,503 - INFO - Found matching dependency in version 3.1.2
+2024-11-10 17:27:55,654 - INFO - Found matching dependency in version 3.1.1
+2024-11-10 17:27:55,659 - INFO - Processing dependency pair 27/168136: io.scalecube:rsocket-services-transport (ETA: 1 day, 23:18:38)
+2024-11-10 17:27:56,576 - INFO - Found 20 versions for io.scalecube:rsocket-services-transport
+2024-11-10 17:27:56,908 - INFO - Found matching dependency in version 2.2.1
+2024-11-10 17:27:56,909 - INFO - Found matching dependency in version 2.2.5
+2024-11-10 17:27:56,915 - INFO - Found matching dependency in version 2.2.2
+2024-11-10 17:27:56,919 - INFO - Found matching dependency in version 2.2.3
+2024-11-10 17:27:56,920 - INFO - Found matching dependency in version 2.2.4
+2024-11-10 17:27:56,920 - INFO - Found matching dependency in version 2.2.0
+2024-11-10 17:27:56,921 - INFO - Found matching dependency in version 2.1.41
+2024-11-10 17:27:56,924 - INFO - Found matching dependency in version 2.1.43
+2024-11-10 17:27:57,448 - INFO - Processing dependency pair 28/168136: io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime (ETA: 2 days, 0:36:17)
+2024-11-10 17:27:58,461 - INFO - Found 20 versions for io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime
+2024-11-10 17:27:58,858 - INFO - Found matching dependency in version 0.2.2
+2024-11-10 17:27:58,867 - INFO - Found matching dependency in version 0.1.11
+2024-11-10 17:27:58,867 - INFO - Found matching dependency in version 0.1.10
+2024-11-10 17:27:58,876 - INFO - Found matching dependency in version 0.1.13
+2024-11-10 17:27:58,886 - INFO - Found matching dependency in version 0.1.5
+2024-11-10 17:27:58,918 - INFO - Found matching dependency in version 0.2.1
+2024-11-10 17:27:58,918 - INFO - Found matching dependency in version 0.1.9
+2024-11-10 17:27:58,919 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:27:58,926 - INFO - Found matching dependency in version 0.1.6
+2024-11-10 17:27:58,937 - INFO - Found matching dependency in version 0.1.7
+2024-11-10 17:27:58,957 - INFO - Found matching dependency in version 0.1.8
+2024-11-10 17:27:59,009 - INFO - Found matching dependency in version 0.1.12
+2024-11-10 17:27:59,258 - INFO - Found matching dependency in version 0.1.3
+2024-11-10 17:27:59,277 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:27:59,292 - INFO - Found matching dependency in version 0.1.4
+2024-11-10 17:27:59,318 - INFO - Found matching dependency in version 0.0.41
+2024-11-10 17:27:59,318 - INFO - Found matching dependency in version 0.0.43
+2024-11-10 17:27:59,318 - INFO - Found matching dependency in version 0.1.2
+2024-11-10 17:27:59,336 - INFO - Found matching dependency in version 0.0.42
+2024-11-10 17:27:59,419 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:27:59,422 - INFO - Processing dependency pair 29/168136: org.springframework.credhub:spring-credhub-core (ETA: 2 days, 2:06:25)
+2024-11-10 17:28:00,464 - INFO - Found 16 versions for org.springframework.credhub:spring-credhub-core
+2024-11-10 17:28:00,779 - INFO - Found matching dependency in version 3.2.0
+2024-11-10 17:28:00,789 - INFO - Found matching dependency in version 3.3.0
+2024-11-10 17:28:00,804 - INFO - Found matching dependency in version 3.1.1
+2024-11-10 17:28:00,804 - INFO - Found matching dependency in version 2.3.2
+2024-11-10 17:28:00,804 - INFO - Found matching dependency in version 3.0.2
+2024-11-10 17:28:00,868 - INFO - Found matching dependency in version 3.0.0
+2024-11-10 17:28:00,888 - INFO - Found matching dependency in version 2.2.0
+2024-11-10 17:28:00,930 - INFO - Found matching dependency in version 3.1.0
+2024-11-10 17:28:00,946 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-10 17:28:00,975 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-10 17:28:00,988 - INFO - Found matching dependency in version 2.2.1
+2024-11-10 17:28:01,026 - INFO - Found matching dependency in version 2.3.0
+2024-11-10 17:28:01,109 - INFO - Found matching dependency in version 2.0.1.RELEASE
+2024-11-10 17:28:01,149 - INFO - Found matching dependency in version 2.0.0.RELEASE
+2024-11-10 17:28:01,159 - INFO - Processing dependency pair 30/168136: org.springframework.cloud:spring-cloud-function-web (ETA: 2 days, 3:08:25)
+2024-11-10 17:28:01,580 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-function-web
+2024-11-10 17:28:01,891 - INFO - Found matching dependency in version 4.1.3
+2024-11-10 17:28:01,981 - INFO - Found matching dependency in version 4.0.4
+2024-11-10 17:28:01,989 - INFO - Found matching dependency in version 3.2.10
+2024-11-10 17:28:02,009 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:28:02,029 - INFO - Found matching dependency in version 3.2.11
+2024-11-10 17:28:02,041 - INFO - Found matching dependency in version 4.0.6
+2024-11-10 17:28:02,041 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:28:02,050 - INFO - Found matching dependency in version 4.0.3
+2024-11-10 17:28:02,060 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:28:02,069 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:28:02,080 - INFO - Found matching dependency in version 3.2.12
+2024-11-10 17:28:02,169 - INFO - Found matching dependency in version 4.0.5
+2024-11-10 17:28:02,272 - INFO - Found matching dependency in version 3.2.9
+2024-11-10 17:28:02,362 - INFO - Found matching dependency in version 3.2.6
+2024-11-10 17:28:02,371 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:28:02,390 - INFO - Found matching dependency in version 4.0.1
+2024-11-10 17:28:02,400 - INFO - Found matching dependency in version 3.2.8
+2024-11-10 17:28:02,441 - INFO - Found matching dependency in version 3.2.4
+2024-11-10 17:28:02,460 - INFO - Found matching dependency in version 3.2.5
+2024-11-10 17:28:02,501 - INFO - Found matching dependency in version 3.2.7
+2024-11-10 17:28:02,504 - INFO - Processing dependency pair 31/168136: io.sermant:spring-router-plugin (ETA: 2 days, 3:30:58)
+2024-11-10 17:28:02,822 - INFO - Found 0 versions for io.sermant:spring-router-plugin
+2024-11-10 17:28:02,824 - INFO - Processing dependency pair 32/168136: io.github.harishb2k.easy:http (ETA: 2 days, 2:22:22)
+2024-11-10 17:28:03,973 - INFO - Found 20 versions for io.github.harishb2k.easy:http
+2024-11-10 17:28:04,363 - INFO - Found matching dependency in version 0.0.46
+2024-11-10 17:28:04,372 - INFO - Found matching dependency in version 0.0.42
+2024-11-10 17:28:04,384 - INFO - Found matching dependency in version 0.0.47
+2024-11-10 17:28:04,384 - INFO - Found matching dependency in version 0.0.45
+2024-11-10 17:28:04,403 - INFO - Found matching dependency in version 0.0.37
+2024-11-10 17:28:04,403 - INFO - Found matching dependency in version 0.0.41
+2024-11-10 17:28:04,413 - INFO - Found matching dependency in version 0.0.38
+2024-11-10 17:28:04,413 - INFO - Found matching dependency in version 0.0.39
+2024-11-10 17:28:04,421 - INFO - Found matching dependency in version 0.0.43
+2024-11-10 17:28:04,443 - INFO - Found matching dependency in version 0.0.40
+2024-11-10 17:28:04,463 - INFO - Found matching dependency in version 0.0.44
+2024-11-10 17:28:04,513 - INFO - Found matching dependency in version 0.0.48
+2024-11-10 17:28:04,783 - INFO - Found matching dependency in version 0.0.35
+2024-11-10 17:28:04,813 - INFO - Found matching dependency in version 0.0.36
+2024-11-10 17:28:04,832 - INFO - Found matching dependency in version 0.0.33
+2024-11-10 17:28:04,846 - INFO - Found matching dependency in version 0.0.29
+2024-11-10 17:28:04,846 - INFO - Found matching dependency in version 0.0.30
+2024-11-10 17:28:04,852 - INFO - Found matching dependency in version 0.0.26
+2024-11-10 17:28:04,872 - INFO - Found matching dependency in version 0.0.34
+2024-11-10 17:28:04,933 - INFO - Found matching dependency in version 0.0.27
+2024-11-10 17:28:04,937 - INFO - Processing dependency pair 33/168136: net.sandrohc:reactive-jikan (ETA: 2 days, 3:50:11)
+2024-11-10 17:28:05,796 - INFO - Found 10 versions for net.sandrohc:reactive-jikan
+2024-11-10 17:28:06,137 - INFO - Found matching dependency in version 2.2.0
+2024-11-10 17:28:06,205 - INFO - Found matching dependency in version 0.1.2
+2024-11-10 17:28:06,226 - INFO - Found matching dependency in version 1.0.2
+2024-11-10 17:28:06,227 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:28:06,236 - INFO - Found matching dependency in version 1.0.0
+2024-11-10 17:28:06,236 - INFO - Found matching dependency in version 1.0.1
+2024-11-10 17:28:06,237 - INFO - Found matching dependency in version 2.0.0
+2024-11-10 17:28:06,237 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:28:06,243 - INFO - Found matching dependency in version 0.1.1
+2024-11-10 17:28:06,274 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:28:06,276 - INFO - Processing dependency pair 34/168136: one.leftshift.gaia-sdk:gaia-sdk-http (ETA: 2 days, 4:08:57)
+2024-11-10 17:28:06,855 - INFO - Found 6 versions for one.leftshift.gaia-sdk:gaia-sdk-http
+2024-11-10 17:28:07,288 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:28:07,290 - INFO - Found matching dependency in version 3.4.0
+2024-11-10 17:28:07,290 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:28:07,316 - INFO - Found matching dependency in version 3.4.1
+2024-11-10 17:28:07,398 - INFO - Found matching dependency in version 4.2.0
+2024-11-10 17:28:07,466 - INFO - Found matching dependency in version 3.3.0
+2024-11-10 17:28:07,469 - INFO - Processing dependency pair 35/168136: org.bremersee:common-base-webflux (ETA: 2 days, 4:15:07)
+2024-11-10 17:28:08,430 - INFO - Found 20 versions for org.bremersee:common-base-webflux
+2024-11-10 17:28:08,738 - INFO - Found matching dependency in version 2.2.3
+2024-11-10 17:28:08,767 - INFO - Found matching dependency in version 2.2.1
+2024-11-10 17:28:08,777 - INFO - Found matching dependency in version 2.1.4
+2024-11-10 17:28:08,838 - INFO - Found matching dependency in version 2.1.2
+2024-11-10 17:28:08,866 - INFO - Found matching dependency in version 2.2.0
+2024-11-10 17:28:08,876 - INFO - Found matching dependency in version 2.2.2
+2024-11-10 17:28:08,887 - INFO - Found matching dependency in version 2.3.1
+2024-11-10 17:28:08,896 - INFO - Found matching dependency in version 2.3.3
+2024-11-10 17:28:08,928 - INFO - Found matching dependency in version 2.1.1
+2024-11-10 17:28:08,928 - INFO - Found matching dependency in version 2.3.2
+2024-11-10 17:28:08,937 - INFO - Found matching dependency in version 2.1.3
+2024-11-10 17:28:08,947 - INFO - Found matching dependency in version 2.3.0
+2024-11-10 17:28:09,150 - INFO - Found matching dependency in version 1.4.5
+2024-11-10 17:28:09,150 - INFO - Found matching dependency in version 2.1.0
+2024-11-10 17:28:09,157 - INFO - Found matching dependency in version 2.0.1
+2024-11-10 17:28:09,167 - INFO - Found matching dependency in version 1.4.4
+2024-11-10 17:28:09,198 - INFO - Found matching dependency in version 2.0.0
+2024-11-10 17:28:09,199 - INFO - Found matching dependency in version 1.4.3
+2024-11-10 17:28:09,217 - INFO - Found matching dependency in version 1.4.2
+2024-11-10 17:28:09,268 - INFO - Found matching dependency in version 1.4.6
+2024-11-10 17:28:09,271 - INFO - Processing dependency pair 36/168136: com.playtika.reactivefeign:feign-reactor-spring-mvc-test (ETA: 2 days, 5:08:13)
+2024-11-10 17:28:10,139 - INFO - Found 20 versions for com.playtika.reactivefeign:feign-reactor-spring-mvc-test
+2024-11-10 17:28:10,480 - INFO - Found matching dependency in version 4.2.1
+2024-11-10 17:28:10,529 - INFO - Found matching dependency in version 3.3.0
+2024-11-10 17:28:10,561 - INFO - Found matching dependency in version 4.0.3
+2024-11-10 17:28:10,562 - INFO - Found matching dependency in version 4.1.2
+2024-11-10 17:28:10,580 - INFO - Found matching dependency in version 4.2.0
+2024-11-10 17:28:10,580 - INFO - Found matching dependency in version 3.2.11
+2024-11-10 17:28:10,588 - INFO - Found matching dependency in version 4.1.1
+2024-11-10 17:28:10,599 - INFO - Found matching dependency in version 4.0.2
+2024-11-10 17:28:10,600 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:28:10,619 - INFO - Found matching dependency in version 3.2.6
+2024-11-10 17:28:10,619 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:28:10,648 - INFO - Found matching dependency in version 3.2.10
+2024-11-10 17:28:10,920 - INFO - Found matching dependency in version 3.2.4
+2024-11-10 17:28:10,928 - INFO - Found matching dependency in version 3.2.5
+2024-11-10 17:28:11,011 - INFO - Found matching dependency in version 3.1.8
+2024-11-10 17:28:11,020 - INFO - Found matching dependency in version 3.2.0
+2024-11-10 17:28:11,021 - INFO - Found matching dependency in version 3.2.3
+2024-11-10 17:28:11,060 - INFO - Found matching dependency in version 3.1.7
+2024-11-10 17:28:11,181 - INFO - Found matching dependency in version 3.2.1
+2024-11-10 17:28:11,503 - INFO - Found matching dependency in version 3.1.6
+2024-11-10 17:28:11,507 - INFO - Processing dependency pair 37/168136: org.apache.james:apache-james-mailbox-tika (ETA: 2 days, 6:31:18)
+2024-11-10 17:28:13,244 - INFO - Found 19 versions for org.apache.james:apache-james-mailbox-tika
+2024-11-10 17:28:13,642 - INFO - Found matching dependency in version 3.8.0
+2024-11-10 17:28:13,673 - INFO - Found matching dependency in version 3.8.1
+2024-11-10 17:28:14,078 - INFO - Processing dependency pair 38/168136: one.leftshift.gaia-sdk:gaia-sdk-mqtt (ETA: 2 days, 8:14:47)
+2024-11-10 17:28:14,513 - INFO - Found 6 versions for one.leftshift.gaia-sdk:gaia-sdk-mqtt
+2024-11-10 17:28:14,904 - INFO - Found matching dependency in version 4.1.0
+2024-11-10 17:28:14,944 - INFO - Found matching dependency in version 3.4.1
+2024-11-10 17:28:14,945 - INFO - Found matching dependency in version 4.0.0
+2024-11-10 17:28:14,965 - INFO - Found matching dependency in version 4.2.0
+2024-11-10 17:28:14,965 - INFO - Found matching dependency in version 3.3.0
+2024-11-10 17:28:15,046 - INFO - Found matching dependency in version 3.4.0
+2024-11-10 17:28:15,050 - INFO - Processing dependency pair 39/168136: com.github.759434091:reactor-rpc4j-spring-boot-starter (ETA: 2 days, 7:58:02)
+2024-11-10 17:28:15,365 - INFO - Found 2 versions for com.github.759434091:reactor-rpc4j-spring-boot-starter
+2024-11-10 17:28:15,676 - INFO - Found matching dependency in version 1.0.1.RELEASE
+2024-11-10 17:28:15,684 - INFO - Found matching dependency in version 1.0.0.RELEASE
+2024-11-10 17:28:15,687 - INFO - Processing dependency pair 40/168136: org.apache.linkis:linkis-spring-cloud-gateway (ETA: 2 days, 7:18:42)
+2024-11-10 17:28:16,906 - INFO - Found 12 versions for org.apache.linkis:linkis-spring-cloud-gateway
+2024-11-10 17:28:17,318 - INFO - Found matching dependency in version 1.6.0
+2024-11-10 17:28:17,319 - INFO - Found matching dependency in version 1.3.0
+2024-11-10 17:28:17,327 - INFO - Found matching dependency in version 1.4.0
+2024-11-10 17:28:17,327 - INFO - Found matching dependency in version 1.0.3
+2024-11-10 17:28:17,347 - INFO - Found matching dependency in version 1.1.3
+2024-11-10 17:28:17,347 - INFO - Found matching dependency in version 1.3.1
+2024-11-10 17:28:17,356 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:28:17,356 - INFO - Found matching dependency in version 1.3.2
+2024-11-10 17:28:17,366 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:28:17,367 - INFO - Found matching dependency in version 1.2.0
+2024-11-10 17:28:17,406 - INFO - Found matching dependency in version 1.5.0
+2024-11-10 17:28:17,466 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:28:17,470 - INFO - Processing dependency pair 41/168136: io.memoria.jutils:core (ETA: 2 days, 7:59:32)
+2024-11-10 17:28:18,217 - INFO - Found 20 versions for io.memoria.jutils:core
+2024-11-10 17:28:19,222 - INFO - Processing dependency pair 42/168136: pl.grzeslowski.jsupla:server (ETA: 2 days, 8:36:23)
+2024-11-10 17:28:19,528 - INFO - Found 0 versions for pl.grzeslowski.jsupla:server
+2024-11-10 17:28:19,531 - INFO - Processing dependency pair 43/168136: org.apache.james:james-server-jmap (ETA: 2 days, 7:37:31)
+2024-11-10 17:28:20,314 - INFO - Found 19 versions for org.apache.james:james-server-jmap
+2024-11-10 17:28:20,721 - INFO - Found matching dependency in version 3.7.0
+2024-11-10 17:28:20,749 - INFO - Found matching dependency in version 3.7.2
+2024-11-10 17:28:20,760 - INFO - Found matching dependency in version 3.6.0
+2024-11-10 17:28:20,760 - INFO - Found matching dependency in version 3.7.4
+2024-11-10 17:28:20,769 - INFO - Found matching dependency in version 3.8.0
+2024-11-10 17:28:20,770 - INFO - Found matching dependency in version 3.8.1
+2024-11-10 17:28:20,778 - INFO - Found matching dependency in version 3.6.2
+2024-11-10 17:28:20,820 - INFO - Found matching dependency in version 3.7.1
+2024-11-10 17:28:20,830 - INFO - Found matching dependency in version 3.7.3
+2024-11-10 17:28:20,850 - INFO - Found matching dependency in version 3.7.5
+2024-11-10 17:28:21,362 - INFO - Found matching dependency in version 3.5.0
+2024-11-10 17:28:21,368 - INFO - Processing dependency pair 44/168136: com.kfyty:loveqq-mvc-netty (ETA: 2 days, 8:18:38)
+2024-11-10 17:28:21,671 - INFO - Found 0 versions for com.kfyty:loveqq-mvc-netty
+2024-11-10 17:28:21,673 - INFO - Processing dependency pair 45/168136: io.github.quickmsg:smqtt-common (ETA: 2 days, 7:22:33)
+2024-11-10 17:28:22,322 - INFO - Found 16 versions for io.github.quickmsg:smqtt-common
+2024-11-10 17:28:22,694 - INFO - Found matching dependency in version 1.1.6
+2024-11-10 17:28:22,732 - INFO - Found matching dependency in version 1.1.4
+2024-11-10 17:28:22,742 - INFO - Found matching dependency in version 1.0.8
+2024-11-10 17:28:22,742 - INFO - Found matching dependency in version 1.1.3
+2024-11-10 17:28:22,752 - INFO - Found matching dependency in version 1.1.5
+2024-11-10 17:28:22,752 - INFO - Found matching dependency in version 0.3.1
+2024-11-10 17:28:22,752 - INFO - Found matching dependency in version 1.1.0
+2024-11-10 17:28:22,772 - INFO - Found matching dependency in version 1.1.7
+2024-11-10 17:28:22,782 - INFO - Found matching dependency in version 1.1.2
+2024-11-10 17:28:22,782 - INFO - Found matching dependency in version 1.0.7
+2024-11-10 17:28:22,783 - INFO - Found matching dependency in version 1.0.9
+2024-11-10 17:28:22,863 - INFO - Found matching dependency in version 1.1.1
+2024-11-10 17:28:23,103 - INFO - Found matching dependency in version 1.0.5
+2024-11-10 17:28:23,132 - INFO - Found matching dependency in version 1.0.3
+2024-11-10 17:28:23,161 - INFO - Found matching dependency in version 1.0.6
+2024-11-10 17:28:23,303 - INFO - Found matching dependency in version 1.0.4
+2024-11-10 17:28:23,306 - INFO - Processing dependency pair 46/168136: com.pighand:pighand-framework-spring-parent (ETA: 2 days, 7:49:45)
+2024-11-10 17:28:24,585 - INFO - Found 20 versions for com.pighand:pighand-framework-spring-parent
+2024-11-10 17:28:25,037 - INFO - Found matching dependency in version 2.0.0-bate.1.20240117
+2024-11-10 17:28:25,055 - INFO - Found matching dependency in version 2.0.0-bate.1.20231210
+2024-11-10 17:28:25,065 - INFO - Found matching dependency in version 1.2.5
+2024-11-10 17:28:25,066 - INFO - Found matching dependency in version 1.2.4
+2024-11-10 17:28:25,085 - INFO - Found matching dependency in version 2.0.0-bate.1.20240527
+2024-11-10 17:28:25,085 - INFO - Found matching dependency in version 2.0.0-bate.1.20240606
+2024-11-10 17:28:25,095 - INFO - Found matching dependency in version 2.0.0-bate.1.20240611
+2024-11-10 17:28:25,104 - INFO - Found matching dependency in version 2.0.0-bate.1.20240712
+2024-11-10 17:28:25,105 - INFO - Found matching dependency in version 1.2.2
+2024-11-10 17:28:25,114 - INFO - Found matching dependency in version 1.2.3
+2024-11-10 17:28:25,124 - INFO - Found matching dependency in version 2.0.0-bate.1.20240517
+2024-11-10 17:28:25,427 - INFO - Found matching dependency in version 1.2.0
+2024-11-10 17:28:25,546 - INFO - Found matching dependency in version 1.2.1
+2024-11-10 17:28:25,560 - INFO - Processing dependency pair 47/168136: io.github.sgtsilvio:oci-registry (ETA: 2 days, 8:52:47)
+2024-11-10 17:28:25,875 - INFO - Found 5 versions for io.github.sgtsilvio:oci-registry
+2024-11-10 17:28:26,254 - INFO - Found matching dependency in version 0.1.0
+2024-11-10 17:28:26,304 - INFO - Found matching dependency in version 0.3.0
+2024-11-10 17:28:26,344 - INFO - Found matching dependency in version 0.4.1
+2024-11-10 17:28:26,355 - INFO - Found matching dependency in version 0.2.0
+2024-11-10 17:28:26,355 - INFO - Found matching dependency in version 0.4.0
+2024-11-10 17:28:26,356 - INFO - Processing dependency pair 48/168136: io.github.devlibx.easy:http (ETA: 2 days, 8:28:09)
+2024-11-10 17:28:27,447 - INFO - Found 20 versions for io.github.devlibx.easy:http
+2024-11-10 17:28:27,847 - INFO - Found matching dependency in version 0.0.144-java21-jakarta
+2024-11-10 17:28:27,868 - INFO - Found matching dependency in version 0.0.144-jakarta
+2024-11-10 17:28:27,868 - INFO - Found matching dependency in version 0.0.139
+2024-11-10 17:28:27,877 - INFO - Found matching dependency in version 0.0.144
+2024-11-10 17:28:27,877 - INFO - Found matching dependency in version 0.0.144-java22
+2024-11-10 17:28:27,885 - INFO - Found matching dependency in version 0.0.142
+2024-11-10 17:28:27,895 - INFO - Found matching dependency in version 0.0.138
+2024-11-10 17:28:27,916 - INFO - Found matching dependency in version 0.0.144-java21
+2024-11-10 17:28:27,916 - INFO - Found matching dependency in version 0.0.143
+2024-11-10 17:28:27,926 - INFO - Found matching dependency in version 0.0.140
+2024-11-10 17:28:27,975 - INFO - Found matching dependency in version 0.0.141
+2024-11-10 17:28:28,006 - INFO - Found matching dependency in version 0.0.145
+2024-11-10 17:28:28,207 - INFO - Found matching dependency in version 0.0.137
+2024-11-10 17:28:28,236 - INFO - Found matching dependency in version 0.0.139.java19.loom
+2024-11-10 17:28:28,246 - INFO - Found matching dependency in version 0.0.137.java19
+2024-11-10 17:28:28,247 - INFO - Found matching dependency in version 0.0.135
+2024-11-10 17:28:28,266 - INFO - Found matching dependency in version 0.0.137.java19.loom
+2024-11-10 17:28:28,286 - INFO - Found matching dependency in version 0.0.138.java19.loom
+2024-11-10 17:28:28,308 - INFO - Found matching dependency in version 0.0.136.java19
+2024-11-10 17:28:28,308 - INFO - Found matching dependency in version 0.0.136
+2024-11-10 17:28:28,312 - INFO - Processing dependency pair 49/168136: com.azure.spring:spring-cloud-azure-starter-active-directory (ETA: 2 days, 9:10:48)

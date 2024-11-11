@@ -71,6 +71,51 @@ RQ2_3_OUTPUT = "data/rq2_3_repo_names.csv"
 RQ2_4_INPUT = RQ2_3_OUTPUT
 RQ2_4_OUTPUT = RQ2_OPENDIGGER_OUTPUT
 
+# RQ2_5 Summarize Metrics Availability
+RQ2_5_INPUT = RQ2_OPENDIGGER_OUTPUT
+RQ2_5_OUTPUT = "data/rq2_5_metrics_availability.csv"
+
+# RQ2_6 Clean Metrics Data
+RQ2_6_INPUT = RQ2_5_OUTPUT
+RQ2_6_OUTPUT = "data/rq2_6_cleaned_metrics_repos.csv"
+
+# RQ2_7 Combine Datasets
+RQ2_7_INPUT_METRICS = RQ2_6_OUTPUT
+RQ2_7_INPUT_CVES = RQ2_1_FILTERED_OUTPUT
+RQ2_7_OUTPUT = "data/rq2_7_combined_datasets.csv"
+
+# RQ2_8 Enrich Metrics Data
+RQ2_8_INPUT = RQ2_7_OUTPUT
+RQ2_8_OUTPUT = "data/rq2_8_enriched.csv"
+
+
+OPENDIGGER_VALUES = [
+    "issues_new",
+    "issues_closed",
+    "issue_comments",
+    "issue_response_time",
+    "issue_resolution_duration",
+    "issue_age",
+    "code_change_lines_add",
+    "code_change_lines_remove",
+    "code_change_lines_sum",
+    "change_requests",
+    "change_requests_accepted",
+    "change_requests_reviews",
+    "change_request_response_time",
+    "change_request_resolution_duration",
+    "change_request_age",
+    "bus_factor",
+    "inactive_contributors",
+    "activity",
+    "new_contributors",
+    "attention",
+    "stars",
+    "technical_fork",
+    "participants",
+    "openrank",
+]
+
 ####################
 ### RQ3 Pipeline ###
 ####################
