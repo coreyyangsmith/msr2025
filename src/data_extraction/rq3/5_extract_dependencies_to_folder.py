@@ -27,6 +27,8 @@ logger = logging.getLogger(__name__)
 locks = {}
 locks_lock = threading.Lock()
 
+MAX_WORKERS = 24  # Set max workers to 24 as per your request
+
 
 def get_lock_for_file(output_path):
     with locks_lock:
@@ -60,6 +62,7 @@ def process_version(
     session = get_session_with_retries()
 
     try:
+        print(f"Fetching POM for {target_dep} version {version_str}...")
         pom_response = session.get(pom_url, timeout=10)
         if pom_response.status_code == 200:
             # Parse POM XML
@@ -86,6 +89,9 @@ def process_version(
                     and dep_artifact.text == dep_artifact_id
                 ):
                     logging.info(f"Found matching dependency in version {version_str}")
+                    print(
+                        f"Found matching dependency in {target_dep} version {version_str}"
+                    )
 
                     # Get release timestamp from version metadata
                     timestamp = version.get("timestamp", "")
@@ -114,17 +120,31 @@ def process_version(
                                 f"{target_dep},{version_str},{dependent_lib},{dependent_version},{timestamp},{release_timestamp}\n"
                             )
                     return True
+        else:
+            logging.warning(
+                f"Failed to fetch POM for {target_dep} version {version_str}: HTTP {pom_response.status_code}"
+            )
+            print(
+                f"Failed to fetch POM for {target_dep} version {version_str}: HTTP {pom_response.status_code}"
+            )
 
     except requests.exceptions.RequestException as e:
         logging.error(
+            f"Network error processing POM for {target_dep} version {version_str}: {str(e)}"
+        )
+        print(
             f"Network error processing POM for {target_dep} version {version_str}: {str(e)}"
         )
     except ET.ParseError as e:
         logging.error(
             f"XML parsing error for {target_dep} version {version_str}: {str(e)}"
         )
+        print(f"XML parsing error for {target_dep} version {version_str}: {str(e)}")
     except Exception as e:
         logging.error(
+            f"Unexpected error processing POM for {target_dep} version {version_str}: {str(e)}"
+        )
+        print(
             f"Unexpected error processing POM for {target_dep} version {version_str}: {str(e)}"
         )
 
@@ -132,13 +152,7 @@ def process_version(
 
 
 def process_dependency_pair(args):
-    (
-        row,
-        output_folder,
-        processed,
-        total_pairs,
-        start_time,
-    ) = args
+    row, output_folder = args
 
     parent = row["parent"]
     target_dep = row["dependent"]
@@ -149,32 +163,24 @@ def process_dependency_pair(args):
         group_id, artifact_id = target_dep.split(":")
     except ValueError:
         logger.error(f"Invalid dependency format: {target_dep}")
+        print(f"Invalid dependency format: {target_dep}")
         return
 
-    # Calculate ETA
-    elapsed_time = time.time() - start_time
-    avg_time_per_pair = elapsed_time / processed if processed > 0 else 0
-    remaining_pairs = total_pairs - processed
-    eta_seconds = avg_time_per_pair * remaining_pairs
-    eta = str(timedelta(seconds=int(eta_seconds)))
-
-    logger.info(
-        f"Processing dependency pair {processed}/{total_pairs}: {target_dep} (ETA: {eta})"
-    )
-    print(f"\nAnalyzing versions for {target_dep}... (ETA: {eta})")
+    print(f"\nProcessing dependency pair: {target_dep}")
 
     try:
         search_url = f"https://search.maven.org/solrsearch/select?q=g:{group_id}+AND+a:{artifact_id}&core=gav&rows=1000&wt=json"
         session = get_session_with_retries()
+        print(f"Fetching versions for {target_dep}...")
         response = session.get(search_url, timeout=10)
         response.raise_for_status()
         versions = response.json()["response"]["docs"]
 
         logger.info(f"Found {len(versions)} versions for {target_dep}")
-        print(f"Found {len(versions)} versions to check...")
+        print(f"Found {len(versions)} versions for {target_dep}")
 
-        # Process versions sequentially or with limited concurrency
-        with ThreadPoolExecutor(max_workers=5) as executor:
+        # Process versions in parallel
+        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
             futures = [
                 executor.submit(
                     process_version,
@@ -189,17 +195,21 @@ def process_dependency_pair(args):
             ]
 
             for future in as_completed(futures):
-                future.result()
+                try:
+                    future.result()
+                except Exception as e:
+                    logging.error(f"Error in processing version: {str(e)}")
+                    print(f"Error in processing version: {str(e)}")
 
     except requests.exceptions.RequestException as e:
         logger.error(f"Network error fetching versions for {target_dep}: {str(e)}")
-        print(f"Failed to fetch versions for {target_dep}")
+        print(f"Network error fetching versions for {target_dep}: {str(e)}")
     except KeyError as e:
         logger.error(f"Error parsing versions for {target_dep}: {str(e)}")
-        print(f"Error parsing versions for {target_dep}")
+        print(f"Error parsing versions for {target_dep}: {str(e)}")
     except Exception as e:
         logger.error(f"Unexpected error for {target_dep}: {str(e)}")
-        print(f"Unexpected error for {target_dep}")
+        print(f"Unexpected error for {target_dep}: {str(e)}")
 
 
 def main():
@@ -240,18 +250,20 @@ def main():
             print(f"Error processing repository")
             continue
 
-    total_pairs = len(df)
-    processed = 0
     start_time = time.time()
 
     # Prepare arguments for dependency pairs
     args_list = []
-    for _, row in df.iterrows():
-        processed += 1
-        args_list.append((row, output_folder, processed, total_pairs, start_time))
+    for row in df.to_dict("records"):
+        args_list.append((row, output_folder))
+
+    total_pairs = len(args_list)
 
     # Process dependency pairs in parallel
-    with ThreadPoolExecutor(max_workers=5) as executor:
+    print(
+        f"Starting to process {total_pairs} dependency pairs with {MAX_WORKERS} workers..."
+    )
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         list(tqdm(executor.map(process_dependency_pair, args_list), total=total_pairs))
 
     # Calculate total execution time
