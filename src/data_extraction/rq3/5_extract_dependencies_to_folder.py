@@ -6,8 +6,11 @@ import logging
 import os
 import time
 from datetime import timedelta
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
+import threading
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 
 # Set up logging
 logging.basicConfig(
@@ -20,6 +23,31 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Global locks dictionary and its lock
+locks = {}
+locks_lock = threading.Lock()
+
+
+def get_lock_for_file(output_path):
+    with locks_lock:
+        if output_path not in locks:
+            locks[output_path] = threading.Lock()
+        return locks[output_path]
+
+
+def get_session_with_retries():
+    session = requests.Session()
+    retry_strategy = Retry(
+        total=5,
+        backoff_factor=1,
+        status_forcelist=[429, 500, 502, 503, 504],
+        allowed_methods=["GET"],
+    )
+    adapter = HTTPAdapter(max_retries=retry_strategy)
+    session.mount("http://", adapter)
+    session.mount("https://", adapter)
+    return session
+
 
 def process_version(
     version, target_dep, dependent_lib, output_folder, github_owner, github_repo
@@ -29,8 +57,10 @@ def process_version(
     version_str = version["v"]
     pom_url = f"https://search.maven.org/remotecontent?filepath={group_id.replace('.','/')}/{artifact_id}/{version_str}/{artifact_id}-{version_str}.pom"
 
+    session = get_session_with_retries()
+
     try:
-        pom_response = requests.get(pom_url)
+        pom_response = session.get(pom_url, timeout=10)
         if pom_response.status_code == 200:
             # Parse POM XML
             root = ET.fromstring(pom_response.content)
@@ -77,23 +107,39 @@ def process_version(
                         output_folder,
                         f"{github_owner}_{github_repo}/pom_dependencies.csv",
                     )
-                    with open(output_path, "a") as f:
-                        f.write(
-                            f"{target_dep},{version_str},{dependent_lib},{dependent_version},{timestamp},{release_timestamp}\n"
-                        )
+                    lock = get_lock_for_file(output_path)
+                    with lock:
+                        with open(output_path, "a") as f:
+                            f.write(
+                                f"{target_dep},{version_str},{dependent_lib},{dependent_version},{timestamp},{release_timestamp}\n"
+                            )
                     return True
 
+    except requests.exceptions.RequestException as e:
+        logging.error(
+            f"Network error processing POM for {target_dep} version {version_str}: {str(e)}"
+        )
+    except ET.ParseError as e:
+        logging.error(
+            f"XML parsing error for {target_dep} version {version_str}: {str(e)}"
+        )
     except Exception as e:
         logging.error(
-            f"Error processing POM for {target_dep} version {version_str}: {str(e)}"
+            f"Unexpected error processing POM for {target_dep} version {version_str}: {str(e)}"
         )
-        print(f"Error processing POM for version {version_str}")
 
     return False
 
 
-def process_dependency_pair(row, output_folder, processed, total_pairs, start_time):
-    """Process a single dependency pair and all its versions"""
+def process_dependency_pair(args):
+    (
+        row,
+        output_folder,
+        processed,
+        total_pairs,
+        start_time,
+    ) = args
+
     parent = row["parent"]
     target_dep = row["dependent"]
     github_owner = row["github_owner"]
@@ -107,7 +153,7 @@ def process_dependency_pair(row, output_folder, processed, total_pairs, start_ti
 
     # Calculate ETA
     elapsed_time = time.time() - start_time
-    avg_time_per_pair = elapsed_time / processed
+    avg_time_per_pair = elapsed_time / processed if processed > 0 else 0
     remaining_pairs = total_pairs - processed
     eta_seconds = avg_time_per_pair * remaining_pairs
     eta = str(timedelta(seconds=int(eta_seconds)))
@@ -119,14 +165,16 @@ def process_dependency_pair(row, output_folder, processed, total_pairs, start_ti
 
     try:
         search_url = f"https://search.maven.org/solrsearch/select?q=g:{group_id}+AND+a:{artifact_id}&core=gav&rows=1000&wt=json"
-        response = requests.get(search_url)
+        session = get_session_with_retries()
+        response = session.get(search_url, timeout=10)
+        response.raise_for_status()
         versions = response.json()["response"]["docs"]
 
         logger.info(f"Found {len(versions)} versions for {target_dep}")
         print(f"Found {len(versions)} versions to check...")
 
-        # Process versions in parallel with ThreadPoolExecutor
-        with ThreadPoolExecutor(max_workers=12) as executor:
+        # Process versions sequentially or with limited concurrency
+        with ThreadPoolExecutor(max_workers=5) as executor:
             futures = [
                 executor.submit(
                     process_version,
@@ -140,13 +188,18 @@ def process_dependency_pair(row, output_folder, processed, total_pairs, start_ti
                 for version in versions
             ]
 
-            # Wait for all futures to complete
             for future in as_completed(futures):
-                future.result()  # Get result to propagate any exceptions
+                future.result()
 
-    except Exception as e:
-        logger.error(f"Error fetching versions for {target_dep}: {str(e)}")
+    except requests.exceptions.RequestException as e:
+        logger.error(f"Network error fetching versions for {target_dep}: {str(e)}")
         print(f"Failed to fetch versions for {target_dep}")
+    except KeyError as e:
+        logger.error(f"Error parsing versions for {target_dep}: {str(e)}")
+        print(f"Error parsing versions for {target_dep}")
+    except Exception as e:
+        logger.error(f"Unexpected error for {target_dep}: {str(e)}")
+        print(f"Unexpected error for {target_dep}")
 
 
 def main():
@@ -161,7 +214,6 @@ def main():
     # For each unique github_owner/repo combination, create a CSV file with headers
     for _, row in df.iterrows():
         try:
-            print(row["github_owner"], row["github_repo"])
             output_path = os.path.join(
                 output_folder,
                 f"{row['github_owner']}_{row['github_repo']}/pom_dependencies.csv",
@@ -192,10 +244,15 @@ def main():
     processed = 0
     start_time = time.time()
 
-    # Process each dependency pair
-    for _, row in tqdm(df.iterrows(), total=total_pairs):
+    # Prepare arguments for dependency pairs
+    args_list = []
+    for _, row in df.iterrows():
         processed += 1
-        process_dependency_pair(row, output_folder, processed, total_pairs, start_time)
+        args_list.append((row, output_folder, processed, total_pairs, start_time))
+
+    # Process dependency pairs in parallel
+    with ThreadPoolExecutor(max_workers=5) as executor:
+        list(tqdm(executor.map(process_dependency_pair, args_list), total=total_pairs))
 
     # Calculate total execution time
     total_time = str(timedelta(seconds=int(time.time() - start_time)))
