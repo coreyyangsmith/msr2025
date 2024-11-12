@@ -12,3 +12,6 @@
 *.env
 *.graphml
 *.json
+
+data/rq2_opendigger/*
+data/rq3_1_dependent_artifacts.csv

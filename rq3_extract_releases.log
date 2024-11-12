@@ -815,3 +815,8 @@
 2024-11-10 17:28:28,308 - INFO - Found matching dependency in version 0.0.136.java19
 2024-11-10 17:28:28,308 - INFO - Found matching dependency in version 0.0.136
 2024-11-10 17:28:28,312 - INFO - Processing dependency pair 49/168136: com.azure.spring:spring-cloud-azure-starter-active-directory (ETA: 2 days, 9:10:48)
+2024-11-12 09:40:57,072 - INFO - Starting extraction of relevant releases...
+2024-11-12 09:40:57,087 - INFO - Processing dependency pair 1/168136: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos (ETA: 0:38:52)
+2024-11-12 09:40:57,506 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-12 09:40:57,852 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-12 09:40:57,869 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk (ETA: 18:35:13)

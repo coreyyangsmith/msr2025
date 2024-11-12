@@ -26,4 +26,4 @@ merged_df["patched_release_id"] = (
 # Export results
 merged_df.to_csv(RQ2_7_OUTPUT, index=False)
 
-print(f"Found {len(merged_df)} matching repositories")
+print(f"Found {len(merged_df)} matching CVE instances")
