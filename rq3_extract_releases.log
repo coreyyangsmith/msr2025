@@ -820,3 +820,346 @@
 2024-11-12 09:40:57,506 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
 2024-11-12 09:40:57,852 - INFO - Found matching dependency in version 4.15.0_1
 2024-11-12 09:40:57,869 - INFO - Processing dependency pair 2/168136: io.github.mmihira:qualtrix-sdk (ETA: 18:35:13)
+2024-11-12 12:46:00,496 - INFO - MainThread - Starting extraction of relevant releases...
+2024-11-12 12:46:00,497 - INFO - ThreadPoolExecutor-0_0 - Processing dependency pair: org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-12 12:46:00,497 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: io.github.mmihira:qualtrix-sdk
+2024-11-12 12:46:00,498 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: org.jetlinks:jetlinks-supports
+2024-11-12 12:46:00,498 - INFO - ThreadPoolExecutor-0_3 - Processing dependency pair: org.apache.james:james-server-protocols-imap4
+2024-11-12 12:46:00,498 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-12 12:46:00,498 - INFO - ThreadPoolExecutor-0_5 - Processing dependency pair: org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-12 12:46:00,498 - INFO - ThreadPoolExecutor-0_6 - Processing dependency pair: org.flowable:flowable-http-common
+2024-11-12 12:46:00,499 - INFO - ThreadPoolExecutor-0_7 - Processing dependency pair: com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-12 12:46:01,079 - INFO - ThreadPoolExecutor-0_6 - Found 11 versions for org.flowable:flowable-http-common
+2024-11-12 12:46:01,079 - INFO - ThreadPoolExecutor-0_4 - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-12 12:46:01,079 - INFO - ThreadPoolExecutor-0_0 - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-12 12:46:01,079 - INFO - ThreadPoolExecutor-0_7 - Found 2 versions for com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-12 12:46:01,086 - INFO - ThreadPoolExecutor-0_1 - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-12 12:46:01,250 - INFO - ThreadPoolExecutor-0_5 - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-12 12:46:01,252 - INFO - ThreadPoolExecutor-0_2 - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-12 12:46:01,462 - INFO - ThreadPoolExecutor-1_2 - Found matching dependency in org.flowable:flowable-http-common version 7.0.1
+2024-11-12 12:46:01,468 - INFO - ThreadPoolExecutor-5_2 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.3.11
+2024-11-12 12:46:01,468 - INFO - ThreadPoolExecutor-4_0 - Found matching dependency in com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike version 0.0.7
+2024-11-12 12:46:01,469 - INFO - ThreadPoolExecutor-1_0 - Found matching dependency in org.flowable:flowable-http-common version 7.1.0
+2024-11-12 12:46:01,488 - INFO - ThreadPoolExecutor-1_3 - Found matching dependency in org.flowable:flowable-http-common version 7.0.0
+2024-11-12 12:46:01,521 - INFO - ThreadPoolExecutor-1_1 - Found matching dependency in org.flowable:flowable-http-common version 6.8.1
+2024-11-12 12:46:01,573 - INFO - ThreadPoolExecutor-5_1 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.4.0
+2024-11-12 12:46:01,585 - INFO - ThreadPoolExecutor-5_0 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.4.1
+2024-11-12 12:46:01,599 - INFO - ThreadPoolExecutor-2_0 - Found matching dependency in io.wcm.caravan:io.wcm.caravan.rhyme.spring version 1.0.0
+2024-11-12 12:46:01,599 - INFO - ThreadPoolExecutor-0_3 - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-12 12:46:01,607 - INFO - ThreadPoolExecutor-6_0 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.8.RELEASE
+2024-11-12 12:46:01,613 - INFO - ThreadPoolExecutor-4_1 - Found matching dependency in com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike version 0.0.6
+2024-11-12 12:46:01,615 - INFO - ThreadPoolExecutor-5_3 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.3.10
+2024-11-12 12:46:01,622 - INFO - ThreadPoolExecutor-6_1 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.7.RELEASE
+2024-11-12 12:46:01,744 - INFO - ThreadPoolExecutor-7_0 - Found matching dependency in org.jetlinks:jetlinks-supports version 1.2.2
+2024-11-12 12:46:01,744 - INFO - ThreadPoolExecutor-1_3 - Found matching dependency in org.flowable:flowable-http-common version 6.8.0
+2024-11-12 12:46:01,745 - INFO - ThreadPoolExecutor-5_2 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.3.0
+2024-11-12 12:46:01,752 - INFO - ThreadPoolExecutor-1_0 - Found matching dependency in org.flowable:flowable-http-common version 7.0.0.M1
+2024-11-12 12:46:01,753 - INFO - ThreadPoolExecutor-6_2 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.6.RELEASE
+2024-11-12 12:46:01,766 - INFO - ThreadPoolExecutor-6_3 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.5.RELEASE
+2024-11-12 12:46:01,778 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: io.opentracing.contrib:opentracing-spring-web
+2024-11-12 12:46:01,790 - INFO - ThreadPoolExecutor-1_2 - Found matching dependency in org.flowable:flowable-http-common version 7.0.0.M2
+2024-11-12 12:46:01,795 - INFO - ThreadPoolExecutor-0_7 - Processing dependency pair: com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-12 12:46:01,850 - INFO - ThreadPoolExecutor-5_1 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.2.1
+2024-11-12 12:46:01,851 - INFO - ThreadPoolExecutor-1_1 - Found matching dependency in org.flowable:flowable-http-common version 6.7.2
+2024-11-12 12:46:01,889 - INFO - ThreadPoolExecutor-5_0 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.2.0
+2024-11-12 12:46:01,896 - INFO - ThreadPoolExecutor-5_3 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.1.13
+2024-11-12 12:46:01,927 - INFO - ThreadPoolExecutor-6_1 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.3.RELEASE
+2024-11-12 12:46:01,934 - INFO - ThreadPoolExecutor-1_3 - Found matching dependency in org.flowable:flowable-http-common version 6.7.1
+2024-11-12 12:46:01,959 - INFO - ThreadPoolExecutor-6_0 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.4.RELEASE
+2024-11-12 12:46:02,121 - INFO - ThreadPoolExecutor-6_2 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.2.RELEASE
+2024-11-12 12:46:02,121 - INFO - ThreadPoolExecutor-0_7 - Found 17 versions for com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-12 12:46:02,127 - INFO - ThreadPoolExecutor-5_2 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.1.12
+2024-11-12 12:46:02,128 - INFO - ThreadPoolExecutor-1_0 - Found matching dependency in org.flowable:flowable-http-common version 6.7.0
+2024-11-12 12:46:02,128 - INFO - ThreadPoolExecutor-6_3 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.7.RELEASE
+2024-11-12 12:46:02,129 - INFO - ThreadPoolExecutor-3_3 - Found matching dependency in org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos version 4.15.0_1
+2024-11-12 12:46:02,130 - INFO - ThreadPoolExecutor-1_2 - Found matching dependency in org.flowable:flowable-http-common version 6.6.0
+2024-11-12 12:46:02,200 - INFO - ThreadPoolExecutor-8_0 - Found matching dependency in org.apache.james:james-server-protocols-imap4 version 3.7.5
+2024-11-12 12:46:02,214 - INFO - ThreadPoolExecutor-8_3 - Found matching dependency in org.apache.james:james-server-protocols-imap4 version 3.7.4
+2024-11-12 12:46:02,227 - INFO - ThreadPoolExecutor-5_1 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.1.11
+2024-11-12 12:46:02,234 - INFO - ThreadPoolExecutor-5_0 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.1.1
+2024-11-12 12:46:02,240 - INFO - ThreadPoolExecutor-0_0 - Processing dependency pair: com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-12 12:46:02,270 - INFO - ThreadPoolExecutor-0_6 - Processing dependency pair: org.springframework.cloud:spring-cloud-vault-config
+2024-11-12 12:46:02,277 - INFO - ThreadPoolExecutor-6_0 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.0.RELEASE
+2024-11-12 12:46:02,290 - INFO - ThreadPoolExecutor-6_1 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.2.1.RELEASE
+2024-11-12 12:46:02,303 - INFO - ThreadPoolExecutor-5_3 - Found matching dependency in io.github.mmihira:qualtrix-sdk version 0.1.0
+2024-11-12 12:46:02,328 - INFO - ThreadPoolExecutor-6_2 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.6.RELEASE
+2024-11-12 12:46:02,335 - INFO - ThreadPoolExecutor-6_3 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.5.RELEASE
+2024-11-12 12:46:02,335 - INFO - ThreadPoolExecutor-8_2 - Found matching dependency in org.apache.james:james-server-protocols-imap4 version 3.7.2
+2024-11-12 12:46:02,564 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: com.vlkan:reactor-pubsub
+2024-11-12 12:46:02,566 - INFO - ThreadPoolExecutor-0_4 - Found 20 versions for io.opentracing.contrib:opentracing-spring-web
+2024-11-12 12:46:02,567 - INFO - ThreadPoolExecutor-6_0 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.4.RELEASE
+2024-11-12 12:46:02,567 - INFO - ThreadPoolExecutor-0_0 - Found 8 versions for com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-12 12:46:02,567 - INFO - ThreadPoolExecutor-8_0 - Found matching dependency in org.apache.james:james-server-protocols-imap4 version 3.7.1
+2024-11-12 12:46:02,569 - INFO - ThreadPoolExecutor-8_1 - Found matching dependency in org.apache.james:james-server-protocols-imap4 version 3.7.3
+2024-11-12 12:46:02,569 - INFO - ThreadPoolExecutor-6_1 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.3.RELEASE
+2024-11-12 12:46:02,594 - INFO - ThreadPoolExecutor-0_6 - Found 20 versions for org.springframework.cloud:spring-cloud-vault-config
+2024-11-12 12:46:02,664 - INFO - ThreadPoolExecutor-9_0 - Found matching dependency in com.github.ljtfreitas:java-restify-spring-autoconfigure version 2.1.0
+2024-11-12 12:46:02,694 - INFO - ThreadPoolExecutor-0_1 - Found 6 versions for com.vlkan:reactor-pubsub
+2024-11-12 12:46:02,706 - ERROR - ThreadPoolExecutor-0_2 - Invalid dependency format: io.projectreactor.netty
+2024-11-12 12:46:02,706 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: ru.sokomishalov.skraper:skrapers
+2024-11-12 12:46:02,729 - INFO - ThreadPoolExecutor-6_1 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.1.RELEASE
+2024-11-12 12:46:02,761 - INFO - ThreadPoolExecutor-6_2 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.2.RELEASE
+2024-11-12 12:46:02,800 - INFO - ThreadPoolExecutor-6_0 - Found matching dependency in org.springframework.cloud:spring-cloud-sleuth-core version 2.1.0.RELEASE
+2024-11-12 12:46:02,847 - INFO - ThreadPoolExecutor-0_5 - Processing dependency pair: io.opns.otl:otl-integ
+2024-11-12 12:46:02,919 - INFO - ThreadPoolExecutor-10_1 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 4.0.0
+2024-11-12 12:46:03,128 - INFO - ThreadPoolExecutor-10_0 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 4.1.0
+2024-11-12 12:46:03,128 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.1.3
+2024-11-12 12:46:03,135 - INFO - ThreadPoolExecutor-11_1 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.7
+2024-11-12 12:46:03,135 - INFO - ThreadPoolExecutor-11_2 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.6
+2024-11-12 12:46:03,136 - INFO - ThreadPoolExecutor-12_1 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.1.2
+2024-11-12 12:46:03,136 - INFO - ThreadPoolExecutor-11_0 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.8
+2024-11-12 12:46:03,155 - INFO - ThreadPoolExecutor-10_3 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 3.0.0
+2024-11-12 12:46:03,155 - INFO - ThreadPoolExecutor-0_2 - Found 15 versions for ru.sokomishalov.skraper:skrapers
+2024-11-12 12:46:03,155 - INFO - ThreadPoolExecutor-12_2 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.1.1
+2024-11-12 12:46:03,156 - INFO - ThreadPoolExecutor-12_3 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.0.2
+2024-11-12 12:46:03,156 - INFO - ThreadPoolExecutor-11_3 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.5
+2024-11-12 12:46:03,163 - INFO - ThreadPoolExecutor-10_2 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 3.0.1
+2024-11-12 12:46:03,214 - INFO - ThreadPoolExecutor-13_2 - Found matching dependency in com.vlkan:reactor-pubsub version 0.2.0
+2024-11-12 12:46:03,233 - INFO - ThreadPoolExecutor-13_0 - Found matching dependency in com.vlkan:reactor-pubsub version 0.2.2
+2024-11-12 12:46:03,235 - INFO - ThreadPoolExecutor-0_5 - Found 1 versions for io.opns.otl:otl-integ
+2024-11-12 12:46:03,236 - INFO - ThreadPoolExecutor-13_1 - Found matching dependency in com.vlkan:reactor-pubsub version 0.2.1
+2024-11-12 12:46:03,251 - INFO - ThreadPoolExecutor-10_1 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 2.1.3
+2024-11-12 12:46:03,291 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.1.4
+2024-11-12 12:46:03,317 - INFO - ThreadPoolExecutor-13_3 - Found matching dependency in com.vlkan:reactor-pubsub version 0.1.2
+2024-11-12 12:46:03,317 - INFO - ThreadPoolExecutor-11_1 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.4
+2024-11-12 12:46:03,317 - INFO - ThreadPoolExecutor-11_2 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.3
+2024-11-12 12:46:03,329 - INFO - ThreadPoolExecutor-10_0 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 2.1.1
+2024-11-12 12:46:03,330 - INFO - ThreadPoolExecutor-10_3 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 2.1.0
+2024-11-12 12:46:03,337 - INFO - ThreadPoolExecutor-12_2 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.1.3
+2024-11-12 12:46:03,367 - INFO - ThreadPoolExecutor-12_3 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.0.1
+2024-11-12 12:46:03,373 - INFO - ThreadPoolExecutor-11_0 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.2
+2024-11-12 12:46:03,373 - INFO - ThreadPoolExecutor-0_3 - Processing dependency pair: io.memoria.jutils:jackson-adapter
+2024-11-12 12:46:03,386 - INFO - ThreadPoolExecutor-11_3 - Found matching dependency in com.jauntsdn.rsocket:rsocket-transport-netty version 0.9.1
+2024-11-12 12:46:03,412 - INFO - ThreadPoolExecutor-10_2 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 2.0.0
+2024-11-12 12:46:03,413 - INFO - ThreadPoolExecutor-13_2 - Found matching dependency in com.vlkan:reactor-pubsub version 0.1.1
+2024-11-12 12:46:03,413 - INFO - ThreadPoolExecutor-12_1 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.1.0
+2024-11-12 12:46:03,438 - INFO - ThreadPoolExecutor-13_0 - Found matching dependency in com.vlkan:reactor-pubsub version 0.1.0
+2024-11-12 12:46:03,510 - INFO - ThreadPoolExecutor-0_0 - Processing dependency pair: io.micrometer:micrometer-core
+2024-11-12 12:46:03,517 - INFO - ThreadPoolExecutor-10_1 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 1.1.2
+2024-11-12 12:46:03,790 - INFO - ThreadPoolExecutor-10_0 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 1.1.1
+2024-11-12 12:46:03,791 - INFO - ThreadPoolExecutor-10_3 - Found matching dependency in io.opentracing.contrib:opentracing-spring-web version 1.1.0
+2024-11-12 12:46:03,802 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.1.2
+2024-11-12 12:46:03,802 - INFO - ThreadPoolExecutor-0_7 - Processing dependency pair: com.expediagroup.molten:molten-http-client
+2024-11-12 12:46:03,802 - INFO - ThreadPoolExecutor-14_1 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.12.1
+2024-11-12 12:46:03,803 - INFO - ThreadPoolExecutor-12_2 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 4.0.0
+2024-11-12 12:46:03,814 - INFO - ThreadPoolExecutor-12_3 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.1.1
+2024-11-12 12:46:03,815 - INFO - ThreadPoolExecutor-14_0 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.13.0
+2024-11-12 12:46:03,821 - INFO - ThreadPoolExecutor-0_3 - Found 20 versions for io.memoria.jutils:jackson-adapter
+2024-11-12 12:46:03,848 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: io.xiaper:xiaper-spring-boot-router-rabbitmq
+2024-11-12 12:46:03,875 - INFO - ThreadPoolExecutor-15_0 - Found matching dependency in io.opns.otl:otl-integ version 0.2.16-alpha
+2024-11-12 12:46:03,899 - INFO - ThreadPoolExecutor-14_3 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.11.1
+2024-11-12 12:46:03,918 - INFO - ThreadPoolExecutor-12_1 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.5
+2024-11-12 12:46:03,943 - INFO - ThreadPoolExecutor-0_5 - Processing dependency pair: com.github.ljtfreitas:java-restify-spring-reactive
+2024-11-12 12:46:03,962 - INFO - ThreadPoolExecutor-14_2 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.12.0
+2024-11-12 12:46:03,987 - INFO - ThreadPoolExecutor-0_7 - Found 10 versions for com.expediagroup.molten:molten-http-client
+2024-11-12 12:46:03,999 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.1.0
+2024-11-12 12:46:03,999 - INFO - ThreadPoolExecutor-12_2 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.4
+2024-11-12 12:46:04,005 - INFO - ThreadPoolExecutor-14_1 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.11.0
+2024-11-12 12:46:04,017 - INFO - ThreadPoolExecutor-0_0 - Found 20 versions for io.micrometer:micrometer-core
+2024-11-12 12:46:04,024 - INFO - ThreadPoolExecutor-12_3 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.3
+2024-11-12 12:46:04,026 - INFO - ThreadPoolExecutor-14_0 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.10.0
+2024-11-12 12:46:04,094 - INFO - ThreadPoolExecutor-14_3 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.9.2
+2024-11-12 12:46:04,119 - INFO - ThreadPoolExecutor-14_2 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.9.1
+2024-11-12 12:46:04,125 - INFO - ThreadPoolExecutor-0_5 - Found 2 versions for com.github.ljtfreitas:java-restify-spring-reactive
+2024-11-12 12:46:04,126 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 2.2.7.RELEASE
+2024-11-12 12:46:04,133 - INFO - ThreadPoolExecutor-12_3 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.0
+2024-11-12 12:46:04,134 - INFO - ThreadPoolExecutor-12_1 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.2
+2024-11-12 12:46:04,134 - INFO - ThreadPoolExecutor-14_0 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.8.4
+2024-11-12 12:46:04,135 - INFO - ThreadPoolExecutor-14_1 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.9.0
+2024-11-12 12:46:04,135 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: org.apache.camel:camel-stitch
+2024-11-12 12:46:04,136 - INFO - ThreadPoolExecutor-12_2 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 3.0.1
+2024-11-12 12:46:04,201 - INFO - ThreadPoolExecutor-0_1 - Found 3 versions for io.xiaper:xiaper-spring-boot-router-rabbitmq
+2024-11-12 12:46:04,225 - INFO - ThreadPoolExecutor-14_2 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.8.2
+2024-11-12 12:46:04,226 - INFO - ThreadPoolExecutor-14_3 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.8.3
+2024-11-12 12:46:04,251 - INFO - ThreadPoolExecutor-12_0 - Found matching dependency in org.springframework.cloud:spring-cloud-vault-config version 2.2.6.RELEASE
+2024-11-12 12:46:04,269 - INFO - ThreadPoolExecutor-14_0 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.8.1
+2024-11-12 12:46:04,288 - INFO - ThreadPoolExecutor-14_1 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.8.0
+2024-11-12 12:46:04,604 - INFO - ThreadPoolExecutor-0_6 - Processing dependency pair: org.bremersee:common-xml-spring-webflux
+2024-11-12 12:46:04,610 - INFO - ThreadPoolExecutor-0_4 - Found 20 versions for org.apache.camel:camel-stitch
+2024-11-12 12:46:04,611 - INFO - ThreadPoolExecutor-17_2 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.2.1
+2024-11-12 12:46:04,613 - INFO - ThreadPoolExecutor-14_2 - Found matching dependency in ru.sokomishalov.skraper:skrapers version 0.7.0
+2024-11-12 12:46:04,613 - INFO - ThreadPoolExecutor-17_3 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.2.0
+2024-11-12 12:46:04,625 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: org.springframework:spring-messaging
+2024-11-12 12:46:04,719 - INFO - ThreadPoolExecutor-19_0 - Found matching dependency in com.github.ljtfreitas:java-restify-spring-reactive version 2.1.0
+2024-11-12 12:46:04,720 - INFO - ThreadPoolExecutor-17_0 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.2.3
+2024-11-12 12:46:04,720 - INFO - ThreadPoolExecutor-17_2 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.1.3
+2024-11-12 12:46:04,738 - INFO - ThreadPoolExecutor-17_3 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.1.2
+2024-11-12 12:46:04,745 - INFO - ThreadPoolExecutor-0_6 - Found 2 versions for org.bremersee:common-xml-spring-webflux
+2024-11-12 12:46:04,757 - INFO - ThreadPoolExecutor-17_1 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.2.2
+2024-11-12 12:46:04,782 - INFO - ThreadPoolExecutor-0_2 - Found 20 versions for org.springframework:spring-messaging
+2024-11-12 12:46:04,789 - INFO - ThreadPoolExecutor-0_5 - Processing dependency pair: com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test
+2024-11-12 12:46:04,867 - INFO - ThreadPoolExecutor-20_1 - Found matching dependency in io.xiaper:xiaper-spring-boot-router-rabbitmq version 2.1.5.RELEASE
+2024-11-12 12:46:04,887 - INFO - ThreadPoolExecutor-20_2 - Found matching dependency in io.xiaper:xiaper-spring-boot-router-rabbitmq version 2.1.4.RELEASE
+2024-11-12 12:46:04,887 - INFO - ThreadPoolExecutor-17_0 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.1.1
+2024-11-12 12:46:04,887 - INFO - ThreadPoolExecutor-17_3 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.0.0
+2024-11-12 12:46:04,888 - INFO - ThreadPoolExecutor-20_0 - Found matching dependency in io.xiaper:xiaper-spring-boot-router-rabbitmq version 2.1.6.RELEASE
+2024-11-12 12:46:04,888 - INFO - ThreadPoolExecutor-17_1 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.0.0-beta.2
+2024-11-12 12:46:04,888 - INFO - ThreadPoolExecutor-17_2 - Found matching dependency in com.expediagroup.molten:molten-http-client version 1.1.0
+2024-11-12 12:46:04,946 - INFO - ThreadPoolExecutor-21_0 - Found matching dependency in org.apache.camel:camel-stitch version 4.8.1
+2024-11-12 12:46:04,965 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 4.4.4
+2024-11-12 12:46:04,971 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: com.alipay.sofa:sofa-ark-springboot-starter
+2024-11-12 12:46:05,009 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 4.0.6
+2024-11-12 12:46:05,014 - INFO - ThreadPoolExecutor-0_7 - Processing dependency pair: io.scalecube:rsocket-services-transport
+2024-11-12 12:46:05,122 - INFO - ThreadPoolExecutor-21_2 - Found matching dependency in org.apache.camel:camel-stitch version 4.8.0
+2024-11-12 12:46:05,151 - INFO - ThreadPoolExecutor-0_7 - Found 20 versions for io.scalecube:rsocket-services-transport
+2024-11-12 12:46:05,152 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 4.4.3
+2024-11-12 12:46:05,159 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 3.21.5
+2024-11-12 12:46:05,183 - INFO - ThreadPoolExecutor-21_0 - Found matching dependency in org.apache.camel:camel-stitch version 4.7.0
+2024-11-12 12:46:05,238 - INFO - ThreadPoolExecutor-22_0 - Found matching dependency in org.bremersee:common-xml-spring-webflux version 3.1.0
+2024-11-12 12:46:05,317 - INFO - ThreadPoolExecutor-0_1 - Found 20 versions for com.alipay.sofa:sofa-ark-springboot-starter
+2024-11-12 12:46:05,367 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 3.22.2
+2024-11-12 12:46:05,384 - INFO - ThreadPoolExecutor-21_2 - Found matching dependency in org.apache.camel:camel-stitch version 4.6.0
+2024-11-12 12:46:05,400 - INFO - ThreadPoolExecutor-0_0 - Processing dependency pair: io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime
+2024-11-12 12:46:05,414 - INFO - ThreadPoolExecutor-0_5 - Found 20 versions for com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test
+2024-11-12 12:46:05,445 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 4.0.5
+2024-11-12 12:46:05,455 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 4.5.0
+2024-11-12 12:46:05,524 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 4.4.0
+2024-11-12 12:46:05,536 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 4.0.4
+2024-11-12 12:46:05,585 - INFO - ThreadPoolExecutor-24_0 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.5
+2024-11-12 12:46:05,596 - INFO - ThreadPoolExecutor-21_2 - Found matching dependency in org.apache.camel:camel-stitch version 4.4.1
+2024-11-12 12:46:05,596 - INFO - ThreadPoolExecutor-24_2 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.3
+2024-11-12 12:46:05,605 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 3.22.1
+2024-11-12 12:46:05,644 - INFO - ThreadPoolExecutor-24_3 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.2
+2024-11-12 12:46:05,687 - INFO - ThreadPoolExecutor-24_2 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.0
+2024-11-12 12:46:05,687 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 4.3.0
+2024-11-12 12:46:05,688 - INFO - ThreadPoolExecutor-21_2 - Found matching dependency in org.apache.camel:camel-stitch version 3.22.0
+2024-11-12 12:46:05,705 - INFO - ThreadPoolExecutor-25_2 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.7
+2024-11-12 12:46:05,734 - INFO - ThreadPoolExecutor-24_0 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.1
+2024-11-12 12:46:05,757 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.2.1
+2024-11-12 12:46:05,775 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.15
+2024-11-12 12:46:05,794 - INFO - ThreadPoolExecutor-24_3 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.1.43
+2024-11-12 12:46:05,846 - INFO - ThreadPoolExecutor-21_3 - Found matching dependency in org.apache.camel:camel-stitch version 3.21.3
+2024-11-12 12:46:05,846 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.2.0
+2024-11-12 12:46:05,896 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.13
+2024-11-12 12:46:05,914 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.1.0
+2024-11-12 12:46:05,975 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.0.3
+2024-11-12 12:46:05,985 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.5
+2024-11-12 12:46:05,998 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.0.2
+2024-11-12 12:46:06,064 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.0.0
+2024-11-12 12:46:06,106 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.0.7
+2024-11-12 12:46:06,107 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.3.0
+2024-11-12 12:46:06,260 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.10
+2024-11-12 12:46:06,261 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.12
+2024-11-12 12:46:06,261 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.11
+2024-11-12 12:46:06,349 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.6
+2024-11-12 12:46:06,350 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.5
+2024-11-12 12:46:06,439 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.4
+2024-11-12 12:46:06,440 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.4
+2024-11-12 12:46:06,445 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.3
+2024-11-12 12:46:06,529 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.1
+2024-11-12 12:46:06,530 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.0.6
+2024-11-12 12:46:06,531 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.2.0
+2024-11-12 12:46:06,619 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.11
+2024-11-12 12:46:06,620 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.1.7
+2024-11-12 12:46:06,645 - INFO - ThreadPoolExecutor-26_0 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.1.8
+2024-11-12 12:46:06,708 - INFO - ThreadPoolExecutor-26_1 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 3.1.6
+2024-11-12 12:46:06,709 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.3
+2024-11-12 12:46:06,837 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.0.5
+2024-11-12 12:46:06,927 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.10
+2024-11-12 12:46:07,018 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.0.4
+2024-11-12 12:46:07,107 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.2
+2024-11-12 12:46:07,218 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.9
+2024-11-12 12:46:07,309 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.1
+2024-11-12 12:46:07,400 - INFO - ThreadPoolExecutor-22_1 - Found matching dependency in org.bremersee:common-xml-spring-webflux version 3.0.1
+2024-11-12 12:46:07,401 - INFO - ThreadPoolExecutor-25_1 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.0.3
+2024-11-12 12:46:07,402 - INFO - ThreadPoolExecutor-0_6 - Processing dependency pair: org.springframework.credhub:spring-credhub-core
+2024-11-12 12:46:07,459 - INFO - ThreadPoolExecutor-0_3 - Processing dependency pair: org.springframework.cloud:spring-cloud-function-web
+2024-11-12 12:46:07,500 - INFO - ThreadPoolExecutor-21_0 - Found matching dependency in org.apache.camel:camel-stitch version 4.4.2
+2024-11-12 12:46:07,546 - INFO - ThreadPoolExecutor-0_6 - Found 16 versions for org.springframework.credhub:spring-credhub-core
+2024-11-12 12:46:07,566 - INFO - ThreadPoolExecutor-0_3 - Found 20 versions for org.springframework.cloud:spring-cloud-function-web
+2024-11-12 12:46:07,707 - INFO - ThreadPoolExecutor-24_1 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.2.4
+2024-11-12 12:46:07,827 - INFO - ThreadPoolExecutor-21_1 - Found matching dependency in org.apache.camel:camel-stitch version 3.21.4
+2024-11-12 12:46:07,870 - INFO - ThreadPoolExecutor-25_0 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.8
+2024-11-12 12:46:07,882 - INFO - ThreadPoolExecutor-27_1 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.2.0
+2024-11-12 12:46:07,883 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: io.sermant:spring-router-plugin
+2024-11-12 12:46:07,888 - INFO - ThreadPoolExecutor-28_1 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.1.2
+2024-11-12 12:46:07,889 - INFO - ThreadPoolExecutor-27_2 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.1.1
+2024-11-12 12:46:07,889 - INFO - ThreadPoolExecutor-27_3 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.0.2
+2024-11-12 12:46:07,889 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.1.3
+2024-11-12 12:46:07,889 - INFO - ThreadPoolExecutor-27_0 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.3.0
+2024-11-12 12:46:07,898 - INFO - ThreadPoolExecutor-28_3 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.0.6
+2024-11-12 12:46:07,898 - INFO - ThreadPoolExecutor-25_3 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 2.2.14
+2024-11-12 12:46:07,936 - INFO - ThreadPoolExecutor-28_2 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.1.1
+2024-11-12 12:46:07,937 - INFO - ThreadPoolExecutor-24_2 - Found matching dependency in io.scalecube:rsocket-services-transport version 2.1.41
+2024-11-12 12:46:07,937 - INFO - ThreadPoolExecutor-26_3 - Found matching dependency in com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test version 4.1.1
+2024-11-12 12:46:07,947 - INFO - ThreadPoolExecutor-25_2 - Found matching dependency in com.alipay.sofa:sofa-ark-springboot-starter version 3.1.6
+2024-11-12 12:46:07,948 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: io.github.harishb2k.easy:http
+2024-11-12 12:46:07,958 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: net.sandrohc:reactive-jikan
+2024-11-12 12:46:07,967 - INFO - ThreadPoolExecutor-0_4 - Found 0 versions for io.sermant:spring-router-plugin
+2024-11-12 12:46:07,967 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: one.leftshift.gaia-sdk:gaia-sdk-http
+2024-11-12 12:46:07,967 - INFO - ThreadPoolExecutor-27_1 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.3.2
+2024-11-12 12:46:07,977 - INFO - ThreadPoolExecutor-27_3 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.1.0
+2024-11-12 12:46:07,978 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.1.0
+2024-11-12 12:46:07,987 - INFO - ThreadPoolExecutor-28_3 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.0.5
+2024-11-12 12:46:07,988 - INFO - ThreadPoolExecutor-28_1 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.12
+2024-11-12 12:46:07,996 - INFO - ThreadPoolExecutor-0_0 - Found 20 versions for io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime
+2024-11-12 12:46:08,008 - INFO - ThreadPoolExecutor-27_2 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.2.1
+2024-11-12 12:46:08,016 - INFO - ThreadPoolExecutor-28_2 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.0.4
+2024-11-12 12:46:08,037 - INFO - ThreadPoolExecutor-27_0 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 3.0.0
+2024-11-12 12:46:08,046 - INFO - ThreadPoolExecutor-27_1 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.3.0
+2024-11-12 12:46:08,056 - INFO - ThreadPoolExecutor-0_4 - Found 6 versions for one.leftshift.gaia-sdk:gaia-sdk-http
+2024-11-12 12:46:08,056 - ERROR - ThreadPoolExecutor-0_4 - Error fetching versions for one.leftshift.gaia-sdk:gaia-sdk-http: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,056 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: org.bremersee:common-base-webflux
+2024-11-12 12:46:08,067 - INFO - ThreadPoolExecutor-28_1 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.10
+2024-11-12 12:46:08,077 - INFO - ThreadPoolExecutor-28_3 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.0.3
+2024-11-12 12:46:08,086 - INFO - ThreadPoolExecutor-27_2 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.1.1.RELEASE
+2024-11-12 12:46:08,107 - INFO - ThreadPoolExecutor-28_2 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 4.0.2
+2024-11-12 12:46:08,127 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.11
+2024-11-12 12:46:08,128 - INFO - ThreadPoolExecutor-27_0 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.1.0.RELEASE
+2024-11-12 12:46:08,136 - INFO - ThreadPoolExecutor-27_1 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.0.1.RELEASE
+2024-11-12 12:46:08,137 - INFO - ThreadPoolExecutor-27_3 - Found matching dependency in org.springframework.credhub:spring-credhub-core version 2.2.0
+2024-11-12 12:46:08,158 - INFO - ThreadPoolExecutor-0_2 - Found 10 versions for net.sandrohc:reactive-jikan
+2024-11-12 12:46:08,158 - ERROR - ThreadPoolExecutor-0_2 - Error fetching versions for net.sandrohc:reactive-jikan: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,159 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: com.playtika.reactivefeign:feign-reactor-spring-mvc-test
+2024-11-12 12:46:08,239 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.8
+2024-11-12 12:46:08,298 - INFO - ThreadPoolExecutor-0_4 - Found 20 versions for org.bremersee:common-base-webflux
+2024-11-12 12:46:08,298 - INFO - ThreadPoolExecutor-0_1 - Found 20 versions for io.github.harishb2k.easy:http
+2024-11-12 12:46:08,299 - ERROR - ThreadPoolExecutor-0_4 - Error fetching versions for org.bremersee:common-base-webflux: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,299 - ERROR - ThreadPoolExecutor-0_1 - Error fetching versions for io.github.harishb2k.easy:http: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,299 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: org.apache.james:apache-james-mailbox-tika
+2024-11-12 12:46:08,299 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: one.leftshift.gaia-sdk:gaia-sdk-mqtt
+2024-11-12 12:46:08,328 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.7
+2024-11-12 12:46:08,328 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.2.2
+2024-11-12 12:46:08,410 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.2.0
+2024-11-12 12:46:08,410 - INFO - ThreadPoolExecutor-30_1 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.2.1
+2024-11-12 12:46:08,418 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.6
+2024-11-12 12:46:08,458 - INFO - ThreadPoolExecutor-0_1 - Found 6 versions for one.leftshift.gaia-sdk:gaia-sdk-mqtt
+2024-11-12 12:46:08,458 - ERROR - ThreadPoolExecutor-0_1 - Error fetching versions for one.leftshift.gaia-sdk:gaia-sdk-mqtt: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,459 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: com.github.759434091:reactor-rpc4j-spring-boot-starter
+2024-11-12 12:46:08,478 - INFO - ThreadPoolExecutor-0_4 - Found 19 versions for org.apache.james:apache-james-mailbox-tika
+2024-11-12 12:46:08,478 - ERROR - ThreadPoolExecutor-0_4 - Error fetching versions for org.apache.james:apache-james-mailbox-tika: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,479 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: org.apache.linkis:linkis-spring-cloud-gateway
+2024-11-12 12:46:08,508 - INFO - ThreadPoolExecutor-28_0 - Found matching dependency in org.springframework.cloud:spring-cloud-function-web version 3.2.5
+2024-11-12 12:46:08,517 - INFO - ThreadPoolExecutor-0_2 - Found 20 versions for com.playtika.reactivefeign:feign-reactor-spring-mvc-test
+2024-11-12 12:46:08,517 - ERROR - ThreadPoolExecutor-0_2 - Error fetching versions for com.playtika.reactivefeign:feign-reactor-spring-mvc-test: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,518 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: io.memoria.jutils:core
+2024-11-12 12:46:08,538 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.11
+2024-11-12 12:46:08,547 - INFO - ThreadPoolExecutor-0_1 - Found 2 versions for com.github.759434091:reactor-rpc4j-spring-boot-starter
+2024-11-12 12:46:08,547 - ERROR - ThreadPoolExecutor-0_1 - Error fetching versions for com.github.759434091:reactor-rpc4j-spring-boot-starter: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,548 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: pl.grzeslowski.jsupla:server
+2024-11-12 12:46:08,567 - INFO - ThreadPoolExecutor-30_1 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.10
+2024-11-12 12:46:08,577 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.12
+2024-11-12 12:46:08,628 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.9
+2024-11-12 12:46:08,669 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.7
+2024-11-12 12:46:08,687 - INFO - ThreadPoolExecutor-30_1 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.8
+2024-11-12 12:46:08,708 - INFO - ThreadPoolExecutor-0_1 - Found 0 versions for pl.grzeslowski.jsupla:server
+2024-11-12 12:46:08,709 - INFO - ThreadPoolExecutor-0_1 - Processing dependency pair: org.apache.james:james-server-jmap
+2024-11-12 12:46:08,787 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.6
+2024-11-12 12:46:08,808 - INFO - ThreadPoolExecutor-0_2 - Found 20 versions for io.memoria.jutils:core
+2024-11-12 12:46:08,808 - ERROR - ThreadPoolExecutor-0_2 - Error fetching versions for io.memoria.jutils:core: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,808 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: com.kfyty:loveqq-mvc-netty
+2024-11-12 12:46:08,827 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.5
+2024-11-12 12:46:08,837 - INFO - ThreadPoolExecutor-0_4 - Found 12 versions for org.apache.linkis:linkis-spring-cloud-gateway
+2024-11-12 12:46:08,837 - ERROR - ThreadPoolExecutor-0_4 - Error fetching versions for org.apache.linkis:linkis-spring-cloud-gateway: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:08,838 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: io.github.quickmsg:smqtt-common
+2024-11-12 12:46:08,918 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.2
+2024-11-12 12:46:08,948 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.3
+2024-11-12 12:46:08,967 - INFO - ThreadPoolExecutor-0_2 - Found 0 versions for com.kfyty:loveqq-mvc-netty
+2024-11-12 12:46:08,967 - INFO - ThreadPoolExecutor-0_2 - Processing dependency pair: com.pighand:pighand-framework-spring-parent
+2024-11-12 12:46:08,997 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.1
+2024-11-12 12:46:09,087 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.0.43
+2024-11-12 12:46:09,107 - INFO - ThreadPoolExecutor-30_2 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.1.0
+2024-11-12 12:46:09,157 - INFO - ThreadPoolExecutor-0_4 - Found 16 versions for io.github.quickmsg:smqtt-common
+2024-11-12 12:46:09,157 - ERROR - ThreadPoolExecutor-0_4 - Error fetching versions for io.github.quickmsg:smqtt-common: cannot schedule new futures after interpreter shutdown
+2024-11-12 12:46:09,158 - INFO - ThreadPoolExecutor-0_4 - Processing dependency pair: io.github.sgtsilvio:oci-registry
+2024-11-12 12:46:09,167 - INFO - ThreadPoolExecutor-30_0 - Found matching dependency in io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime version 0.0.42

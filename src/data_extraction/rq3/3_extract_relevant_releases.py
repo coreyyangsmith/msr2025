@@ -7,24 +7,48 @@ import os
 import time
 from datetime import timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+
+# Constants for controlling concurrency
+MAX_WORKERS = 8  # Number of threads to process dependency pairs
+VERSION_WORKERS = 4  # Number of threads to process versions per dependency pair
+
+# Thread-local storage for session objects
+thread_local = threading.local()
+output_lock = threading.Lock()
 
 
-def process_version(version, target_dep, dependent_lib, output_path):
-    """Process a single version and write results to output file if dependency is found"""
+def get_session():
+    """Get a thread-local session object with retry strategy."""
+    if not hasattr(thread_local, "session"):
+        session = requests.Session()
+        retries = Retry(
+            total=5, backoff_factor=1, status_forcelist=[429, 502, 503, 504]
+        )
+        adapter = HTTPAdapter(max_retries=retries)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        thread_local.session = session
+    return thread_local.session
+
+
+def process_version(version, target_dep, dependent_lib):
+    """Process a single version and return result if dependency is found."""
     group_id, artifact_id = target_dep.split(":")
     version_str = version["v"]
     pom_url = f"https://search.maven.org/remotecontent?filepath={group_id.replace('.','/')}/{artifact_id}/{version_str}/{artifact_id}-{version_str}.pom"
 
     try:
-        pom_response = requests.get(pom_url)
+        session = get_session()
+        pom_response = session.get(pom_url)
         if pom_response.status_code == 200:
             # Parse POM XML
             root = ET.fromstring(pom_response.content)
 
             # Check if dependent library exists in dependencies
             dep_group_id, dep_artifact_id = dependent_lib.split(":")
-
-            # Search in dependencies section
             namespaces = {"maven": "http://maven.apache.org/POM/4.0.0"}
             dependencies = root.findall(
                 ".//maven:dependencies/maven:dependency", namespaces
@@ -40,74 +64,57 @@ def process_version(version, target_dep, dependent_lib, output_path):
                     and dep_group.text == dep_group_id
                     and dep_artifact.text == dep_artifact_id
                 ):
-                    logging.info(f"Found matching dependency in version {version_str}")
-                    # Write result directly to file
-                    with open(output_path, "a") as f:
-                        f.write(
-                            f"{target_dep},{dependent_lib},{version_str},{version['timestamp']}\n"
-                        )
-                    return True
-
+                    logging.info(
+                        f"Found matching dependency in {target_dep} version {version_str}"
+                    )
+                    timestamp = version.get("timestamp", "")
+                    release_date = time.strftime(
+                        "%Y-%m-%d", time.localtime(timestamp / 1000)
+                    )
+                    return f"{target_dep},{dependent_lib},{version_str},{timestamp},{release_date}\n"
     except Exception as e:
         logging.error(
             f"Error processing POM for {target_dep} version {version_str}: {str(e)}"
         )
-        print(f"Error processing POM for version {version_str}")
-
-    return False
+    return None
 
 
-def process_dependency_pair(row, output_path, processed, total_pairs, start_time):
-    """Process a single dependency pair and all its versions"""
-    parent = row["parent"]
+def process_dependency_pair(row):
+    """Process a single dependency pair and return list of results."""
+    results = []
     target_dep = row["dependent"]
+    parent = row["parent"]
     try:
         group_id, artifact_id = target_dep.split(":")
     except ValueError:
         logging.error(f"Invalid dependency format: {target_dep}")
-        return
+        return results  # Return empty results
 
-    # Calculate ETA
-    elapsed_time = time.time() - start_time
-    avg_time_per_pair = elapsed_time / processed
-    remaining_pairs = total_pairs - processed
-    eta_seconds = avg_time_per_pair * remaining_pairs
-    eta = str(timedelta(seconds=int(eta_seconds)))
-
-    logging.info(
-        f"Processing dependency pair {processed}/{total_pairs}: {target_dep} (ETA: {eta})"
-    )
-    print(f"\nAnalyzing versions for {target_dep}... (ETA: {eta})")
-
+    logging.info(f"Processing dependency pair: {target_dep}")
     try:
+        session = get_session()
         search_url = f"https://search.maven.org/solrsearch/select?q=g:{group_id}+AND+a:{artifact_id}&core=gav&rows=1000&wt=json"
-        response = requests.get(search_url)
+        response = session.get(search_url)
         versions = response.json()["response"]["docs"]
-
         logging.info(f"Found {len(versions)} versions for {target_dep}")
-        print(f"Found {len(versions)} versions to check...")
 
-        # Process versions in parallel with ThreadPoolExecutor
-        with ThreadPoolExecutor(max_workers=12) as executor:
+        with ThreadPoolExecutor(max_workers=VERSION_WORKERS) as executor:
             futures = [
-                executor.submit(
-                    process_version, version, target_dep, parent, output_path
-                )
+                executor.submit(process_version, version, target_dep, parent)
                 for version in versions
             ]
-
-            # Wait for all futures to complete
             for future in as_completed(futures):
-                future.result()  # Get result to propagate any exceptions
-
+                result = future.result()
+                if result:
+                    results.append(result)
     except Exception as e:
         logging.error(f"Error fetching versions for {target_dep}: {str(e)}")
-        print(f"Failed to fetch versions for {target_dep}")
+    return results
 
 
 def extract_relevant_releases(input_path, output_path):
     """
-    Extract releases where target dependency is found in POM file
+    Extract releases where target dependency is found in POM file.
 
     Args:
         output_path: Path to save filtered releases data
@@ -129,15 +136,20 @@ def extract_relevant_releases(input_path, output_path):
         )
 
     total_pairs = len(dependency_pairs_df)
-    processed = 0
     start_time = time.time()
 
-    # Process each dependency pair
-    for _, row in tqdm(dependency_pairs_df.iterrows(), total=total_pairs):
-        processed += 1
-        process_dependency_pair(row, output_path, processed, total_pairs, start_time)
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = []
+        for _, row in dependency_pairs_df.iterrows():
+            futures.append(executor.submit(process_dependency_pair, row))
 
-    # Calculate total execution time
+        for future in tqdm(as_completed(futures), total=total_pairs):
+            results = future.result()
+            if results:
+                with output_lock:
+                    with open(output_path, "a") as f:
+                        f.writelines(results)
+
     total_time = str(timedelta(seconds=int(time.time() - start_time)))
 
     # Read final results to return DataFrame
@@ -158,7 +170,7 @@ if __name__ == "__main__":
     # Set up logging
     logging.basicConfig(
         level=logging.INFO,
-        format="%(asctime)s - %(levelname)s - %(message)s",
+        format="%(asctime)s - %(levelname)s - %(threadName)s - %(message)s",
         handlers=[
             logging.FileHandler("rq3_extract_releases.log"),
             logging.StreamHandler(),

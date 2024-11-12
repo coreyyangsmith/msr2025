@@ -1,5 +1,6 @@
 *.dump
 
+*.log
 
 /Goblin
 /goblinDependencyMiner
