@@ -26,7 +26,12 @@ from ...utils.parsing import (
 )
 from ...utils.string_conversion import convert_github_url_to_api
 
-logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(message)s")
+# Configure logging with timestamp and log level
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(levelname)s - %(message)s",
+    handlers=[logging.StreamHandler()],
+)
 
 
 def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
@@ -78,6 +83,13 @@ def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
     return result_artifact
 
 
+def format_time(seconds: float) -> str:
+    """
+    Formats time in seconds to a more readable string format.
+    """
+    return str(timedelta(seconds=int(seconds)))
+
+
 def main():
     input_path = RQ2_10_INPUT
     output_csv = RQ2_10_OUTPUT
@@ -89,6 +101,9 @@ def main():
         logging.info("No artifacts to process.")
         return
 
+    total_artifacts = len(artifacts)
+    logging.info(f"Starting processing of {total_artifacts} artifacts.")
+
     # Ensure all necessary fieldnames are included
     for field in [
         "artifact",
@@ -97,18 +112,27 @@ def main():
         "github_api_url",
         "github_owner",
         "github_repo",
+        "invalidGithubUrl",
+        "nonGithubLinkFound",
+        "scmLinkNotFound",
+        "pomNotFound",
+        "invalidArtifactFormat",
     ]:
         if field not in fieldnames:
             fieldnames.append(field)
 
     results_all, results_filtered, results_non_github = [], [], []
 
+    start_time = time.time()
+    processed_count = 0
+
     # Process artifacts with ThreadPoolExecutor
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-        futures = [
-            executor.submit(process_artifact, artifact) for artifact in artifacts
-        ]
-        for idx, future in enumerate(as_completed(futures)):
+        futures = {
+            executor.submit(process_artifact, artifact): idx
+            for idx, artifact in enumerate(artifacts)
+        }
+        for future in as_completed(futures):
             try:
                 result = future.result()
                 results_all.append(result)
@@ -117,32 +141,52 @@ def main():
                 elif result.get("nonGithubLinkFound"):
                     results_non_github.append(result)
 
+                processed_count += 1
+
                 # Log progress every 100 artifacts
-                if idx % 100 == 0:
-                    logging.info(f"Processed {idx + 1}/{len(artifacts)} artifacts")
+                if processed_count % 100 == 0 or processed_count == total_artifacts:
+                    elapsed_time = time.time() - start_time
+                    average_time = elapsed_time / processed_count
+                    remaining = average_time * (total_artifacts - processed_count)
+                    eta = format_time(remaining)
+                    logging.info(
+                        f"Processed {processed_count}/{total_artifacts} artifacts. "
+                        f"Elapsed: {format_time(elapsed_time)}. ETA: {eta}."
+                    )
 
             except Exception as e:
                 logging.error(f"Error processing artifact: {e}")
 
     # Write all results to CSVs at once
-    with open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile_all, open(
-        filtered_output_csv, mode="w", newline="", encoding="utf-8"
-    ) as csvfile_filtered, open(
-        non_github_output_csv, mode="w", newline="", encoding="utf-8"
-    ) as csvfile_non_github:
-        writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
-        writer_all.writeheader()
-        writer_all.writerows(results_all)
+    try:
+        with open(
+            output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_all, open(
+            filtered_output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_filtered, open(
+            non_github_output_csv, mode="w", newline="", encoding="utf-8"
+        ) as csvfile_non_github:
+            writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
+            writer_all.writeheader()
+            writer_all.writerows(results_all)
 
-        writer_filtered = csv.DictWriter(csvfile_filtered, fieldnames=fieldnames)
-        writer_filtered.writeheader()
-        writer_filtered.writerows(results_filtered)
+            writer_filtered = csv.DictWriter(csvfile_filtered, fieldnames=fieldnames)
+            writer_filtered.writeheader()
+            writer_filtered.writerows(results_filtered)
 
-        writer_non_github = csv.DictWriter(csvfile_non_github, fieldnames=fieldnames)
-        writer_non_github.writeheader()
-        writer_non_github.writerows(results_non_github)
+            writer_non_github = csv.DictWriter(
+                csvfile_non_github, fieldnames=fieldnames
+            )
+            writer_non_github.writeheader()
+            writer_non_github.writerows(results_non_github)
+    except Exception as e:
+        logging.error(f"Error writing to CSV files: {e}")
+        return
 
-    logging.info("Processing complete.")
+    total_elapsed_time = time.time() - start_time
+    logging.info(
+        f"Processing complete. Total time elapsed: {format_time(total_elapsed_time)}."
+    )
 
 
 if __name__ == "__main__":
