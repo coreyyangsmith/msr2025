@@ -6,9 +6,7 @@ to get info from desired release
 import requests
 from datetime import datetime
 from ..utils.config import REQ_HEADERS, ARTIFACT_RELEASES_URL
-from ..utils.extract_combined_name_from_version_id import (
-    extract_combined_name_from_version_id,
-)
+from ..utils.parsing import extract_combined_name_from_version_id
 
 """
 What info to include with EnrichedRelease?

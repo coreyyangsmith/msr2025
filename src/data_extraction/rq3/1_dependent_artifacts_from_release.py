@@ -5,9 +5,7 @@ from tqdm import tqdm
 from datetime import datetime, timedelta  # Import timedelta explicitly
 
 from src.classes.EnrichedRelease import EnrichedRelease
-from src.utils.extract_combined_name_from_version_id import (
-    extract_combined_name_from_version_id,
-)
+from src.utils.parsing import extract_combined_name_from_version_id
 
 # Read the enriched data from RQ2
 df = pd.read_csv("data/rq2_8_enriched.csv")

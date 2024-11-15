@@ -1,0 +1,3 @@
+artifact,scm_url,github_url,github_api_url,github_owner,github_repo
+br.com.neppo.jlibs:java-checkstyle,https://bitbucket.org/neppo/java-checkstyle/src,,,,
+be.personify:ipersonic-model,https://bitbucket.org/wouter29/?visibility=public,,,,

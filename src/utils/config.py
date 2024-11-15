@@ -89,6 +89,13 @@ RQ2_8_INPUT = RQ2_7_OUTPUT
 RQ2_8_OUTPUT = "data/rq2_8_enriched.csv"
 
 
+# RQ2_10 Filter Non-CVE GitHub Repositories
+RQ2_10_INPUT = "data/rq0_2_non_cve_artifacts.csv"
+RQ2_10_OUTPUT = "data/rq2_10_github_repositories_by_cve.csv"
+RQ2_10_FILTERED_OUTPUT = "data/rq2_10_github_repositories_by_cve_filtered.csv"
+RQ2_10_NON_GITHUB_OUTPUT = "data/rq2_10_github_repositories_by_cve_non_github.csv"
+
+
 OPENDIGGER_VALUES = [
     "issues_new",
     "issues_closed",
@@ -130,3 +137,14 @@ RQ0_BAR_PLOT_CVE_SEVERITY_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
 ## RQ1 - MEAN TIME TO MITIGATE BY SEVERITY
 MTTM_UNIT = "days"
 RQ1_MTTM_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
+
+
+# MAVEN API CONFIG
+MAVEN_POM_RETRIES = 3
+# BACKOFF IS EXPONENTIAL backoff=*2
+BACKOFF_STARTING_TIME_IN_SECONDS = 1
+BACKOFF_FACTOR = 2
+
+
+# HARDWARE CONFIG
+MAX_WORKERS = 2

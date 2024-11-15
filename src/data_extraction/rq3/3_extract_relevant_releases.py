@@ -11,11 +11,12 @@ import threading
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
-# Constants for controlling concurrency
-MAX_WORKERS = 8  # Number of threads to process dependency pairs
-VERSION_WORKERS = 4  # Number of threads to process versions per dependency pair
+from src.utils.config import MAX_WORKERS
 
-# Thread-local storage for session objects
+# Constants for controlling concurrency
+MAX_WORKERS = MAX_WORKERS
+VERSION_WORKERS = MAX_WORKERS / 2
+
 thread_local = threading.local()
 output_lock = threading.Lock()
 
@@ -34,7 +35,7 @@ def get_session():
     return thread_local.session
 
 
-def process_version(version, target_dep, dependent_lib):
+def process_version(version, target_dep, parent):
     """Process a single version and return result if dependency is found."""
     group_id, artifact_id = target_dep.split(":")
     version_str = version["v"]
@@ -48,7 +49,7 @@ def process_version(version, target_dep, dependent_lib):
             root = ET.fromstring(pom_response.content)
 
             # Check if dependent library exists in dependencies
-            dep_group_id, dep_artifact_id = dependent_lib.split(":")
+            parent_group_id, parent_artifact_id = parent.split(":")
             namespaces = {"maven": "http://maven.apache.org/POM/4.0.0"}
             dependencies = root.findall(
                 ".//maven:dependencies/maven:dependency", namespaces
@@ -61,8 +62,8 @@ def process_version(version, target_dep, dependent_lib):
                 if (
                     dep_group is not None
                     and dep_artifact is not None
-                    and dep_group.text == dep_group_id
-                    and dep_artifact.text == dep_artifact_id
+                    and dep_group.text == parent_group_id
+                    and dep_artifact.text == parent_artifact_id
                 ):
                     logging.info(
                         f"Found matching dependency in {target_dep} version {version_str}"
@@ -71,7 +72,7 @@ def process_version(version, target_dep, dependent_lib):
                     release_date = time.strftime(
                         "%Y-%m-%d", time.localtime(timestamp / 1000)
                     )
-                    return f"{target_dep},{dependent_lib},{version_str},{timestamp},{release_date}\n"
+                    return f"{target_dep},{parent},{version_str},{timestamp},{release_date}\n"
     except Exception as e:
         logging.error(
             f"Error processing POM for {target_dep} version {version_str}: {str(e)}"
@@ -93,7 +94,7 @@ def process_dependency_pair(row):
     logging.info(f"Processing dependency pair: {target_dep}")
     try:
         session = get_session()
-        search_url = f"https://search.maven.org/solrsearch/select?q=g:{group_id}+AND+a:{artifact_id}&core=gav&rows=1000&wt=json"
+        search_url = f"https://search.maven.org/solrsearch/select?q=g:{group_id}+AND+a:{artifact_id}&core=gav&rows=1000&wt=json"  # confirm this URL
         response = session.get(search_url)
         versions = response.json()["response"]["docs"]
         logging.info(f"Found {len(versions)} versions for {target_dep}")
@@ -132,7 +133,7 @@ def extract_relevant_releases(input_path, output_path):
     # Create/overwrite output file with headers
     with open(output_path, "w") as f:
         f.write(
-            "target_dependency,dependent_library,version,release_timestamp,release_date\n"
+            "target_dependency,parent_artifact-group,dependent_version,dependent_release_timestamp,dependent_release_date\n"
         )
 
     total_pairs = len(dependency_pairs_df)

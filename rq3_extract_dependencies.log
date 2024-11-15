@@ -10173,3 +10173,481 @@
 2024-11-10 20:00:14,699 - INFO - Processing dependency pair 96/327542: io.github.stylesmile:fastboot-webflux (ETA: 5 days, 3:30:30)
 2024-11-10 20:00:16,612 - INFO - Found 20 versions for io.github.stylesmile:fastboot-webflux
 2024-11-10 20:00:17,269 - INFO - Processing dependency pair 97/327542: com.playtika.reactivefeign:feign-reactor-webclient (ETA: 5 days, 4:38:41)
+2024-11-12 13:23:35,539 - ERROR - Invalid dependency format: io.projectreactor.netty
+2024-11-12 13:23:36,216 - INFO - Found 11 versions for org.flowable:flowable-http-common
+2024-11-12 13:23:36,254 - INFO - Found 12 versions for io.github.mmihira:qualtrix-sdk
+2024-11-12 13:23:36,402 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-cosmos
+2024-11-12 13:23:36,440 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-vault-config
+2024-11-12 13:23:36,692 - INFO - Found 20 versions for org.apache.james:james-server-protocols-imap4
+2024-11-12 13:23:36,692 - INFO - Found 2 versions for com.codeabbot.springframework.data.aerospike:spring-data-reactive-aerospike
+2024-11-12 13:23:36,710 - INFO - Found 15 versions for ru.sokomishalov.skraper:skrapers
+2024-11-12 13:23:36,807 - INFO - Found 20 versions for org.springframework:spring-messaging
+2024-11-12 13:23:37,104 - INFO - Found 2 versions for org.bremersee:common-xml-spring-webflux
+2024-11-12 13:23:37,185 - INFO - Found 3 versions for io.xiaper:xiaper-spring-boot-router-rabbitmq
+2024-11-12 13:23:37,186 - INFO - Found 10 versions for com.expediagroup.molten:molten-http-client
+2024-11-12 13:23:37,186 - INFO - Found 2 versions for com.github.ljtfreitas:java-restify-spring-reactive
+2024-11-12 13:23:37,187 - INFO - Found 1 versions for io.opns.otl:otl-integ
+2024-11-12 13:23:37,198 - INFO - Found 20 versions for io.micrometer:micrometer-core
+2024-11-12 13:23:37,202 - INFO - Found 6 versions for com.vlkan:reactor-pubsub
+2024-11-12 13:23:37,261 - INFO - Found matching dependency in version 0.12.0
+2024-11-12 13:23:37,269 - INFO - Found matching dependency in version 0.11.1
+2024-11-12 13:23:37,278 - INFO - Found matching dependency in version 0.8.1
+2024-11-12 13:23:37,288 - INFO - Found matching dependency in version 3.7.4
+2024-11-12 13:23:37,289 - INFO - Found matching dependency in version 6.6.0
+2024-11-12 13:23:37,289 - INFO - Found matching dependency in version 0.8.4
+2024-11-12 13:23:37,289 - INFO - Found matching dependency in version 6.8.1
+2024-11-12 13:23:37,296 - INFO - Found matching dependency in version 0.8.3
+2024-11-12 13:23:37,305 - INFO - Found 17 versions for com.github.ljtfreitas:java-restify-spring-autoconfigure
+2024-11-12 13:23:37,306 - INFO - Found matching dependency in version 3.7.2
+2024-11-12 13:23:37,311 - INFO - Found matching dependency in version 6.8.0
+2024-11-12 13:23:37,312 - INFO - Found matching dependency in version 6.7.1
+2024-11-12 13:23:37,312 - INFO - Found matching dependency in version 0.7.0
+2024-11-12 13:23:37,313 - INFO - Found matching dependency in version 0.9.0
+2024-11-12 13:23:37,313 - INFO - Found matching dependency in version 7.1.0
+2024-11-12 13:23:37,319 - INFO - Found matching dependency in version 7.0.1
+2024-11-12 13:23:37,320 - INFO - Found matching dependency in version 0.8.0
+2024-11-12 13:23:37,333 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-sleuth-core
+2024-11-12 13:23:37,334 - INFO - Found matching dependency in version 0.10.0
+2024-11-12 13:23:37,334 - INFO - Found matching dependency in version 3.7.1
+2024-11-12 13:23:37,334 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-12 13:23:37,335 - INFO - Found matching dependency in version 6.7.0
+2024-11-12 13:23:37,341 - INFO - Found matching dependency in version 4.1.1
+2024-11-12 13:23:37,341 - INFO - Found matching dependency in version 3.0.3
+2024-11-12 13:23:37,342 - INFO - Found matching dependency in version 0.3.11
+2024-11-12 13:23:37,343 - INFO - Found matching dependency in version 4.1.0
+2024-11-12 13:23:37,352 - INFO - Found matching dependency in version 0.0.6
+2024-11-12 13:23:37,352 - INFO - Found matching dependency in version 0.3.10
+2024-11-12 13:23:37,353 - INFO - Found matching dependency in version 4.15.0_1
+2024-11-12 13:23:37,353 - INFO - Found matching dependency in version 0.13.0
+2024-11-12 13:23:37,353 - INFO - Found matching dependency in version 0.4.0
+2024-11-12 13:23:37,353 - INFO - Found matching dependency in version 0.9.2
+2024-11-12 13:23:37,596 - INFO - Found 1 versions for io.wcm.caravan:io.wcm.caravan.rhyme.spring
+2024-11-12 13:23:37,599 - INFO - Found matching dependency in version 0.0.7
+2024-11-12 13:23:37,599 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-12 13:23:37,599 - INFO - Found 20 versions for org.jetlinks:jetlinks-supports
+2024-11-12 13:23:37,600 - INFO - Found matching dependency in version 0.4.1
+2024-11-12 13:23:37,601 - INFO - Found matching dependency in version 4.1.3
+2024-11-12 13:23:37,602 - INFO - Found matching dependency in version 4.0.1
+2024-11-12 13:23:37,602 - INFO - Found matching dependency in version 0.11.0
+2024-11-12 13:23:37,602 - INFO - Found 20 versions for org.apache.camel:camel-stitch
+2024-11-12 13:23:37,603 - INFO - Found matching dependency in version 4.0.0
+2024-11-12 13:23:37,604 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-12 13:23:37,604 - INFO - Found matching dependency in version 7.0.0
+2024-11-12 13:23:37,604 - INFO - Found matching dependency in version 3.1.3
+2024-11-12 13:23:37,605 - INFO - Found matching dependency in version 3.1.4
+2024-11-12 13:23:37,606 - INFO - Found matching dependency in version 0.12.1
+2024-11-12 13:23:37,606 - INFO - Found 20 versions for io.memoria.jutils:jackson-adapter
+2024-11-12 13:23:37,608 - INFO - Found matching dependency in version 6.7.2
+2024-11-12 13:23:37,608 - INFO - Found matching dependency in version 0.8.2
+2024-11-12 13:23:37,609 - INFO - Found matching dependency in version 3.0.5
+2024-11-12 13:23:37,609 - INFO - Found matching dependency in version 3.0.2
+2024-11-12 13:23:37,609 - INFO - Found matching dependency in version 3.0.0
+2024-11-12 13:23:37,610 - INFO - Found matching dependency in version 3.7.3
+2024-11-12 13:23:37,610 - INFO - Found matching dependency in version 4.1.2
+2024-11-12 13:23:37,617 - INFO - Found matching dependency in version 0.9.1
+2024-11-12 13:23:37,617 - INFO - Found matching dependency in version 3.7.5
+2024-11-12 13:23:37,618 - INFO - Found matching dependency in version 3.1.0
+2024-11-12 13:23:37,618 - INFO - Found matching dependency in version 0.1.13
+2024-11-12 13:23:37,618 - INFO - Found matching dependency in version 3.1.1
+2024-11-12 13:23:37,619 - INFO - Found matching dependency in version 3.0.4
+2024-11-12 13:23:37,619 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-12 13:23:37,620 - INFO - Found 20 versions for com.playtika.reactivefeign:feign-reactor-spring-configuration-cloud2-test
+2024-11-12 13:23:37,621 - INFO - Found matching dependency in version 3.1.2
+2024-11-12 13:23:37,621 - INFO - Found matching dependency in version 3.0.1
+2024-11-12 13:23:37,621 - INFO - Found matching dependency in version 4.0.2
+2024-11-12 13:23:37,622 - INFO - Found 20 versions for io.opentracing.contrib:opentracing-spring-web
+2024-11-12 13:23:37,633 - INFO - Found matching dependency in version 0.3.0
+2024-11-12 13:23:37,640 - INFO - Found 8 versions for com.jauntsdn.rsocket:rsocket-transport-netty
+2024-11-12 13:23:37,687 - INFO - Found matching dependency in version 0.2.0
+2024-11-12 13:23:37,688 - INFO - Found matching dependency in version 0.1.11
+2024-11-12 13:23:37,688 - INFO - Found matching dependency in version 0.2.1
+2024-11-12 13:23:37,696 - INFO - Found matching dependency in version 3.1.0
+2024-11-12 13:23:37,729 - INFO - Found matching dependency in version 0.1.0
+2024-11-12 13:23:37,759 - INFO - Found matching dependency in version 0.1.12
+2024-11-12 13:23:37,768 - INFO - Found matching dependency in version 1.1.0
+2024-11-12 13:23:37,790 - INFO - Found matching dependency in version 3.0.1
+2024-11-12 13:23:37,790 - INFO - Found matching dependency in version 0.1.1
+2024-11-12 13:23:37,790 - INFO - Found matching dependency in version 1.1.1
+2024-11-12 13:23:37,790 - INFO - Found matching dependency in version 1.2.3
+2024-11-12 13:23:37,799 - INFO - Found matching dependency in version 1.2.2
+2024-11-12 13:23:37,800 - INFO - Found matching dependency in version 1.2.1
+2024-11-12 13:23:37,807 - INFO - Found matching dependency in version 1.1.2
+2024-11-12 13:23:37,807 - INFO - Found matching dependency in version 1.1.3
+2024-11-12 13:23:37,807 - INFO - Found matching dependency in version 2.1.0
+2024-11-12 13:23:37,808 - INFO - Found matching dependency in version 1.0.0
+2024-11-12 13:23:37,808 - INFO - Found matching dependency in version 1.2.0
+2024-11-12 13:23:37,809 - INFO - Found matching dependency in version 0.1.1
+2024-11-12 13:23:37,809 - INFO - Found matching dependency in version 1.0.0-beta.2
+2024-11-12 13:23:37,842 - INFO - Found matching dependency in version 0.2.16-alpha
+2024-11-12 13:23:37,851 - INFO - Found matching dependency in version 0.1.2
+2024-11-12 13:23:37,875 - INFO - Found matching dependency in version 0.2.1
+2024-11-12 13:23:37,876 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-12 13:23:37,883 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-12 13:23:37,945 - INFO - Found matching dependency in version 0.1.0
+2024-11-12 13:23:37,946 - INFO - Found matching dependency in version 0.2.2
+2024-11-12 13:23:37,961 - INFO - Found matching dependency in version 2.1.4.RELEASE
+2024-11-12 13:23:37,962 - INFO - Found matching dependency in version 0.2.0
+2024-11-12 13:23:38,113 - INFO - Found matching dependency in version 2.1.0
+2024-11-12 13:23:38,167 - INFO - Found matching dependency in version 2.1.7.RELEASE
+2024-11-12 13:23:38,193 - INFO - Found matching dependency in version 2.2.2.RELEASE
+2024-11-12 13:23:38,203 - INFO - Found matching dependency in version 3.22.1
+2024-11-12 13:23:38,203 - INFO - Found matching dependency in version 4.4.2
+2024-11-12 13:23:38,238 - INFO - Found matching dependency in version 4.4.0
+2024-11-12 13:23:38,252 - INFO - Found matching dependency in version 2.1.1
+2024-11-12 13:23:38,261 - INFO - Found matching dependency in version 4.8.0
+2024-11-12 13:23:38,272 - INFO - Found matching dependency in version 3.21.3
+2024-11-12 13:23:38,272 - INFO - Found matching dependency in version 4.0.5
+2024-11-12 13:23:38,272 - INFO - Found 20 versions for com.alipay.sofa:sofa-ark-springboot-starter
+2024-11-12 13:23:38,381 - INFO - Found matching dependency in version 4.1.0
+2024-11-12 13:23:38,576 - INFO - Found matching dependency in version 3.1.5
+2024-11-12 13:23:38,639 - INFO - Found matching dependency in version 2.2.14
+2024-11-12 13:23:38,642 - INFO - Found matching dependency in version 3.0.5
+2024-11-12 13:23:38,644 - INFO - Found matching dependency in version 2.2.11
+2024-11-12 13:23:38,644 - INFO - Found matching dependency in version 3.1.6
+2024-11-12 13:23:38,645 - INFO - Found matching dependency in version 3.1.2
+2024-11-12 13:23:38,645 - INFO - Found matching dependency in version 2.2.15
+2024-11-12 13:23:38,647 - INFO - Found matching dependency in version 3.1.3
+2024-11-12 13:23:38,647 - INFO - Found matching dependency in version 3.1.4
+2024-11-12 13:23:38,652 - INFO - Found matching dependency in version 3.1.7
+2024-11-12 13:23:38,653 - INFO - Found matching dependency in version 3.1.8
+2024-11-12 13:23:38,682 - INFO - Found 20 versions for io.github.harishb2k.easy:http
+2024-11-12 13:23:38,723 - INFO - Found matching dependency in version 2.2.13
+2024-11-12 13:23:38,724 - INFO - Found matching dependency in version 3.0.4
+2024-11-12 13:23:38,724 - INFO - Found matching dependency in version 2.2.12
+2024-11-12 13:23:38,725 - INFO - Found matching dependency in version 3.0.3
+2024-11-12 13:23:38,731 - INFO - Found matching dependency in version 3.0.7
+2024-11-12 13:23:38,985 - INFO - Found matching dependency in version 0.0.44
+2024-11-12 13:23:38,987 - INFO - Found matching dependency in version 0.0.35
+2024-11-12 13:23:38,989 - INFO - Found matching dependency in version 0.0.41
+2024-11-12 13:23:38,990 - INFO - Found matching dependency in version 0.0.46
+2024-11-12 13:23:38,990 - INFO - Found matching dependency in version 0.0.48
+2024-11-12 13:23:38,995 - INFO - Found matching dependency in version 0.0.37
+2024-11-12 13:23:38,996 - INFO - Found matching dependency in version 0.0.36
+2024-11-12 13:23:39,004 - INFO - Found matching dependency in version 0.0.42
+2024-11-12 13:23:39,005 - INFO - Found matching dependency in version 0.0.26
+2024-11-12 13:23:39,005 - INFO - Found matching dependency in version 0.0.40
+2024-11-12 13:23:39,006 - INFO - Found matching dependency in version 0.0.33
+2024-11-12 13:23:39,074 - INFO - Found matching dependency in version 0.0.43
+2024-11-12 13:23:39,075 - INFO - Found matching dependency in version 0.0.29
+2024-11-12 13:23:39,075 - INFO - Found matching dependency in version 0.0.45
+2024-11-12 13:23:39,084 - INFO - Found matching dependency in version 0.0.30
+2024-11-12 13:23:39,084 - INFO - Found matching dependency in version 0.0.39
+2024-11-12 13:23:40,317 - INFO - Found matching dependency in version 1.0.0
+2024-11-12 13:23:40,318 - INFO - Found matching dependency in version 2.2.8.RELEASE
+2024-11-12 13:23:40,325 - INFO - Found matching dependency in version 2.2.0.RELEASE
+2024-11-12 13:23:40,325 - INFO - Found matching dependency in version 2.2.5.RELEASE
+2024-11-12 13:23:40,326 - INFO - Found matching dependency in version 2.2.1.RELEASE
+2024-11-12 13:23:40,334 - INFO - Found matching dependency in version 4.4.3
+2024-11-12 13:23:40,334 - INFO - Found matching dependency in version 3.22.2
+2024-11-12 13:23:40,335 - INFO - Found matching dependency in version 2.2.3.RELEASE
+2024-11-12 13:23:40,335 - INFO - Found matching dependency in version 2.2.4.RELEASE
+2024-11-12 13:23:40,336 - INFO - Found matching dependency in version 2.1.5.RELEASE
+2024-11-12 13:23:40,336 - INFO - Found matching dependency in version 3.22.0
+2024-11-12 13:23:40,336 - INFO - Found matching dependency in version 4.8.1
+2024-11-12 13:23:40,338 - INFO - Found matching dependency in version 1.2.2
+2024-11-12 13:23:40,340 - INFO - Found matching dependency in version 2.1.6.RELEASE
+2024-11-12 13:23:40,341 - INFO - Found matching dependency in version 2.2.7.RELEASE
+2024-11-12 13:23:40,341 - INFO - Found matching dependency in version 4.4.1
+2024-11-12 13:23:40,341 - INFO - Found matching dependency in version 4.5.0
+2024-11-12 13:23:40,341 - INFO - Found matching dependency in version 4.4.4
+2024-11-12 13:23:40,344 - INFO - Found matching dependency in version 2.2.6.RELEASE
+2024-11-12 13:23:40,345 - INFO - Found matching dependency in version 4.3.0
+2024-11-12 13:23:40,346 - INFO - Found matching dependency in version 3.21.5
+2024-11-12 13:23:40,346 - INFO - Found matching dependency in version 4.6.0
+2024-11-12 13:23:40,346 - INFO - Found matching dependency in version 3.0.1
+2024-11-12 13:23:40,374 - INFO - Found matching dependency in version 4.0.4
+2024-11-12 13:23:40,375 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-12 13:23:40,385 - INFO - Found matching dependency in version 4.1.2
+2024-11-12 13:23:40,404 - INFO - Found 20 versions for io.scalecube:rsocket-services-transport
+2024-11-12 13:23:40,445 - INFO - Found matching dependency in version 4.0.3
+2024-11-12 13:23:40,534 - INFO - Found 12 versions for org.apache.linkis:linkis-spring-cloud-gateway
+2024-11-12 13:23:40,635 - INFO - Found 0 versions for pl.grzeslowski.jsupla:server
+2024-11-12 13:23:40,694 - INFO - Found matching dependency in version 2.2.5
+2024-11-12 13:23:40,697 - INFO - Found matching dependency in version 2.2.4
+2024-11-12 13:23:40,706 - INFO - Found matching dependency in version 2.1.43
+2024-11-12 13:23:40,708 - INFO - Found matching dependency in version 2.2.0
+2024-11-12 13:23:40,708 - INFO - Found matching dependency in version 2.2.2
+2024-11-12 13:23:40,774 - INFO - Found matching dependency in version 2.2.3
+2024-11-12 13:23:40,786 - INFO - Found matching dependency in version 2.1.41
+2024-11-12 13:23:40,855 - INFO - Found matching dependency in version 1.3.0
+2024-11-12 13:23:40,883 - INFO - Found matching dependency in version 1.1.2
+2024-11-12 13:23:40,915 - INFO - Found matching dependency in version 1.5.0
+2024-11-12 13:23:40,925 - INFO - Found matching dependency in version 1.6.0
+2024-11-12 13:23:40,925 - INFO - Found matching dependency in version 1.0.3
+2024-11-12 13:23:40,933 - INFO - Found matching dependency in version 1.2.0
+2024-11-12 13:23:41,005 - INFO - Found 19 versions for org.apache.james:james-server-jmap
+2024-11-12 13:23:41,124 - INFO - Found matching dependency in version 0.0.47
+2024-11-12 13:23:41,162 - INFO - Found matching dependency in version 0.0.34
+2024-11-12 13:23:41,164 - INFO - Found matching dependency in version 0.0.27
+2024-11-12 13:23:41,171 - INFO - Found matching dependency in version 0.0.38
+2024-11-12 13:23:41,318 - INFO - Found matching dependency in version 3.5.0
+2024-11-12 13:23:41,318 - INFO - Found matching dependency in version 3.7.2
+2024-11-12 13:23:41,326 - INFO - Found matching dependency in version 3.7.4
+2024-11-12 13:23:41,326 - INFO - Found matching dependency in version 3.7.5
+2024-11-12 13:23:41,332 - INFO - Found matching dependency in version 3.6.2
+2024-11-12 13:23:41,333 - INFO - Found matching dependency in version 3.8.1
+2024-11-12 13:23:41,376 - INFO - Found matching dependency in version 3.6.0
+2024-11-12 13:23:41,386 - INFO - Found matching dependency in version 3.8.0
+2024-11-12 13:23:41,386 - INFO - Found matching dependency in version 3.7.3
+2024-11-12 13:23:41,535 - INFO - Found 0 versions for com.kfyty:loveqq-mvc-netty
+2024-11-12 13:23:41,844 - INFO - Found 16 versions for io.github.quickmsg:smqtt-common
+2024-11-12 13:23:42,158 - INFO - Found matching dependency in version 1.1.6
+2024-11-12 13:23:42,160 - INFO - Found 16 versions for org.springframework.credhub:spring-credhub-core
+2024-11-12 13:23:42,162 - INFO - Found matching dependency in version 1.0.6
+2024-11-12 13:23:42,163 - INFO - Found matching dependency in version 1.0.8
+2024-11-12 13:23:42,164 - INFO - Found matching dependency in version 1.1.1
+2024-11-12 13:23:42,165 - INFO - Found matching dependency in version 1.0.3
+2024-11-12 13:23:42,165 - INFO - Found matching dependency in version 0.3.1
+2024-11-12 13:23:42,167 - INFO - Found matching dependency in version 1.1.5
+2024-11-12 13:23:42,169 - INFO - Found matching dependency in version 1.0.5
+2024-11-12 13:23:42,170 - INFO - Found matching dependency in version 1.1.2
+2024-11-12 13:23:42,170 - INFO - Found matching dependency in version 1.1.0
+2024-11-12 13:23:42,172 - INFO - Found matching dependency in version 1.0.4
+2024-11-12 13:23:42,188 - INFO - Found matching dependency in version 1.1.3
+2024-11-12 13:23:42,189 - INFO - Found matching dependency in version 1.0.7
+2024-11-12 13:23:42,190 - INFO - Found matching dependency in version 1.1.4
+2024-11-12 13:23:42,191 - INFO - Found matching dependency in version 1.0.9
+2024-11-12 13:23:42,195 - INFO - Found matching dependency in version 1.1.7
+2024-11-12 13:23:42,470 - INFO - Found matching dependency in version 3.1.1
+2024-11-12 13:23:42,471 - INFO - Found matching dependency in version 3.3.0
+2024-11-12 13:23:42,473 - INFO - Found matching dependency in version 3.2.0
+2024-11-12 13:23:42,488 - INFO - Found matching dependency in version 2.0.1.RELEASE
+2024-11-12 13:23:42,490 - INFO - Found matching dependency in version 3.0.2
+2024-11-12 13:23:42,491 - INFO - Found matching dependency in version 2.1.1.RELEASE
+2024-11-12 13:23:42,491 - INFO - Found matching dependency in version 2.1.0.RELEASE
+2024-11-12 13:23:42,492 - INFO - Found matching dependency in version 2.3.2
+2024-11-12 13:23:42,492 - INFO - Found matching dependency in version 3.0.0
+2024-11-12 13:23:42,493 - INFO - Found matching dependency in version 3.1.0
+2024-11-12 13:23:42,494 - INFO - Found matching dependency in version 2.3.0
+2024-11-12 13:23:42,497 - INFO - Found matching dependency in version 2.2.1
+2024-11-12 13:23:42,499 - INFO - Found matching dependency in version 2.0.0.RELEASE
+2024-11-12 13:23:42,499 - INFO - Found matching dependency in version 2.2.0
+2024-11-12 13:23:42,578 - INFO - Found 20 versions for io.github.fomin.oas-gen:oas-gen-java-reactor-netty-runtime
+2024-11-12 13:23:42,798 - INFO - Found 5 versions for io.github.sgtsilvio:oci-registry
+2024-11-12 13:23:42,862 - INFO - Found matching dependency in version 2.2.1
+2024-11-12 13:23:42,877 - INFO - Found matching dependency in version 0.2.1
+2024-11-12 13:23:42,878 - INFO - Found matching dependency in version 0.2.0
+2024-11-12 13:23:42,888 - INFO - Found matching dependency in version 0.2.2
+2024-11-12 13:23:42,888 - INFO - Found matching dependency in version 0.1.12
+2024-11-12 13:23:42,888 - INFO - Found matching dependency in version 0.1.8
+2024-11-12 13:23:42,889 - INFO - Found matching dependency in version 0.1.11
+2024-11-12 13:23:42,889 - INFO - Found matching dependency in version 0.1.13
+2024-11-12 13:23:42,899 - INFO - Found matching dependency in version 0.1.6
+2024-11-12 13:23:42,899 - INFO - Found matching dependency in version 0.1.10
+2024-11-12 13:23:42,899 - INFO - Found matching dependency in version 0.1.7
+2024-11-12 13:23:42,900 - INFO - Found matching dependency in version 0.1.9
+2024-11-12 13:23:42,900 - INFO - Found matching dependency in version 0.1.4
+2024-11-12 13:23:42,900 - INFO - Found matching dependency in version 0.1.5
+2024-11-12 13:23:42,908 - INFO - Found matching dependency in version 0.1.3
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.0.43
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.1.1
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.0.42
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.1.2
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.0.41
+2024-11-12 13:23:42,909 - INFO - Found matching dependency in version 0.1.0
+2024-11-12 13:23:42,977 - INFO - Found matching dependency in version 1.4.0
+2024-11-12 13:23:42,977 - INFO - Found matching dependency in version 1.1.1
+2024-11-12 13:23:42,998 - INFO - Found matching dependency in version 1.3.2
+2024-11-12 13:23:42,998 - INFO - Found matching dependency in version 1.1.0
+2024-11-12 13:23:42,999 - INFO - Found matching dependency in version 1.3.1
+2024-11-12 13:23:43,006 - INFO - Found matching dependency in version 1.1.3
+2024-11-12 13:23:43,100 - INFO - Found matching dependency in version 0.4.0
+2024-11-12 13:23:43,100 - INFO - Found matching dependency in version 0.2.0
+2024-11-12 13:23:43,101 - INFO - Found matching dependency in version 0.4.1
+2024-11-12 13:23:43,101 - INFO - Found matching dependency in version 0.1.0
+2024-11-12 13:23:43,160 - INFO - Found matching dependency in version 0.3.0
+2024-11-12 13:23:43,207 - INFO - Found 20 versions for com.pighand:pighand-framework-spring-parent
+2024-11-12 13:23:43,221 - INFO - Found 20 versions for com.azure.spring:spring-cloud-azure-starter-active-directory
+2024-11-12 13:23:43,327 - INFO - Found 20 versions for app.cybrid:cybrid-api-organization-java
+2024-11-12 13:23:43,328 - INFO - Found 20 versions for io.memoria.jutils:core
+2024-11-12 13:23:43,457 - INFO - Found matching dependency in version 3.7.0
+2024-11-12 13:23:43,476 - INFO - Found matching dependency in version 3.7.1
+2024-11-12 13:23:43,509 - INFO - Found matching dependency in version 2.0.0-bate.1.20240712
+2024-11-12 13:23:43,510 - INFO - Found matching dependency in version 2.0.0-bate.1.20240611
+2024-11-12 13:23:43,517 - INFO - Found matching dependency in version 2.0.0-bate.1.20240527
+2024-11-12 13:23:43,528 - INFO - Found matching dependency in version 1.2.5
+2024-11-12 13:23:43,534 - INFO - Found matching dependency in version 2.0.0-bate.1.20240517
+2024-11-12 13:23:43,535 - INFO - Found matching dependency in version 1.2.2
+2024-11-12 13:23:43,538 - INFO - Found matching dependency in version 2.0.0-bate.1.20231210
+2024-11-12 13:23:43,567 - INFO - Found matching dependency in version 2.0.0-bate.1.20240606
+2024-11-12 13:23:43,629 - INFO - Found matching dependency in version v0.122.57
+2024-11-12 13:23:43,629 - INFO - Found matching dependency in version v0.122.49
+2024-11-12 13:23:43,718 - INFO - Found 20 versions for org.bremersee:common-base-webflux
+2024-11-12 13:23:43,776 - INFO - Found 0 versions for pl.grzeslowski.jsupla:nettyserver
+2024-11-12 13:23:43,826 - INFO - Found 20 versions for io.github.devlibx.easy:http
+2024-11-12 13:23:43,976 - INFO - Found 2 versions for io.split.integrations.azure:impressions-listener
+2024-11-12 13:23:44,018 - INFO - Found matching dependency in version 2.3.1
+2024-11-12 13:23:44,018 - INFO - Found matching dependency in version 2.3.0
+2024-11-12 13:23:44,019 - INFO - Found matching dependency in version 2.3.3
+2024-11-12 13:23:44,039 - INFO - Found matching dependency in version 2.1.3
+2024-11-12 13:23:44,041 - INFO - Found matching dependency in version 2.2.2
+2024-11-12 13:23:44,041 - INFO - Found matching dependency in version 2.1.2
+2024-11-12 13:23:44,041 - INFO - Found matching dependency in version 2.2.3
+2024-11-12 13:23:44,046 - INFO - Found matching dependency in version 1.4.2
+2024-11-12 13:23:44,097 - INFO - Found matching dependency in version 2.3.2
+2024-11-12 13:23:44,108 - INFO - Found matching dependency in version 2.2.0
+2024-11-12 13:23:44,118 - INFO - Found matching dependency in version 1.4.4
+2024-11-12 13:23:44,128 - INFO - Found matching dependency in version 2.2.1
+2024-11-12 13:23:44,130 - INFO - Found matching dependency in version 2.0.1
+2024-11-12 13:23:44,139 - INFO - Found matching dependency in version 0.0.142
+2024-11-12 13:23:44,140 - INFO - Found matching dependency in version 0.0.140
+2024-11-12 13:23:44,140 - INFO - Found matching dependency in version 0.0.144-java21-jakarta
+2024-11-12 13:23:44,141 - INFO - Found matching dependency in version 0.0.143
+2024-11-12 13:23:44,148 - INFO - Found 20 versions for io.memoria:jbom
+2024-11-12 13:23:44,188 - INFO - Found matching dependency in version 2.1.4
+2024-11-12 13:23:44,208 - INFO - Found matching dependency in version 0.0.144-java21
+2024-11-12 13:23:44,229 - INFO - Found matching dependency in version 0.0.141
+2024-11-12 13:23:44,229 - INFO - Found matching dependency in version 0.0.137.java19.loom
+2024-11-12 13:23:44,299 - INFO - Found matching dependency in version 0.0.136.java19
+2024-11-12 13:23:44,407 - INFO - Found matching dependency in version 3.21.4
+2024-11-12 13:23:44,417 - INFO - Found matching dependency in version 4.0.6
+2024-11-12 13:23:44,462 - INFO - Found matching dependency in version 4.1.0
+2024-11-12 13:23:44,519 - INFO - Found matching dependency in version 2.1.3
+2024-11-12 13:23:44,533 - INFO - Found matching dependency in version 3.1.6
+2024-11-12 13:23:44,542 - INFO - Found matching dependency in version 0.9.6
+2024-11-12 13:23:44,550 - INFO - Found matching dependency in version 0.16.0
+2024-11-12 13:23:44,559 - INFO - Found matching dependency in version 0.20.0
+2024-11-12 13:23:44,872 - INFO - Found matching dependency in version 3.0.6
+2024-11-12 13:23:44,872 - INFO - Found matching dependency in version 2.2.10
+2024-11-12 13:23:44,881 - INFO - Found matching dependency in version 3.1.1
+2024-11-12 13:23:44,882 - INFO - Found matching dependency in version 2.2.9
+2024-11-12 13:23:45,179 - INFO - Found 17 versions for io.memoria.jutils:jconf
+2024-11-12 13:23:45,697 - INFO - Found matching dependency in version 1.2.4
+2024-11-12 13:23:45,698 - INFO - Found matching dependency in version 1.2.0
+2024-11-12 13:23:45,730 - INFO - Found matching dependency in version 2.0.0-bate.1.20240117
+2024-11-12 13:23:45,780 - INFO - Found matching dependency in version v0.122.52
+2024-11-12 13:23:45,791 - INFO - Found matching dependency in version v0.122.51
+2024-11-12 13:23:45,793 - INFO - Found matching dependency in version v0.122.53
+2024-11-12 13:23:45,794 - INFO - Found matching dependency in version v0.122.48
+2024-11-12 13:23:45,804 - INFO - Found matching dependency in version v0.122.54
+2024-11-12 13:23:45,822 - INFO - Found matching dependency in version 1.2.3
+2024-11-12 13:23:45,824 - INFO - Found matching dependency in version v0.122.39
+2024-11-12 13:23:45,825 - INFO - Found matching dependency in version v0.122.45
+2024-11-12 13:23:45,827 - INFO - Found matching dependency in version v0.122.38
+2024-11-12 13:23:45,850 - INFO - Found matching dependency in version v0.122.46
+2024-11-12 13:23:46,191 - INFO - Found matching dependency in version 1.4.3
+2024-11-12 13:23:46,191 - INFO - Found 15 versions for com.marmoush.jutils:nats
+2024-11-12 13:23:46,191 - INFO - Found matching dependency in version 2.0.0
+2024-11-12 13:23:46,202 - INFO - Found matching dependency in version 2.1.1
+2024-11-12 13:23:46,202 - INFO - Found matching dependency in version 1.4.5
+2024-11-12 13:23:46,203 - INFO - Found matching dependency in version 1.4.6
+2024-11-12 13:23:46,204 - INFO - Found matching dependency in version 2.1.0
+2024-11-12 13:23:46,280 - INFO - Found matching dependency in version 0.0.144-jakarta
+2024-11-12 13:23:46,281 - INFO - Found matching dependency in version 0.0.144-java22
+2024-11-12 13:23:46,281 - INFO - Found matching dependency in version 0.0.145
+2024-11-12 13:23:46,290 - INFO - Found matching dependency in version 0.0.139.java19.loom
+2024-11-12 13:23:46,291 - INFO - Found matching dependency in version 0.0.138.java19.loom
+2024-11-12 13:23:46,291 - INFO - Found matching dependency in version 0.0.144
+2024-11-12 13:23:46,300 - INFO - Found matching dependency in version 0.0.135
+2024-11-12 13:23:46,301 - INFO - Found matching dependency in version 0.0.139
+2024-11-12 13:23:46,309 - INFO - Found matching dependency in version 0.0.136
+2024-11-12 13:23:46,429 - INFO - Found matching dependency in version 0.9.0
+2024-11-12 13:23:46,635 - INFO - Found matching dependency in version 0.18.0
+2024-11-12 13:23:46,636 - INFO - Found matching dependency in version 0.7.5
+2024-11-12 13:23:46,637 - INFO - Found matching dependency in version 0.19.0
+2024-11-12 13:23:46,649 - INFO - Found 4 versions for com.github.bata19:log-masking-spring-boot-webflux-autoconfigure
+2024-11-12 13:23:46,889 - INFO - Found 20 versions for org.springframework.integration:spring-integration-stomp
+2024-11-12 13:23:46,951 - INFO - Found matching dependency in version 1.0.1
+2024-11-12 13:23:46,952 - INFO - Found matching dependency in version 1.1.0
+2024-11-12 13:23:46,952 - INFO - Found matching dependency in version 1.0.0
+2024-11-12 13:23:46,953 - INFO - Found matching dependency in version 1.1.2
+2024-11-12 13:23:47,261 - INFO - Found 11 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-messaging-servicebus
+2024-11-12 13:23:47,611 - INFO - Found matching dependency in version 7.2.1_1
+2024-11-12 13:23:47,951 - INFO - Found 7 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-storage-file-datalake
+2024-11-12 13:23:48,313 - INFO - Found matching dependency in version 12.5.1_1
+2024-11-12 13:23:48,691 - INFO - Found 16 versions for com.github.kuliginstepan:dadata-client
+2024-11-12 13:23:49,005 - INFO - Found matching dependency in version 2.6.1
+2024-11-12 13:23:49,005 - INFO - Found matching dependency in version 2.5.2
+2024-11-12 13:23:49,006 - INFO - Found matching dependency in version 2.5.3
+2024-11-12 13:23:49,006 - INFO - Found matching dependency in version 2.5.4
+2024-11-12 13:23:49,013 - INFO - Found matching dependency in version 2.5.5
+2024-11-12 13:23:49,014 - INFO - Found matching dependency in version 2.4.0
+2024-11-12 13:23:49,015 - INFO - Found matching dependency in version 3.0.0
+2024-11-12 13:23:49,016 - INFO - Found matching dependency in version 2.2.0
+2024-11-12 13:23:49,017 - INFO - Found matching dependency in version 2.6.2
+2024-11-12 13:23:49,017 - INFO - Found matching dependency in version 2.3.0
+2024-11-12 13:23:49,017 - INFO - Found matching dependency in version 2.5.0
+2024-11-12 13:23:49,043 - INFO - Found matching dependency in version 2.5.1
+2024-11-12 13:23:49,083 - INFO - Found matching dependency in version 2.3.1
+2024-11-12 13:23:49,094 - INFO - Found matching dependency in version 2.6.0
+2024-11-12 13:23:49,094 - INFO - Found matching dependency in version 3.1.0
+2024-11-12 13:23:49,102 - INFO - Found matching dependency in version 4.0.0
+2024-11-12 13:23:49,292 - INFO - Found 20 versions for org.springframework.cloud:spring-cloud-common-security-config-web
+2024-11-12 13:23:49,433 - INFO - Found 16 versions for org.apache.servicemix.bundles:org.apache.servicemix.bundles.azure-storage-blob
+2024-11-12 13:23:49,584 - INFO - Found matching dependency in version 2.11.4
+2024-11-12 13:23:49,585 - INFO - Found matching dependency in version 2.11.5
+2024-11-12 13:23:49,594 - INFO - Found matching dependency in version 2.11.1
+2024-11-12 13:23:49,595 - INFO - Found matching dependency in version 2.11.0
+2024-11-12 13:23:49,596 - INFO - Found matching dependency in version 2.11.2
+2024-11-12 13:23:49,597 - INFO - Found matching dependency in version 1.8.0
+2024-11-12 13:23:49,602 - INFO - Found matching dependency in version 1.7.4
+2024-11-12 13:23:49,604 - INFO - Found matching dependency in version 1.8.2
+2024-11-12 13:23:49,604 - INFO - Found matching dependency in version 2.11.3
+2024-11-12 13:23:49,604 - INFO - Found matching dependency in version 1.6.4
+2024-11-12 13:23:49,605 - INFO - Found matching dependency in version 1.6.2
+2024-11-12 13:23:49,606 - INFO - Found matching dependency in version 1.8.3
+2024-11-12 13:23:49,606 - INFO - Found matching dependency in version 1.7.2
+2024-11-12 13:23:49,613 - INFO - Found matching dependency in version 1.7.5
+2024-11-12 13:23:49,613 - INFO - Found matching dependency in version 1.7.0
+2024-11-12 13:23:49,663 - INFO - Found matching dependency in version 1.7.1
+2024-11-12 13:23:49,664 - INFO - Found matching dependency in version 1.7.6
+2024-11-12 13:23:49,683 - INFO - Found matching dependency in version 1.7.3
+2024-11-12 13:23:49,712 - INFO - Found matching dependency in version 1.6.3
+2024-11-12 13:23:49,743 - INFO - Found matching dependency in version 12.11.0_1
+2024-11-12 13:23:49,744 - INFO - Found matching dependency in version 12.10.0_1
+2024-11-12 13:23:49,744 - INFO - Found matching dependency in version 12.11.1_1
+2024-11-12 13:23:49,747 - INFO - Found matching dependency in version 12.8.0_1
+2024-11-12 13:23:49,747 - INFO - Found matching dependency in version 12.9.0_1
+2024-11-12 13:23:49,748 - INFO - Found matching dependency in version 12.12.0_1
+2024-11-12 13:23:49,749 - INFO - Found matching dependency in version 12.8.0_2
+2024-11-12 13:23:49,754 - INFO - Found matching dependency in version 12.6.1_1
+2024-11-12 13:23:49,754 - INFO - Found matching dependency in version 12.7.0_1
+2024-11-12 13:23:49,803 - INFO - Found matching dependency in version 1.8.1
+2024-11-12 13:23:49,814 - INFO - Found matching dependency in version 12.6.0_1
+2024-11-12 13:23:49,883 - INFO - Found 13 versions for com.github.hakenadu:java-langchains
+2024-11-12 13:23:49,904 - INFO - Found matching dependency in version v0.122.47
+2024-11-12 13:23:49,904 - INFO - Found matching dependency in version v0.122.41
+2024-11-12 13:23:49,914 - INFO - Found matching dependency in version v0.122.42
+2024-11-12 13:23:49,915 - INFO - Found matching dependency in version v0.122.44
+2024-11-12 13:23:49,916 - INFO - Found matching dependency in version v0.122.34
+2024-11-12 13:23:49,916 - INFO - Found matching dependency in version v0.122.40
+2024-11-12 13:23:49,922 - INFO - Found matching dependency in version v0.122.33
+2024-11-12 13:23:49,965 - INFO - Found matching dependency in version v0.122.43
+2024-11-12 13:23:49,984 - INFO - Found matching dependency in version v0.122.36
+2024-11-12 13:23:50,073 - INFO - Found 20 versions for org.flowable:flowable-http
+2024-11-12 13:23:50,104 - INFO - Found 6 versions for com.marmoush.jutils:etcd
+2024-11-12 13:23:50,122 - INFO - Found 20 versions for com.azure:azure-core
+2024-11-12 13:23:50,185 - INFO - Found matching dependency in version 0.5.0
+2024-11-12 13:23:50,186 - INFO - Found matching dependency in version 0.0.4
+2024-11-12 13:23:50,188 - INFO - Found matching dependency in version 0.4.3
+2024-11-12 13:23:50,195 - INFO - Found matching dependency in version 0.4.2
+2024-11-12 13:23:50,196 - INFO - Found matching dependency in version 0.0.3
+2024-11-12 13:23:50,196 - INFO - Found matching dependency in version 0.2.0
+2024-11-12 13:23:50,196 - INFO - Found matching dependency in version 0.1.0
+2024-11-12 13:23:50,197 - INFO - Found matching dependency in version 0.4.4
+2024-11-12 13:23:50,197 - INFO - Found matching dependency in version 0.4.1
+2024-11-12 13:23:50,214 - INFO - Found 3 versions for org.dromara:soul-plugin-httpclient
+2024-11-12 13:23:50,233 - INFO - Found matching dependency in version 0.1.2
+2024-11-12 13:23:50,244 - INFO - Found matching dependency in version 0.4.0
+2024-11-12 13:23:50,273 - INFO - Found matching dependency in version 0.0.2
+2024-11-12 13:23:50,273 - INFO - Found matching dependency in version 0.3.0
+2024-11-12 13:23:50,376 - INFO - Found matching dependency in version 0.0.137.java19
+2024-11-12 13:23:50,376 - INFO - Found matching dependency in version 7.1.0
+2024-11-12 13:23:50,385 - INFO - Found matching dependency in version 6.8.0
+2024-11-12 13:23:50,385 - INFO - Found matching dependency in version 0.0.137
+2024-11-12 13:23:50,386 - INFO - Found matching dependency in version 6.7.1
+2024-11-12 13:23:50,393 - INFO - Found matching dependency in version 7.0.0
+2024-11-12 13:23:50,395 - INFO - Found matching dependency in version 6.7.0
+2024-11-12 13:23:50,421 - INFO - Found matching dependency in version 0.0.138
+2024-11-12 13:23:50,449 - INFO - Found matching dependency in version 6.7.2
+2024-11-12 13:23:50,454 - INFO - Found matching dependency in version 7.0.0.M2
+2024-11-12 13:23:50,455 - INFO - Found matching dependency in version 7.0.0.M1
+2024-11-12 13:23:50,464 - INFO - Found matching dependency in version 7.0.1
+2024-11-12 13:23:50,494 - INFO - Found matching dependency in version 6.8.1
+2024-11-12 13:23:50,495 - INFO - Found 3 versions for io.memoria.jutils:pulsar-adapter
+2024-11-12 13:23:50,524 - INFO - Found matching dependency in version 2.2.0
+2024-11-12 13:23:50,594 - INFO - Found matching dependency in version 2.2.1
+2024-11-12 13:23:50,699 - INFO - Found matching dependency in version 0.22.0
+2024-11-12 13:23:50,706 - INFO - Found matching dependency in version 0.23.0
+2024-11-12 13:23:51,115 - INFO - Found 20 versions for com.turbospaces.boot:bootstrap-netty-core
+2024-11-12 13:23:51,116 - ERROR - Unexpected error for com.turbospaces.boot:bootstrap-netty-core: cannot schedule new futures after interpreter shutdown
