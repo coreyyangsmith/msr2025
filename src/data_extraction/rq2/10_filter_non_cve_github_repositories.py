@@ -89,13 +89,6 @@ def main():
         logging.info("No artifacts to process.")
         return
 
-    logging.info(f"Processing {len(artifacts)} artifacts")
-
-    # Fieldnames for output CSV
-    if not fieldnames:
-        logging.error("No fieldnames found in input CSV.")
-        return
-
     # Ensure all necessary fieldnames are included
     for field in [
         "artifact",
@@ -108,121 +101,48 @@ def main():
         if field not in fieldnames:
             fieldnames.append(field)
 
-    pom_not_found_count = 0
-    scm_link_not_found_count = 0
-    github_link_not_found_count = 0
-    non_github_link_found_count = 0
-    successful_count = 0
-    invalid_format_count = 0
+    results_all, results_filtered, results_non_github = [], [], []
 
-    total_artifacts = len(artifacts)
-    processed_count = 0
-    start_time = time.time()
-    eta = None
+    # Process artifacts with ThreadPoolExecutor
+    with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+        futures = [
+            executor.submit(process_artifact, artifact) for artifact in artifacts
+        ]
+        for idx, future in enumerate(as_completed(futures)):
+            try:
+                result = future.result()
+                results_all.append(result)
+                if result.get("github_url"):
+                    results_filtered.append(result)
+                elif result.get("nonGithubLinkFound"):
+                    results_non_github.append(result)
 
-    try:
-        with open(
-            output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_all, open(
-            filtered_output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_filtered, open(
-            non_github_output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_non_github:
-            # Initialize the CSV writers
-            writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
-            writer_all.writeheader()
+                # Log progress every 100 artifacts
+                if idx % 100 == 0:
+                    logging.info(f"Processed {idx + 1}/{len(artifacts)} artifacts")
 
-            writer_filtered = csv.DictWriter(csvfile_filtered, fieldnames=fieldnames)
-            writer_filtered.writeheader()
+            except Exception as e:
+                logging.error(f"Error processing artifact: {e}")
 
-            writer_non_github = csv.DictWriter(
-                csvfile_non_github, fieldnames=fieldnames
-            )
-            writer_non_github.writeheader()
+    # Write all results to CSVs at once
+    with open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile_all, open(
+        filtered_output_csv, mode="w", newline="", encoding="utf-8"
+    ) as csvfile_filtered, open(
+        non_github_output_csv, mode="w", newline="", encoding="utf-8"
+    ) as csvfile_non_github:
+        writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
+        writer_all.writeheader()
+        writer_all.writerows(results_all)
 
-            # Use ThreadPoolExecutor for concurrent processing
-            max_workers = min(MAX_WORKERS, total_artifacts)
-            with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                # Submit all tasks
-                future_to_artifact = {
-                    executor.submit(process_artifact, artifact): artifact
-                    for artifact in artifacts
-                }
-                for future in as_completed(future_to_artifact):
-                    artifact = future_to_artifact[future]
-                    try:
-                        result = future.result()
+        writer_filtered = csv.DictWriter(csvfile_filtered, fieldnames=fieldnames)
+        writer_filtered.writeheader()
+        writer_filtered.writerows(results_filtered)
 
-                        # Remove temporary keys before writing
-                        result_copy = result.copy()
-                        result_copy.pop("pomNotFound", None)
-                        result_copy.pop("scmLinkNotFound", None)
-                        result_copy.pop("nonGithubLinkFound", None)
-                        result_copy.pop("invalidGithubUrl", None)
-                        result_copy.pop("invalidArtifactFormat", None)
+        writer_non_github = csv.DictWriter(csvfile_non_github, fieldnames=fieldnames)
+        writer_non_github.writeheader()
+        writer_non_github.writerows(results_non_github)
 
-                        # Write result to the main CSV
-                        writer_all.writerow(result_copy)
-
-                        # If artifact has a GitHub URL, write to the filtered CSV
-                        if result.get("github_url"):
-                            writer_filtered.writerow(result_copy)
-                            successful_count += 1
-                        elif result.get("nonGithubLinkFound"):
-                            # Write artifacts with non-GitHub SCM URLs to the third CSV
-                            writer_non_github.writerow(result_copy)
-                            non_github_link_found_count += 1
-
-                        processed_count += 1
-
-                        # Print progress every 10 artifacts or at the end
-                        if (
-                            processed_count % 10 == 0
-                            or processed_count == total_artifacts
-                        ):
-                            elapsed_time = time.time() - start_time
-                            avg_time_per_artifact = elapsed_time / processed_count
-                            remaining_artifacts = total_artifacts - processed_count
-                            eta = datetime.now() + timedelta(
-                                seconds=avg_time_per_artifact * remaining_artifacts
-                            )
-
-                            logging.info(
-                                f"Progress: {processed_count}/{total_artifacts} ({processed_count/total_artifacts*100:.1f}%) | "
-                                f"ETA: {eta.strftime('%H:%M:%S')}"
-                            )
-
-                        if result.get("invalidArtifactFormat"):
-                            invalid_format_count += 1
-                        if result.get("pomNotFound"):
-                            pom_not_found_count += 1
-                        if result.get("scmLinkNotFound"):
-                            scm_link_not_found_count += 1
-                        if (
-                            result.get("github_url") is None
-                            and result.get("nonGithubLinkFound") is None
-                        ):
-                            github_link_not_found_count += 1
-
-                    except Exception as e:
-                        logging.error(f"Error processing artifact: {e}")
-                        processed_count += 1
-    except Exception as e:
-        logging.error(f"Error writing to output CSV: {e}")
-
-    # Output final stats
-    logging.info("\nProcessing complete. Results:")
-    logging.info(f"Invalid format: {invalid_format_count}")
-    logging.info(f"POM not found: {pom_not_found_count}")
-    logging.info(f"SCM links not found: {scm_link_not_found_count}")
-    logging.info(f"GitHub links not found: {github_link_not_found_count}")
-    logging.info(f"Non-GitHub SCM links: {non_github_link_found_count}")
-    logging.info(f"Successful GitHub URLs: {successful_count}")
-    logging.info(f"Success rate: {(successful_count/total_artifacts*100):.1f}%")
-    logging.info(f"\nOutput files:")
-    logging.info(f"All artifacts: {output_csv}")
-    logging.info(f"GitHub URLs: {filtered_output_csv}")
-    logging.info(f"Non-GitHub SCM: {non_github_output_csv}")
+    logging.info("Processing complete.")
 
 
 if __name__ == "__main__":
