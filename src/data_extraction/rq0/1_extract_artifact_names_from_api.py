@@ -2,7 +2,7 @@ import csv
 import requests
 import math
 import logging
-import time  # Import the time module to measure elapsed time
+import time
 
 from ...utils.config import (
     MAX_ARTIFACTS,

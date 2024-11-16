@@ -96,6 +96,19 @@ RQ2_10_FILTERED_OUTPUT = "data/rq2_10_github_repositories_no_cve_filtered.csv"
 RQ2_10_NON_GITHUB_OUTPUT = "data/rq2_10_github_repositories_no_cve_non_github.csv"
 
 
+RQ11_OPENDIGGER_INPUT = RQ2_10_FILTERED_OUTPUT
+RQ11_OPENDIGGER_OUTPUT = "data/rq11_opendigger/"
+
+RQ12_OPENDIGGER_INPUT = RQ11_OPENDIGGER_OUTPUT
+RQ12_OUTPUT = "data/rq13_non_cve_gh_repo_names.csv"
+
+RQ2_13_INPUT = RQ12_OUTPUT
+RQ2_13_OPENDIGGER_OUTPUT = RQ11_OPENDIGGER_OUTPUT
+
+RQ14_OPENDIGGER_INPUT = RQ2_13_OPENDIGGER_OUTPUT
+RQ14_FILE_INPUT = RQ12_OUTPUT
+RQ14_OUTPUT = "data/rq14_metrics_availability.csv"
+
 OPENDIGGER_VALUES = [
     "issues_new",
     "issues_closed",
