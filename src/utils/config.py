@@ -91,9 +91,9 @@ RQ2_8_OUTPUT = "data/rq2_8_enriched.csv"
 
 # RQ2_10 Filter Non-CVE GitHub Repositories
 RQ2_10_INPUT = "data/rq0_2_non_cve_artifacts.csv"
-RQ2_10_OUTPUT = "data/rq2_10_github_repositories_by_cve.csv"
-RQ2_10_FILTERED_OUTPUT = "data/rq2_10_github_repositories_by_cve_filtered.csv"
-RQ2_10_NON_GITHUB_OUTPUT = "data/rq2_10_github_repositories_by_cve_non_github.csv"
+RQ2_10_OUTPUT = "data/rq2_10_github_repositories_no_cve.csv"
+RQ2_10_FILTERED_OUTPUT = "data/rq2_10_github_repositories_no_cve_filtered.csv"
+RQ2_10_NON_GITHUB_OUTPUT = "data/rq2_10_github_repositories_no_cve_non_github.csv"
 
 
 OPENDIGGER_VALUES = [
