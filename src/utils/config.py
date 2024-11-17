@@ -95,19 +95,29 @@ RQ2_10_OUTPUT = "data/rq2_10_github_repositories_no_cve.csv"
 RQ2_10_FILTERED_OUTPUT = "data/rq2_10_github_repositories_no_cve_filtered.csv"
 RQ2_10_NON_GITHUB_OUTPUT = "data/rq2_10_github_repositories_no_cve_non_github.csv"
 
-
 RQ11_OPENDIGGER_INPUT = RQ2_10_FILTERED_OUTPUT
 RQ11_OPENDIGGER_OUTPUT = "data/rq11_opendigger/"
 
 RQ12_OPENDIGGER_INPUT = RQ11_OPENDIGGER_OUTPUT
-RQ12_OUTPUT = "data/rq13_non_cve_gh_repo_names.csv"
+RQ12_OUTPUT = "data/rq2_13_non_cve_gh_repo_names.csv"
 
 RQ2_13_INPUT = RQ12_OUTPUT
 RQ2_13_OPENDIGGER_OUTPUT = RQ11_OPENDIGGER_OUTPUT
 
 RQ14_OPENDIGGER_INPUT = RQ2_13_OPENDIGGER_OUTPUT
 RQ14_FILE_INPUT = RQ12_OUTPUT
-RQ14_OUTPUT = "data/rq14_metrics_availability.csv"
+RQ14_OUTPUT = "data/rq2_14_metrics_availability.csv"
+
+RQ2_15_INPUT = RQ14_OUTPUT
+RQ2_15_OUTPUT = "data/rq2_15_cleaned_metrics_repos.csv"
+
+# RQ 16
+RQ2_16_INPUT_METRICS = RQ2_15_OUTPUT
+RQ2_16_INPUT_CVES = RQ2_10_FILTERED_OUTPUT
+RQ2_16_OUTPUT = "data/rq2_16_combined_datasets.csv"
+
+RQ2_17_INPUT = RQ2_16_OUTPUT
+RQ2_17_OUTPUT = "data/rq2_17_enriched.csv"
 
 OPENDIGGER_VALUES = [
     "issues_new",
