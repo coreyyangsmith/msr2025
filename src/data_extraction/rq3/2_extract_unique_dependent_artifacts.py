@@ -1,6 +1,27 @@
 import pandas as pd
 from collections import defaultdict
 
+"""
+This script analyzes and deduplicates dependency relationships between software artifacts. It performs the following tasks:
+
+1. Reads a CSV file containing dependency relationships (`rq3_1_dependent_artifacts.csv`).
+2. Removes duplicate entries based on parent-dependent artifact pairs.
+3. Constructs a mapping of parent artifacts to their dependent artifacts using a dictionary.
+4. Calculates statistics, including:
+   - The number of unique parent artifacts.
+   - The average number of dependents per parent artifact.
+5. Creates a unique list of parent-dependent relationships and saves the results to a new CSV file (`rq3_2_unique_dependents.csv`).
+6. Outputs additional statistics, such as the total number of unique dependent artifacts.
+
+Dependencies:
+- pandas
+- collections.defaultdict
+
+Usage:
+Run this script after generating the input CSV file from previous dependency relationship analysis (e.g., `rq3_1_dependent_artifacts.csv`).
+"""
+
+
 print("\nExtracting unique dependent artifacts...")
 
 # Read the CSV file

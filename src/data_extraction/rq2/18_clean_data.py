@@ -1,7 +1,7 @@
 import pandas as pd
 
 # Read the enriched dataset
-df = pd.read_csv("data/rq2_8_enriched.csv")
+df = pd.read_csv("data/rq2_17_enriched.csv")
 
 # Columns to remove
 columns_to_remove = [
@@ -20,6 +20,8 @@ df = df.drop(columns=columns_to_remove)
 df = df.dropna()
 
 # Save cleaned dataset
-df.to_csv("data/rq2_9_trimmed_enriched.csv", index=False)
+df.to_csv("data/rq2_18_trimmed_enriched.csv", index=False)
 
-print(f"\nSaved cleaned dataset with {len(df)} rows to data/rq2_9_trimmed_enriched.csv")
+print(
+    f"\nSaved cleaned dataset with {len(df)} rows to data/rq2_18_trimmed_enriched.csv"
+)

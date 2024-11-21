@@ -8,17 +8,13 @@ from tqdm import tqdm
 from ...utils.config import RQ2_17_INPUT, RQ2_17_OUTPUT, OPENDIGGER_VALUES
 
 # Read the combined dataset from step 7
-df = pd.read_csv("data/rq2_15_cleaned_metrics_repos.csv", index_col=0)
+df = pd.read_csv(
+    "data/rq2_15_cleaned_metrics_repos.csv", header=None, names=["full_name"]
+)
 
 # List of columns to keep
 columns_to_keep = [
-    "patched_release_id",
     "full_name",
-    "cve_id",
-    "severity",
-    "cve_patched",
-    "cve_publish_date",
-    "patched_version_date",
     "issues_new_acc",
     "issues_closed_acc",
     "issue_comments_acc",

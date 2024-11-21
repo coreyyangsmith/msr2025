@@ -13,6 +13,50 @@ from urllib3.util.retry import Retry
 
 from src.utils.config import MAX_WORKERS
 
+"""
+This script identifies software releases containing specific dependencies based on Maven POM files.
+It performs the following tasks:
+
+1. Reads a CSV file of dependency pairs (`rq3_2_unique_dependents.csv`).
+2. For each dependency pair:
+   - Queries Maven Central to fetch all versions of the dependent artifact.
+   - Checks each version's POM file for the presence of the parent artifact in the dependencies.
+3. Uses concurrent threads to accelerate processing.
+4. Saves the results to a new CSV file (`rq3_3_relevant_releases.csv`) with details of the matched releases, including:
+   - Target dependency
+   - Parent artifact group
+   - Dependent version
+   - Release timestamp
+   - Release date
+5. Logs processing statistics, including errors and total execution time.
+
+Dependencies:
+- pandas
+- requests
+- xml.etree.ElementTree
+- concurrent.futures
+- threading
+- tqdm
+- logging
+- urllib3 (for HTTP retries)
+
+Usage:
+Run this script in an environment with access to Maven Central and the input dependency pairs file.
+Make sure the constants and file paths are correctly configured.
+
+Key Functions:
+- `get_session()`: Returns a thread-local requests session with retry support.
+- `process_version()`: Checks a single POM file for a matching dependency.
+- `process_dependency_pair()`: Processes all versions for a dependency pair and extracts relevant releases.
+- `extract_relevant_releases()`: Main function to orchestrate the processing and save results.
+
+Logs:
+Logs are saved to `rq3_extract_releases.log` and printed to the console for real-time feedback.
+
+Entry Point:
+- The script executes `extract_relevant_releases()` with predefined input and output paths when run as a standalone program.
+"""
+
 # Constants for controlling concurrency
 MAX_WORKERS = MAX_WORKERS
 VERSION_WORKERS = MAX_WORKERS / 2
@@ -58,10 +102,12 @@ def process_version(version, target_dep, parent):
             for dep in dependencies:
                 dep_group = dep.find("maven:groupId", namespaces)
                 dep_artifact = dep.find("maven:artifactId", namespaces)
+                dep_version = dep.find("maven:version", namespaces)
 
                 if (
                     dep_group is not None
                     and dep_artifact is not None
+                    and dep_version is not None
                     and dep_group.text == parent_group_id
                     and dep_artifact.text == parent_artifact_id
                 ):
@@ -72,7 +118,7 @@ def process_version(version, target_dep, parent):
                     release_date = time.strftime(
                         "%Y-%m-%d", time.localtime(timestamp / 1000)
                     )
-                    return f"{target_dep},{parent},{version_str},{timestamp},{release_date}\n"
+                    return f"{target_dep},{parent},{dep_version.text},{version_str},{timestamp},{release_date}\n"
     except Exception as e:
         logging.error(
             f"Error processing POM for {target_dep} version {version_str}: {str(e)}"
@@ -133,7 +179,7 @@ def extract_relevant_releases(input_path, output_path):
     # Create/overwrite output file with headers
     with open(output_path, "w") as f:
         f.write(
-            "target_dependency,parent_artifact-group,dependent_version,dependent_release_timestamp,dependent_release_date\n"
+            "target_dependency,parent_artifact-group,parent_version,target_dependent_version,target_dependent_release_timestamp,target_dependent_release_date\n"
         )
 
     total_pairs = len(dependency_pairs_df)

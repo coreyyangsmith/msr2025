@@ -12,6 +12,58 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from requests.adapters import HTTPAdapter
 from urllib3.util.retry import Retry
 
+"""
+This script extracts Maven dependency data for specified dependency pairs by processing Maven POM files.
+
+### Steps:
+1. Reads a CSV file (`rq3_4_combined.csv`) containing enriched dependency pairs with GitHub repository information.
+2. For each dependency pair:
+   - Queries Maven Central to fetch all versions of the dependent artifact.
+   - Checks the POM file for each version to identify if it references the parent dependency.
+   - If a match is found, extracts the dependency version, release timestamp, and release date.
+   - Saves the results into a CSV file organized by GitHub owner/repo (one file per repository).
+3. Uses concurrent processing to handle multiple dependency pairs and artifact versions in parallel.
+
+### Outputs:
+- Results are saved in a structured folder under `data/rq2_opendigger/`, with one CSV file per GitHub repository.
+- Each CSV contains columns:
+  - `target_dependency`
+  - `target_version`
+  - `dependent_library`
+  - `dependent_version`
+  - `release_timestamp`
+  - `release_date`
+
+### Logging:
+- Logs are saved to `rq3_extract_dependencies.log` and streamed to the console.
+
+### Dependencies:
+- pandas
+- requests
+- xml.etree.ElementTree
+- concurrent.futures
+- threading
+- tqdm
+- logging
+- urllib3 (for HTTP retries)
+
+### Functions:
+- `get_session_with_retries()`: Returns a session with retry logic for robust HTTP requests.
+- `process_version()`: Processes a single artifact version and extracts dependency data.
+- `process_dependency_pair()`: Handles all versions of a dependency pair, delegating work to `process_version`.
+- `main()`: Orchestrates the workflow, initializes logging, and manages dependencies and outputs.
+
+### Usage:
+- Ensure the input file `rq3_4_combined.csv` exists in the `data/` directory.
+- Run the script as a standalone program to extract and save dependency data.
+
+### Notes:
+- The script uses a thread-safe locking mechanism to avoid conflicts while writing to shared files.
+- Customize `MAX_WORKERS` to adjust concurrency based on available system resources.
+
+"""
+
+
 # Set up logging
 logging.basicConfig(
     level=logging.INFO,
@@ -255,6 +307,8 @@ def main():
     # Prepare arguments for dependency pairs
     args_list = []
     for row in df.to_dict("records"):
+        print(f"row: {row}")
+        print(f"output_folder: {output_folder}")
         args_list.append((row, output_folder))
 
     total_pairs = len(args_list)

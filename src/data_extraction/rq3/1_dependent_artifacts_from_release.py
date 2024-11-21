@@ -7,6 +7,33 @@ from datetime import datetime, timedelta  # Import timedelta explicitly
 from src.classes.EnrichedRelease import EnrichedRelease
 from src.utils.parsing import extract_combined_name_from_version_id
 
+
+"""
+This script analyzes dependency relationships for software releases by querying a local GoblinWeaver API.
+It performs the following tasks:
+
+1. Reads an enriched dataset of patched releases from a CSV file.
+2. Filters unique release IDs marked as patched (`cve_patched` is True).
+3. For each patched release:
+   - Constructs and sends a Cypher query to the GoblinWeaver API to identify dependent artifacts (relationship_AR).
+   - Processes the API response to extract details about dependent releases.
+4. Aggregates the results into a pandas DataFrame and saves the data to a CSV file at regular intervals.
+5. Logs progress statistics, including processing rate and estimated time remaining.
+
+The script handles potential errors from the API and ensures intermediate results are saved for data integrity.
+
+Dependencies:
+- pandas
+- requests
+- tqdm
+- EnrichedRelease class from `src.classes.EnrichedRelease`
+- `extract_combined_name_from_version_id` function from `src.utils.parsing`
+
+Usage:
+Run the script in an environment where the GoblinWeaver API is accessible, and the input data file is present at `data/rq2_8_enriched.csv`.
+"""
+
+
 # Read the enriched data from RQ2
 df = pd.read_csv("data/rq2_8_enriched.csv")
 
