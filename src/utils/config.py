@@ -1,5 +1,5 @@
 ### Generic Parameters ###
-NEO4J_URL = "http://localhost:8080/cypher"
+NEO4J_URL = "http://localhost:7687/cypher"
 ARTIFACT_RELEASES_URL = "http://localhost:8080/artifact/releases"
 GITHUB_API_URL = "https://api.github.com"
 

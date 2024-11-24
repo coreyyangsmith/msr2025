@@ -1,3 +1,32 @@
+"""
+This script analyzes the availability of OpenDigger metrics across repositories.
+
+It performs the following tasks:
+1. Scans the data/rq2_opendigger directory for repository subdirectories
+2. Maps underscore-formatted directory names back to original repository names
+3. Checks for the presence of each OpenDigger metric CSV file in each repository
+4. Generates availability statistics and saves results to a CSV file
+
+The script tracks:
+- Which metrics are available for each repository
+- Overall metrics availability percentage
+- Missing metrics warnings
+- Processing time
+
+Input files:
+- data/rq2_3_repo_names.csv: Original repository names
+- data/rq2_opendigger/*/: Repository metric data folders
+
+Output file:
+- data/rq2_5_metrics_availability.csv: Matrix of repositories and metric availability
+
+Dependencies:
+- pandas
+- os
+- time
+- OPENDIGGER_VALUES from utils.config
+"""
+
 import os
 import pandas as pd
 import time

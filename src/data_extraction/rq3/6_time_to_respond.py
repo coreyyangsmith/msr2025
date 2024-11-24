@@ -1,3 +1,32 @@
+"""
+This script analyzes the time taken for dependent artifacts to respond to CVE patches in their dependencies.
+
+It performs the following tasks:
+1. Reads two input CSV files:
+   - rq3_3_relevant_releases.csv: Contains information about dependent artifact releases
+   - rq0_4_unique_cves.csv: Contains CVE vulnerability and patch information
+2. Matches dependent artifact releases with CVE patches in their dependencies by:
+   - Comparing release dates to ensure the dependent release is after the CVE patch
+   - Comparing semantic versions to ensure the dependent uses a patched version
+3. For each matching case, calculates:
+   - Days between CVE patch and dependent's response
+   - Tracks the minimum version that includes the patch
+4. Outputs enriched dataset with patch response times to rq3_6_time_to_respond.csv
+
+Dependencies:
+- pandas: For data manipulation
+- re: For version string cleaning
+- datetime: For date handling
+- packaging.version: For semantic version comparison
+
+Input files:
+- data/rq3_3_relevant_releases.csv: Contains dependent release information
+- data/rq0_4_unique_cves.csv: Contains CVE and patch information
+
+Output file:
+- data/rq3_6_time_to_respond.csv: Contains patch response time analysis
+"""
+
 import pandas as pd
 import re
 from datetime import datetime
@@ -81,7 +110,7 @@ for _, rq3_row in rq3_3_df.iterrows():
                     # Calculate days to patch
                     days_to_patch = (
                         rq3_row["target_dependent_release_date"]
-                        - cve_row["cve_publish_date"]
+                        - cve_row["patched_version_date"]
                     ).days
 
                     # Create new row with all requested fields
