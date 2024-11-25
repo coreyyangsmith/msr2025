@@ -4,7 +4,7 @@ This script queries the OSV API to get a list of all affected versions for each 
 It performs the following:
 1. Reads CVE data from rq0_4_unique_cves.csv
 2. For each CVE, queries the OSV API to get affected version ranges
-3. Saves the affected version information to a new CSV file
+3. Saves the affected version information to a new CSV file, but only for CVEs that have been patched
 
 Dependencies:
 - pandas: For data manipulation
@@ -52,37 +52,42 @@ def get_affected_versions(package_name, ecosystem, cve_id):
             "details": str(e),
         }
 
-    # Check if the CVE ID is in the results
+    # Initialize variables
+    affected_versions = []
+    cve_patched = False
+    vuln_details = None
+
+    # Iterate through vulnerabilities
     vulns = data.get("vulns", [])
     for vuln in vulns:
-        if cve_id in vuln.get("aliases", []):
-            affected_versions = []
-            cve_patched = False
+        if cve_id not in vuln.get("aliases", []):
+            continue
+
+        for affected in vuln.get("affected", []):
+            pkg = affected.get("package", {})
+            if pkg.get("name") != package_name:
+                continue
+
+            vuln_details = vuln  # Capture the vulnerability details
 
             # Extract affected versions
-            if "affected" in vuln:
-                for affected in vuln["affected"]:
-                    versions = affected.get("versions", [])
-                    affected_versions.extend(versions)
+            versions = affected.get("versions", [])
+            affected_versions.extend(versions)
 
-                    # Check if there are fixed versions
-                    if affected.get("ranges"):
-                        for range_info in affected["ranges"]:
-                            if range_info.get("type") == "SEMVER" and range_info.get(
-                                "fixed"
-                            ):
-                                cve_patched = True
-
-            return {
-                "affected_versions": affected_versions,
-                "cve_patched": cve_patched,
-                "details": vuln,
-            }
+            # Check for fixed versions in ranges
+            ranges = affected.get("ranges", [])
+            for range_info in ranges:
+                if range_info.get("type") != "ECOSYSTEM":
+                    continue
+                events = range_info.get("events", [])
+                for event in events:
+                    if "fixed" in event:
+                        cve_patched = True
 
     return {
-        "affected_versions": [],
-        "cve_patched": False,
-        "details": None,
+        "affected_versions": affected_versions,
+        "cve_patched": cve_patched,
+        "details": vuln_details,
     }
 
 
@@ -95,9 +100,11 @@ def process_cve(row):
     if pd.isna(cve_id):
         return None
 
+    if row["cve_patched"] == False:
+        return None
+
     try:
         result = get_affected_versions(f"{group_id}:{artifact_id}", "Maven", cve_id)
-
         processed_result = {
             "parent_combined_name": row["combined_name"],
             "cve_id": cve_id,
