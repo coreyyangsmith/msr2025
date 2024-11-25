@@ -27,7 +27,7 @@ The script uses multithreading to improve performance when querying the API.
 """
 
 # Constants for controlling concurrency
-DEPENDENCY_WORKERS = MAX_WORKERS // 4  # Limit workers to 1/4 of max
+DEPENDENCY_WORKERS = 10  # Limit workers to 10
 MAX_CONNECTIONS = 10  # Limit concurrent connections
 
 # Create connection semaphore
