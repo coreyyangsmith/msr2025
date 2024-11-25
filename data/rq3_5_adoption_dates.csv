@@ -1,2 +1,0 @@
-dependent,cve_id,patched_version,first_adopted_version
-org.testng:testng,CVE-2023-6038,3.42.0.1,6.9.10
