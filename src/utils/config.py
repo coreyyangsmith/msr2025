@@ -1,5 +1,5 @@
 ### Generic Parameters ###
-NEO4J_URL = "http://localhost:7687/cypher"
+NEO4J_URL = "http://localhost:7474/db/neo4j/tx/commit"
 ARTIFACT_RELEASES_URL = "http://localhost:8080/artifact/releases"
 GITHUB_API_URL = "https://api.github.com"
 
@@ -170,4 +170,4 @@ BACKOFF_FACTOR = 1
 
 
 # HARDWARE CONFIG
-MAX_WORKERS = 24
+MAX_WORKERS = 96
