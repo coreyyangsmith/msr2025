@@ -5,6 +5,7 @@ from tqdm import tqdm
 from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import json
+import threading
 
 from src.classes.EnrichedRelease import EnrichedRelease
 from src.utils.parsing import extract_combined_name_from_version_id
@@ -25,6 +26,13 @@ The script handles potential errors from the API and ensures intermediate result
 The script uses multithreading to improve performance when querying the API.
 """
 
+# Constants for controlling concurrency
+DEPENDENCY_WORKERS = MAX_WORKERS // 4  # Limit workers to 1/4 of max
+MAX_CONNECTIONS = 10  # Limit concurrent connections
+
+# Create connection semaphore
+connection_semaphore = threading.Semaphore(MAX_CONNECTIONS)
+
 
 def process_release(row):
     parent_combined_name = row["parent_combined_name"]
@@ -43,70 +51,72 @@ def process_release(row):
     RETURN parentArtifact, dependentRelease, parentRelease
     """
     try:
-        # Prepare request payload
-        payload = {"statements": [{"statement": query}]}
+        # Acquire connection semaphore
+        with connection_semaphore:
+            # Prepare request payload
+            payload = {"statements": [{"statement": query}]}
 
-        # Send request to Neo4j
-        headers = {"Content-Type": "application/json"}
-        response = requests.post(
-            GOBLIN_API,
-            auth=("neo4j", "Password1"),
-            headers=headers,
-            data=json.dumps(payload),
-        )
-        response.raise_for_status()
+            # Send request to Neo4j
+            headers = {"Content-Type": "application/json"}
+            response = requests.post(
+                GOBLIN_API,
+                auth=("neo4j", "Password1"),
+                headers=headers,
+                data=json.dumps(payload),
+            )
+            response.raise_for_status()
 
-        # Process response
-        results = response.json()
-        if "results" in results and len(results["results"]) > 0:
-            result_set = results["results"][0]
-            data_entries = result_set.get("data", [])
-            if data_entries:
-                batch_results = []
-                for entry in data_entries:
-                    row_data = entry.get("row", [])
-                    if len(row_data) < 2:
-                        continue
+            # Process response
+            results = response.json()
+            if "results" in results and len(results["results"]) > 0:
+                result_set = results["results"][0]
+                data_entries = result_set.get("data", [])
+                if data_entries:
+                    batch_results = []
+                    for entry in data_entries:
+                        row_data = entry.get("row", [])
+                        if len(row_data) < 2:
+                            continue
 
-                    # Get the dependent release data from row_data[1]
-                    dependent_release = row_data[1]
-                    dependent_id = dependent_release.get("id", "UNKNOWN")
-                    dependent_timestamp = dependent_release.get("timestamp", None)
+                        # Get the dependent release data from row_data[1]
+                        dependent_release = row_data[1]
+                        dependent_id = dependent_release.get("id", "UNKNOWN")
+                        dependent_timestamp = dependent_release.get("timestamp", None)
 
-                    # Convert timestamp to date if it exists
-                    if dependent_timestamp:
-                        dependent_timestamp = datetime.fromtimestamp(
-                            dependent_timestamp / 1000
-                        ).strftime("%Y-%m-%d")
+                        # Convert timestamp to date if it exists
+                        if dependent_timestamp:
+                            dependent_timestamp = datetime.fromtimestamp(
+                                dependent_timestamp / 1000
+                            ).strftime("%Y-%m-%d")
 
-                    # Split id into group_id:artifact_id:version
-                    id_parts = dependent_id.split(":")
-                    if len(id_parts) < 3:
-                        continue
+                        # Split id into group_id:artifact_id:version
+                        id_parts = dependent_id.split(":")
+                        if len(id_parts) < 3:
+                            continue
 
-                    group_id = id_parts[0]
-                    artifact_id = id_parts[1]
-                    version = id_parts[2]
+                        group_id = id_parts[0]
+                        artifact_id = id_parts[1]
+                        version = id_parts[2]
 
-                    batch_results.append(
-                        {
-                            "dependentGroupId": group_id,
-                            "dependentArtifactId": artifact_id,
-                            "dependentVersion": version,
-                            "dependentTimestamp": dependent_timestamp,
-                            "cve_id": cve_id,
-                            "parent_combined_name": parent_combined_name,
-                            "affected_version": affected_version,
-                            "parent_release_id": release_id,
-                        }
-                    )
-                return batch_results
-            return []
-        else:
-            print(f"No results found for release {release_id}")
-            return []
+                        batch_results.append(
+                            {
+                                "dependentGroupId": group_id,
+                                "dependentArtifactId": artifact_id,
+                                "dependentVersion": version,
+                                "dependentTimestamp": dependent_timestamp,
+                                "cve_id": cve_id,
+                                "parent_combined_name": parent_combined_name,
+                                "affected_version": affected_version,
+                                "parent_release_id": release_id,
+                            }
+                        )
+                    return batch_results
+                return []
+            else:
+                print(f"No results found for release {release_id}")
+                return []
 
-        time.sleep(0.1)  # Small delay to avoid overwhelming the API
+            time.sleep(0.5)  # Increased delay to reduce API load
 
     except requests.exceptions.RequestException as e:
         print(f"Error querying {release_id}: {str(e)}")
@@ -145,8 +155,8 @@ processed_releases = 0
 # Create progress bar
 pbar = tqdm(total=len(df), desc="Querying dependencies")
 
-# Process releases using thread pool
-with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+# Process releases using thread pool with limited workers
+with ThreadPoolExecutor(max_workers=DEPENDENCY_WORKERS) as executor:
     # Submit all tasks
     future_to_row = {
         executor.submit(process_release, row): idx for idx, row in df.iterrows()
