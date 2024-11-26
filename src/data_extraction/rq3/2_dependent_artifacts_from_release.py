@@ -52,7 +52,6 @@ def process_release(row):
         else None
     )
     severity = row["severity"]
-    print(row)
 
     for affected_version in affected_versions:
         affected_version = affected_version.strip()

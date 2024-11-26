@@ -42,15 +42,9 @@ def query_neo4j(parent_artifact_id, dependent_artifact_id):
     MATCH (parentArtifact:Artifact {{id: "{parent_artifact_id}"}})
     MATCH (dependentArtifact:Artifact {{id: "{dependent_artifact_id}"}})
     MATCH (dependentRelease:Release)<-[:relationship_AR]-(dependentArtifact)
-<<<<<<< HEAD
     MATCH (dependencyRelease)-[d:dependency]->(parentArtifact)
     RETURN
       dependentArtifact.id AS dependentArtifactId,
-=======
-    MATCH (dependencyRelease)-[d:dependency]-(parentArtifact)
-    RETURN
-      dependentRelease.id AS dependentReleaseId,
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
       dependentRelease.version AS dependentReleaseVersion,
       dependentRelease.timestamp AS dependentReleaseTimestamp,
       d.targetVersion AS parentReleaseVersion,
@@ -95,16 +89,12 @@ def process_dependency_pair(row):
     """Process a single parent-dependent artifact pair"""
     parent_id = row["parent_combined_name"]
     dependent_id = f"{row['dependentGroupId']}:{row['dependentArtifactId']}"
-<<<<<<< HEAD
     patched_version = row["patched_version"]
     affected_versions = row["affected_versions"].split(",")
-=======
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
 
     result = query_neo4j(parent_id, dependent_id)
     if not result or "results" not in result or not result["results"][0]["data"]:
         return None
-<<<<<<< HEAD
 
     releases_affected = {}
     releases_patched = {}
@@ -223,23 +213,6 @@ def process_dependency_pair(row):
         )
 
     return releases if releases else None
-=======
-    releases = []
-    for record in result["results"][0]["data"]:
-        row = record["row"]
-        release_date = datetime.fromtimestamp(row[2] / 1000).strftime("%Y-%m-%d")
-        release_data = {
-            "parent_artifact_id": row[4],
-            "parent_version": row[3],
-            "dependent_artifact_id": row[0],
-            "dependent_version": row[1],
-            "dependent_timestamp": row[2],
-            "dependent_date": release_date,
-        }
-        releases.append(release_data)
-
-    return releases
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
 
 
 def write_batch_to_csv(results, first_write=False):
@@ -264,11 +237,7 @@ def main():
     error_count = 0
     first_write = True
 
-<<<<<<< HEAD
     with concurrent.futures.ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-=======
-    with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
         future_to_row = {
             executor.submit(process_dependency_pair, row): row
             for _, row in df.iterrows()
