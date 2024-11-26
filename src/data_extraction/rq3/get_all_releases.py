@@ -36,9 +36,9 @@ def query_neo4j(parent_artifact_id, dependent_artifact_id):
     MATCH (parentArtifact:Artifact {{id: "{parent_artifact_id}"}})
     MATCH (dependentArtifact:Artifact {{id: "{dependent_artifact_id}"}})
     MATCH (dependentRelease:Release)<-[:relationship_AR]-(dependentArtifact)
-    MATCH (dependencyRelease)-[d:dependency]->(parentArtifact)
+    MATCH (dependencyRelease)-[d:dependency]-(parentArtifact)
     RETURN
-      dependentArtifact.id AS dependentArtifactId,
+      dependentRelease.id AS dependentReleaseId,
       dependentRelease.version AS dependentReleaseVersion,
       dependentRelease.timestamp AS dependentReleaseTimestamp,
       d.targetVersion AS parentReleaseVersion,
@@ -84,125 +84,33 @@ def process_dependency_pair(row):
     parent_id = row["parent_combined_name"]
     dependent_id = f"{row['dependentGroupId']}:{row['dependentArtifactId']}"
     patched_version = row["patched_version"]
-    affected_versions = row["affected_versions"].split(",")
+    # affected_versions = row["affected_versions"].split(",")  # Not needed as we write all rows
 
     result = query_neo4j(parent_id, dependent_id)
     if not result or "results" not in result or not result["results"][0]["data"]:
         return None
 
-    releases_affected = {}
-    releases_patched = {}
+    releases = []
 
     for record in result["results"][0]["data"]:
         record_row = record["row"]
-        dep_id = record_row[0]  # This is now just the group_id:artifact_id
+        dep_id = record_row[0]
         dep_version = record_row[1]
         timestamp = record_row[2]
         parent_version = record_row[3]
         parent_artifact_id = record_row[4]
 
-        # Case 1: Highest dependent_version for highest parent_version in affected_versions
-        if parent_version in affected_versions:
-            try:
-                parsed_parent_version = version.parse(parent_version)
-                parsed_dep_version = version.parse(dep_version)
-            except version.InvalidVersion:
-                print(
-                    f"[Warning] Invalid version format for parent_version '{parent_version}' or dependent_version '{dep_version}'. Skipping affected version."
-                )
-                continue
-
-            if dep_id not in releases_affected:
-                releases_affected[dep_id] = {
-                    "version": dep_version,
-                    "parsed_version": parsed_dep_version,
-                    "parent_version": parsed_parent_version,
-                    "parent_id": parent_artifact_id,
-                    "timestamp": timestamp,
-                }
-            else:
-                existing = releases_affected[dep_id]
-                if parsed_parent_version > existing["parent_version"]:
-                    releases_affected[dep_id] = {
-                        "version": dep_version,
-                        "parsed_version": parsed_dep_version,
-                        "parent_version": parsed_parent_version,
-                        "parent_id": parent_artifact_id,
-                        "timestamp": timestamp,
-                    }
-                elif parsed_parent_version == existing["parent_version"]:
-                    if parsed_dep_version > existing["parsed_version"]:
-                        releases_affected[dep_id] = {
-                            "version": dep_version,
-                            "parsed_version": parsed_dep_version,
-                            "parent_version": parsed_parent_version,
-                            "parent_id": parent_artifact_id,
-                            "timestamp": timestamp,
-                        }
-
-        # Case 2: Lowest dependent_version for parent_version >= patched_version
-        try:
-            parsed_patched_version = version.parse(patched_version)
-            parsed_parent_version = version.parse(parent_version)
-            parsed_dep_version = version.parse(dep_version)
-        except version.InvalidVersion:
-            print(
-                f"[Warning] Invalid version format for patched_version '{patched_version}', parent_version '{parent_version}', or dependent_version '{dep_version}'. Skipping patched version."
-            )
-            continue
-
-        if parsed_parent_version >= parsed_patched_version:
-            if dep_id not in releases_patched:
-                releases_patched[dep_id] = {
-                    "version": dep_version,
-                    "parsed_version": parsed_dep_version,
-                    "parent_version": parsed_parent_version,
-                    "parent_id": parent_artifact_id,
-                    "timestamp": timestamp,
-                }
-            else:
-                existing = releases_patched[dep_id]
-                if parsed_dep_version < existing["parsed_version"]:
-                    releases_patched[dep_id] = {
-                        "version": dep_version,
-                        "parsed_version": parsed_dep_version,
-                        "parent_version": parsed_parent_version,
-                        "parent_id": parent_artifact_id,
-                        "timestamp": timestamp,
-                    }
-
-    # Combine affected and patched releases
-    releases = []
-
-    for dep_id, affected in releases_affected.items():
-        timestamp = affected["timestamp"]
         release_date = datetime.fromtimestamp(timestamp / 1000).strftime("%Y-%m-%d")
 
         releases.append(
             {
-                "parent_artifact_id": affected["parent_id"],
-                "parent_version": str(affected["parent_version"]),
+                "parent_artifact_id": parent_artifact_id,
+                "parent_version": parent_version,
                 "dependent_artifact_id": dep_id,
-                "dependent_version": affected["version"],
+                "dependent_version": dep_version,
                 "dependent_timestamp": timestamp,
                 "dependent_date": release_date,
-                "type": "affected",
-            }
-        )
-
-    for dep_id, patched in releases_patched.items():
-        timestamp = patched["timestamp"]
-        release_date = datetime.fromtimestamp(timestamp / 1000).strftime("%Y-%m-%d")
-
-        releases.append(
-            {
-                "parent_artifact_id": patched["parent_id"],
-                "parent_version": str(patched["parent_version"]),
-                "dependent_artifact_id": dep_id,
-                "dependent_version": patched["version"],
-                "dependent_timestamp": timestamp,
-                "dependent_date": release_date,
-                "type": "patched",
+                "type": "all",  # Assigning type as 'all' since we're writing all rows
             }
         )
 

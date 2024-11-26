@@ -10,7 +10,7 @@ import threading
 
 from src.classes.EnrichedRelease import EnrichedRelease
 from src.utils.parsing import extract_combined_name_from_version_id
-from src.utils.config import NEO4J_URL, MAX_WORKERS
+from src.utils.config import NEO4J_URL, NEO4J_AUTH, MAX_WORKERS
 
 
 """
@@ -42,6 +42,17 @@ def process_release(row):
     parent_combined_name = row["parent_combined_name"]
     affected_versions = row["affected_version"].split(",")
     cve_id = row["cve_id"]
+    cve_publish_date = row["cve_publish_date"].split("T")[
+        0
+    ]  # Extract just the date part
+    patched_version = row["patched_version"]
+    patched_version_date = (
+        row["patched_version_date"].split("T")[0]
+        if pd.notna(row["patched_version_date"])
+        else None
+    )
+    severity = row["severity"]
+    print(row)
 
     for affected_version in affected_versions:
         affected_version = affected_version.strip()
@@ -76,7 +87,7 @@ def process_release(row):
                 headers = {"Content-Type": "application/json"}
                 response = requests.post(
                     NEO4J_URL,
-                    auth=("neo4j", "password"),
+                    auth=NEO4J_AUTH,
                     headers=headers,
                     data=json.dumps(payload),
                     timeout=1200,  # Set a timeout for the request
@@ -122,8 +133,14 @@ def process_release(row):
 
                                 artifact_info = {
                                     "parent_combined_name": parent_combined_name,
+                                    "affected_versions": row["affected_version"],
                                     "dependentGroupId": group_id,
                                     "dependentArtifactId": artifact_name,
+                                    "cve_id": cve_id,
+                                    "cve_publish_date": cve_publish_date,
+                                    "patched_version": patched_version,
+                                    "patched_version_date": patched_version_date,
+                                    "severity": severity,
                                 }
                                 artifacts.append(artifact_info)
 
@@ -150,6 +167,27 @@ def main():
     print("Reading affected versions from CSV...")
     df = pd.read_csv("data/rq3_1_affected_versions_list.csv")
 
+    # Read CVE data
+    print("Reading CVE data...")
+    cve_df = pd.read_csv("data/rq0_4_unique_cves.csv")
+
+    # Merge the dataframes on parent_combined_name/combined_name and cve_id
+    print("Enriching affected versions data with CVE information...")
+    df = df.merge(
+        cve_df[
+            [
+                "combined_name",
+                "cve_id",
+                "cve_publish_date",
+                "patched_version",
+                "patched_version_date",
+                "severity",
+            ]
+        ],
+        left_on=["parent_combined_name", "cve_id"],
+        right_on=["combined_name", "cve_id"],
+        how="left",
+    )
     # Define CSV file path
     output_csv = "data/rq3_2_dependent_artifacts.csv"
 
