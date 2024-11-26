@@ -22,21 +22,26 @@ It performs the following tasks:
 """
 
 # Constants
-MAX_RETRIES = 3
+MAX_RETRIES = 1
 INITIAL_BACKOFF = 1
 BACKOFF_FACTOR = 2
 OUTPUT_FILE = "data/rq3_3_release_dependencies.csv"
 
+# Global counters
+total_relationships_scanned = 0
+
 
 def query_neo4j(parent_artifact_id, dependent_artifact_id):
     """Query Neo4j for release information about a dependency relationship"""
-    print(f"[Query] {parent_artifact_id} -> {dependent_artifact_id}")
+    # print(f"[Query] {parent_artifact_id} -> {dependent_artifact_id}")
+    global total_relationships_scanned
+    total_relationships_scanned += 1
 
     query = f"""
     MATCH (parentArtifact:Artifact {{id: "{parent_artifact_id}"}})
     MATCH (dependentArtifact:Artifact {{id: "{dependent_artifact_id}"}})
     MATCH (dependentRelease:Release)<-[:relationship_AR]-(dependentArtifact)
-    MATCH (dependencyRelease)-[d:dependency]->(parentArtifact)
+    MATCH (dependentRelease)-[d:dependency]->(parentArtifact)
     RETURN
       dependentArtifact.id AS dependentArtifactId,
       dependentRelease.version AS dependentReleaseVersion,
@@ -85,6 +90,9 @@ def process_dependency_pair(row):
     dependent_id = f"{row['dependentGroupId']}:{row['dependentArtifactId']}"
     patched_version = row["patched_version"]
     affected_versions = row["affected_versions"].split(",")
+    cve_id = row["cve_id"]
+
+    # print(f"[Processing] Parent: {parent_id}, Dependent: {dependent_id}")
 
     result = query_neo4j(parent_id, dependent_id)
     if not result or "results" not in result or not result["results"][0]["data"]:
@@ -92,6 +100,8 @@ def process_dependency_pair(row):
 
     releases_affected = {}
     releases_patched = {}
+    versions_processed = 0
+    versions_skipped = 0
 
     for record in result["results"][0]["data"]:
         record_row = record["row"]
@@ -106,10 +116,9 @@ def process_dependency_pair(row):
             try:
                 parsed_parent_version = version.parse(parent_version)
                 parsed_dep_version = version.parse(dep_version)
+                versions_processed += 1
             except version.InvalidVersion:
-                print(
-                    f"[Warning] Invalid version format for parent_version '{parent_version}' or dependent_version '{dep_version}'. Skipping affected version."
-                )
+                versions_skipped += 1
                 continue
 
             if dep_id not in releases_affected:
@@ -145,10 +154,9 @@ def process_dependency_pair(row):
             parsed_patched_version = version.parse(patched_version)
             parsed_parent_version = version.parse(parent_version)
             parsed_dep_version = version.parse(dep_version)
+            versions_processed += 1
         except version.InvalidVersion:
-            print(
-                f"[Warning] Invalid version format for patched_version '{patched_version}', parent_version '{parent_version}', or dependent_version '{dep_version}'. Skipping patched version."
-            )
+            versions_skipped += 1
             continue
 
         if parsed_parent_version >= parsed_patched_version:
@@ -174,38 +182,43 @@ def process_dependency_pair(row):
     # Combine affected and patched releases
     releases = []
 
-    for dep_id, affected in releases_affected.items():
-        timestamp = affected["timestamp"]
-        release_date = datetime.fromtimestamp(timestamp / 1000).strftime("%Y-%m-%d")
+    # Process each unique dependent ID
+    unique_dep_ids = set(releases_affected.keys()) | set(releases_patched.keys())
 
-        releases.append(
-            {
-                "parent_artifact_id": affected["parent_id"],
-                "parent_version": str(affected["parent_version"]),
-                "dependent_artifact_id": dep_id,
-                "dependent_version": affected["version"],
-                "dependent_timestamp": timestamp,
-                "dependent_date": release_date,
-                "type": "affected",
-            }
-        )
+    for dep_id in unique_dep_ids:
+        affected = releases_affected.get(dep_id)
+        patched = releases_patched.get(dep_id)
 
-    for dep_id, patched in releases_patched.items():
-        timestamp = patched["timestamp"]
-        release_date = datetime.fromtimestamp(timestamp / 1000).strftime("%Y-%m-%d")
+        release_data = {
+            "dependent_artifact_id": dep_id,
+            "affected_parent_artifact_id": affected["parent_id"] if affected else None,
+            "affected_parent_version": str(affected["parent_version"])
+            if affected
+            else None,
+            "affected_dependent_version": affected["version"] if affected else None,
+            "affected_timestamp": affected["timestamp"] if affected else None,
+            "affected_date": datetime.fromtimestamp(
+                affected["timestamp"] / 1000
+            ).strftime("%Y-%m-%d")
+            if affected
+            else None,
+            "patched_parent_artifact_id": patched["parent_id"] if patched else None,
+            "patched_parent_version": str(patched["parent_version"])
+            if patched
+            else None,
+            "patched_dependent_version": patched["version"] if patched else None,
+            "patched_timestamp": patched["timestamp"] if patched else None,
+            "patched_date": datetime.fromtimestamp(
+                patched["timestamp"] / 1000
+            ).strftime("%Y-%m-%d")
+            if patched
+            else None,
+            "cve_id": cve_id,
+        }
 
-        releases.append(
-            {
-                "parent_artifact_id": patched["parent_id"],
-                "parent_version": str(patched["parent_version"]),
-                "dependent_artifact_id": dep_id,
-                "dependent_version": patched["version"],
-                "dependent_timestamp": timestamp,
-                "dependent_date": release_date,
-                "type": "patched",
-            }
-        )
+        releases.append(release_data)
 
+    # print(f"[Versions] Processed: {versions_processed} | Skipped: {versions_skipped}")
     return releases if releases else None
 
 
@@ -258,7 +271,7 @@ def main():
                     results_buffer = []
 
                 # Log progress every 5 items
-                if processed_count % 5 == 0:
+                if processed_count % 3 == 0:
                     elapsed_time = datetime.now() - start_time
                     avg_time = elapsed_time / processed_count
                     remaining = len(df) - processed_count
@@ -273,6 +286,9 @@ def main():
                     )
                     print(
                         f"[Time] Elapsed: {elapsed_time} | ETA: {eta.strftime('%H:%M:%S')}"
+                    )
+                    print(
+                        f"[Relationships] Total scanned: {total_relationships_scanned}"
                     )
 
             except Exception as e:
@@ -291,6 +307,7 @@ def main():
         f"Time: {elapsed_time} | Processed: {processed_count} | Errors: {error_count}"
     )
     print(f"Final rate: {final_rate:.1f} pairs/s")
+    print(f"Total dependency relationships scanned: {total_relationships_scanned}")
     print("[Done]")
 
 

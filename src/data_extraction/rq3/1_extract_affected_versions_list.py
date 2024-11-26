@@ -3,7 +3,7 @@ This script queries the OSV API to get a list of all affected versions for each 
 
 It performs the following:
 1. Reads CVE data from rq0_4_unique_cves.csv
-2. For each CVE, queries the OSV API to get affected version ranges
+2. For each CVE, queries the OSV API to get affected version ranges and patched version
 3. Saves the affected version information to a new CSV file, but only for CVEs that have been patched
 
 Dependencies:
@@ -32,7 +32,7 @@ def get_affected_versions(package_name, ecosystem, cve_id):
         cve_id (str): The CVE identifier to check against.
 
     Returns:
-        dict: A dictionary containing affected versions and whether it's patched.
+        dict: A dictionary containing affected versions, patched version and whether it's patched.
     """
     url = "https://api.osv.dev/v1/query"
 
@@ -49,6 +49,7 @@ def get_affected_versions(package_name, ecosystem, cve_id):
         return {
             "affected_versions": [],
             "cve_patched": False,
+            "patched_version": None,
             "details": str(e),
         }
 
@@ -56,6 +57,7 @@ def get_affected_versions(package_name, ecosystem, cve_id):
     affected_versions = []
     cve_patched = False
     vuln_details = None
+    patched_version = None
 
     # Iterate through vulnerabilities
     vulns = data.get("vulns", [])
@@ -83,10 +85,12 @@ def get_affected_versions(package_name, ecosystem, cve_id):
                 for event in events:
                     if "fixed" in event:
                         cve_patched = True
+                        patched_version = event["fixed"]
 
     return {
         "affected_versions": affected_versions,
         "cve_patched": cve_patched,
+        "patched_version": patched_version,
         "details": vuln_details,
     }
 
@@ -110,6 +114,9 @@ def process_cve(row):
             "cve_id": cve_id,
             "affected_version": ",".join(result["affected_versions"])
             if result["affected_versions"]
+            else "",
+            "patched_version": result["patched_version"]
+            if result["patched_version"]
             else "",
         }
 

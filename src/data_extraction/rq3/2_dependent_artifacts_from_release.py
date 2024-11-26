@@ -45,12 +45,10 @@ def process_release(row):
     cve_publish_date = row["cve_publish_date"].split("T")[
         0
     ]  # Extract just the date part
-    patched_version = row["patched_version"]
-    patched_version_date = (
-        row["patched_version_date"].split("T")[0]
-        if pd.notna(row["patched_version_date"])
-        else None
+    patched_version = (
+        row["patched_version"] if pd.notna(row["patched_version"]) else None
     )
+
     severity = row["severity"]
 
     for affected_version in affected_versions:
@@ -133,12 +131,11 @@ def process_release(row):
                                 artifact_info = {
                                     "parent_combined_name": parent_combined_name,
                                     "affected_versions": row["affected_version"],
+                                    "patched_version": patched_version,
                                     "dependentGroupId": group_id,
                                     "dependentArtifactId": artifact_name,
                                     "cve_id": cve_id,
                                     "cve_publish_date": cve_publish_date,
-                                    "patched_version": patched_version,
-                                    "patched_version_date": patched_version_date,
                                     "severity": severity,
                                 }
                                 artifacts.append(artifact_info)
@@ -178,8 +175,6 @@ def main():
                 "combined_name",
                 "cve_id",
                 "cve_publish_date",
-                "patched_version",
-                "patched_version_date",
                 "severity",
             ]
         ],
