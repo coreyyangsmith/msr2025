@@ -5,10 +5,7 @@ import time
 from datetime import datetime
 from tqdm import tqdm
 import concurrent.futures
-<<<<<<< HEAD
 from packaging import version
-=======
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
 from src.utils.config import NEO4J_URL, NEO4J_AUTH, MAX_WORKERS
 
 """
@@ -19,10 +16,7 @@ It performs the following tasks:
 2. For each parent-dependent pair:
    - Queries Neo4j to get release information about the dependency relationship
    - Extracts release versions, timestamps, and dependency versions
-<<<<<<< HEAD
    - Keeps only the highest version within affected versions
-=======
->>>>>>> 7156b850314cd75923fd946c9ded4e961f904662
 3. Continuously saves the enriched dependency data to a CSV file
 4. Handles API rate limiting and errors with retries and backoff
 """
