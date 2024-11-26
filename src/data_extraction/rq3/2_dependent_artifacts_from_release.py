@@ -104,7 +104,6 @@ def process_release(row):
 
                 # Process response
                 results = response.json()
-                print(results)
                 if "results" in results and len(results["results"]) > 0:
                     result_set = results["results"][0]
                     data_entries = result_set.get("data", [])

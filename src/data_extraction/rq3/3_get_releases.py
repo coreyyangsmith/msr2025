@@ -31,6 +31,29 @@ OUTPUT_FILE = "data/rq3_3_release_dependencies.csv"
 total_relationships_scanned = 0
 
 
+def test_neo4j_connection():
+    """Test the Neo4j connection with a simple query"""
+    print("[Test] Testing Neo4j connection...")
+    test_query = "MATCH (n) RETURN count(n) as count LIMIT 1"
+    payload = {"statements": [{"statement": test_query}]}
+    headers = {"Content-Type": "application/json"}
+
+    try:
+        response = requests.post(
+            NEO4J_URL,
+            auth=NEO4J_AUTH,
+            headers=headers,
+            data=json.dumps(payload),
+            timeout=10,
+        )
+        response.raise_for_status()
+        print("[Test] Neo4j connection successful!")
+        return True
+    except Exception as e:
+        print(f"[Test] Neo4j connection failed: {str(e)}")
+        return False
+
+
 def query_neo4j(parent_artifact_id, dependent_artifact_id):
     """Query Neo4j for release information about a dependency relationship"""
     # print(f"[Query] {parent_artifact_id} -> {dependent_artifact_id}")
@@ -92,11 +115,10 @@ def process_dependency_pair(row):
     affected_versions = row["affected_versions"].split(",")
     cve_id = row["cve_id"]
 
-    # print(f"[Processing] Parent: {parent_id}, Dependent: {dependent_id}")
-
     result = query_neo4j(parent_id, dependent_id)
     if not result or "results" not in result or not result["results"][0]["data"]:
         return None
+    print(f"[Processing] Parent: {parent_id}, Dependent: {dependent_id}")
 
     releases_affected = {}
     releases_patched = {}
@@ -235,6 +257,12 @@ def write_batch_to_csv(results, first_write=False):
 
 def main():
     print("[Start] Release Dependency Analysis")
+
+    # Test Neo4j connection first
+    if not test_neo4j_connection():
+        print("[Error] Failed to connect to Neo4j. Exiting...")
+        return
+
     df = pd.read_csv("data/rq3_2_dependent_artifacts.csv")
     print(f"[Load] {len(df)} dependency relationships")
 
