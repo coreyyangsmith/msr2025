@@ -1,3 +1,0 @@
-parent_artifact_id,parent_version,dependent_artifact_id,dependent_version,dependent_timestamp,dependent_date,type
-com.adobe.xmp:xmpcore,5.1.2,ai.platon.pulsar:pulsar-all,1.13.2,1722529019000,2024-08-01,affected
-com.adobe.xmp:xmpcore,6.1.11,ai.platon.pulsar:pulsar-all,1.8.2,1648897972000,2022-04-02,patched
