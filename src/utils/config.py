@@ -1,6 +1,8 @@
 ### Generic Parameters ###
-NEO4J_URL = "http://10.10.20.42:7474/db/neo4j/tx/commit"
-NEO4J_AUTH = ("neo4j", "password")
+NEO4J_URL = "http://localhost:7474/db/neo4j/tx/commit"
+NEO4J_AUTH = ("neo4j", "Password1")
+NEO4J_BOLT_URL = "bolt://localhost:7687"
+
 ARTIFACT_RELEASES_URL = "http://localhost:8080/artifact/releases"
 GITHUB_API_URL = "https://api.github.com"
 
