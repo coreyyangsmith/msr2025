@@ -16,6 +16,8 @@ from ...utils.config import (
 def process_artifact(artifact_name):
     enriched_artifact = EnrichedArtifact(artifact_name)
 
+    severity_counts = enriched_artifact.get_severity_counts()
+
     metadata = {
         "combined_name": f"{enriched_artifact.group_id}:{enriched_artifact.artifact_id}",
         "group_id": enriched_artifact.group_id,
@@ -24,17 +26,11 @@ def process_artifact(artifact_name):
         "release_count": enriched_artifact.get_total_releases(),
         "releases_with_cves": enriched_artifact.get_releases_with_cve(),
         "total_releases_cve_count": enriched_artifact.get_total_cves(),
-        "low_severity_count": enriched_artifact.get_severity_counts().get("LOW", 0),
-        "moderate_severity_count": enriched_artifact.get_severity_counts().get(
-            "MODERATE", 0
-        ),
-        "high_severity_count": enriched_artifact.get_severity_counts().get("HIGH", 0),
-        "critical_severity_count": enriched_artifact.get_severity_counts().get(
-            "CRITICAL", 0
-        ),
-        "unknown_severity_count": enriched_artifact.get_severity_counts().get(
-            "UNKNOWN", 0
-        ),
+        "low_severity_count": severity_counts.get("LOW", 0),
+        "moderate_severity_count": severity_counts.get("MODERATE", 0),
+        "high_severity_count": severity_counts.get("HIGH", 0),
+        "critical_severity_count": severity_counts.get("CRITICAL", 0),
+        "unknown_severity_count": severity_counts.get("UNKNOWN", 0),
     }
 
     include_artifact = True
@@ -116,8 +112,12 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
             }
             print("Submitted all artifacts to the executor.\n")
 
+            total_futures_completed = 0
+
             for future in as_completed(future_to_idx):
                 idx = future_to_idx[future]
+                total_futures_completed += 1
+
                 try:
                     result = future.result()
                     if result:
@@ -131,11 +131,11 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
                     print(f"Error processing artifact at index {idx}: {e}")
 
                 # Calculate the percentage of artifacts processed
-                percentage_processed = (idx / total_artifacts) * 100
+                percentage_processed = (total_futures_completed / total_artifacts) * 100
 
                 # Calculate the percentage of artifacts with CVEs
-                if idx > 0:
-                    cve_percentage = (written_artifacts / idx) * 100
+                if total_futures_completed > 0:
+                    cve_percentage = (written_artifacts / total_futures_completed) * 100
                 else:
                     cve_percentage = 0.0
 
@@ -162,10 +162,10 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
 
                 # Print the cumulative count, percentage, and ETA
                 print(
-                    f"{written_artifacts}/{idx} artifacts with CVEs ({cve_percentage:.1f}%)"
+                    f"{written_artifacts}/{total_futures_completed} artifacts with CVEs ({cve_percentage:.1f}%)"
                 )
                 print(
-                    f"Processed {idx}/{total_artifacts} artifacts ({percentage_processed:.2f}%), "
+                    f"Processed {total_futures_completed}/{total_artifacts} artifacts ({percentage_processed:.2f}%), "
                     f"Elapsed time: {str(timedelta(seconds=int(elapsed_time)))}, "
                     f"Estimated remaining time: {remaining_time_formatted}, ETA: {eta_formatted}\n"
                 )
