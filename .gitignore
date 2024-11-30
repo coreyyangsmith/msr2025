@@ -25,3 +25,5 @@ data/rq3_3_release_dependencies_both.csv
 data/rq3_3_release_dependencies_neither.csv
 data/rq3_3_release_dependencies_patched_only.csv
 data/rq3_3_unique.csv
+data/rq3_results_class_split.csv
+data/rq3_results_classified.csv

@@ -3,11 +3,9 @@ import matplotlib.pyplot as plt
 from scipy import stats
 import numpy as np
 
-# Read in both datasets
+# Read data and setup metrics
 df_cve = pd.read_csv("data/rq2_9_trimmed_enriched.csv")
 df_non_cve = pd.read_csv("data/rq2_18_trimmed_enriched.csv")
-
-# List of metrics to correlate with CVE
 metrics = [
     "issues_new_acc",
     "issues_closed_acc",
@@ -29,99 +27,74 @@ metrics = [
     "openrank_acc",
 ]
 
-# Get number of CVE samples
-num_cve_samples = len(df_cve)
-
-# Number of bootstrap iterations
-n_iterations = 1000
+# Bootstrap correlations
+n_iterations, num_cve_samples = 1000, len(df_cve)
 bootstrap_correlations = {metric: [] for metric in metrics}
-
-# Perform bootstrap sampling
 for i in range(n_iterations):
-    # Randomly sample equal number from non-CVE dataset with different random state each time
-    random_state = np.random.randint(0, 1000000)
-    df_non_cve_sampled = df_non_cve.sample(n=num_cve_samples, random_state=random_state)
-
-    # Add CVE labels
-    df_cve["cve"] = 1
-    df_non_cve_sampled["cve"] = 0
-
-    # Combine datasets
+    df_non_cve_sampled = df_non_cve.sample(
+        n=num_cve_samples, random_state=np.random.randint(0, 1000000)
+    )
+    df_cve["cve"], df_non_cve_sampled["cve"] = 1, 0
     df = pd.concat([df_cve, df_non_cve_sampled])
-
-    # Calculate point-biserial correlation between CVE and each metric
     for metric in metrics:
         correlation, _ = stats.pointbiserialr(df["cve"], df[metric])
         bootstrap_correlations[metric].append(correlation)
 
-# Sort metrics by mean correlation
+# Sort and prepare plot data
 sorted_metrics = sorted(
     metrics, key=lambda m: np.mean(bootstrap_correlations[m]), reverse=True
 )
+plot_data = [bootstrap_correlations[m] for m in sorted_metrics]
+labels = [
+    " ".join(
+        word.capitalize() for word in m.replace("_acc", "").replace("_", " ").split()
+    )
+    for m in sorted_metrics
+]
 
-# Create the figure
-plt.figure(figsize=(12, 6))
-
-# Prepare data for plotting
-plot_data = []
-labels = []
-for metric in sorted_metrics:
-    correlations = bootstrap_correlations[metric]
-    plot_data.append(correlations)
-    labels.append(metric.replace("_acc", "").replace("_", " ").title())
-
-# Set style
-plt.style.use("seaborn")
-plt.figure(figsize=(12, 8))
-
-# Create box plot with custom styling
+# Create compressed figure
+plt.figure(figsize=(10, 4))
 bp = plt.boxplot(
     plot_data,
     labels=labels,
     vert=False,
     patch_artist=True,
     flierprops={
-        "marker": "o",
-        "markerfacecolor": "#FF6B6B",
-        "markeredgecolor": "#FF6B6B",
-        "alpha": 0.5,
+        "marker": ".",
+        "markerfacecolor": "#2C3E50",
+        "markeredgecolor": "#2C3E50",
+        "alpha": 0.3,
+        "markersize": 3,
     },
-    boxprops={"facecolor": "#4ECDC4", "alpha": 0.7},
-    medianprops={"color": "#2C3E50", "linewidth": 1.5},
-    whiskerprops={"color": "#2C3E50"},
-    capprops={"color": "#2C3E50"},
+    boxprops={"facecolor": "#3498db", "alpha": 0.6, "edgecolor": "#2C3E50"},
+    medianprops={"color": "#2C3E50", "linewidth": 1.2},
+    whiskerprops={"color": "#2C3E50", "linewidth": 1},
+    capprops={"color": "#2C3E50", "linewidth": 1},
 )
 
-# Add mean correlation points
+# Add mean points and styling
 means = [np.mean(bootstrap_correlations[m]) for m in sorted_metrics]
 plt.plot(
     means,
     range(1, len(sorted_metrics) + 1),
     marker="D",
-    color="#E74C3C",
-    markersize=8,
+    color="#e74c3c",
+    markersize=4,
     label="Mean",
     linestyle="none",
+    alpha=0.8,
 )
-
 plt.title(
-    "Distribution of Correlation Coefficients\nBetween Repository Metrics and CVE Presence",
-    fontsize=14,
-    pad=20,
+    "Metric Correlations with CVE Presence", fontsize=12, pad=10, fontweight="bold"
 )
-plt.xlabel("Point-Biserial Correlation Coefficient", fontsize=12, labelpad=10)
-
-# Customize grid
-plt.grid(True, axis="x", linestyle="--", alpha=0.7)
-
-# Rotate and align the tick labels so they look better
-plt.yticks(range(1, len(labels) + 1), labels, fontsize=10)
-
-# Add legend with custom styling
-plt.legend(loc="lower right", frameon=True, framealpha=0.9)
-
-# Add a light vertical line at x=0 for reference
-plt.axvline(x=0, color="gray", linestyle="-", linewidth=0.5, alpha=0.5)
-
+plt.xlabel("Point-Biserial Correlation", fontsize=10, labelpad=6)
+plt.grid(True, axis="x", linestyle="--", alpha=0.3)
+plt.grid(False, axis="y")
+plt.yticks(range(1, len(labels) + 1), labels, fontsize=7, fontweight="bold")
+plt.xticks(fontsize=8)
+plt.legend(loc="lower right", frameon=True, framealpha=0.9, fontsize=8)
+plt.axvline(x=0, color="#7f8c8d", linestyle="-", linewidth=0.8, alpha=0.5)
+plt.xlim(min(min(plot_data)) - 0.02, max(max(plot_data)) + 0.02)
 plt.tight_layout()
+plt.savefig("data/rq2_correlation_boxplot.png", dpi=300, bbox_inches="tight")
 plt.show()
