@@ -104,75 +104,97 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
         writer.writerow(new_headers)
         print(f"CSV headers written: {new_headers}\n")
 
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-            print(f"ThreadPoolExecutor initialized with {MAX_WORKERS} workers.\n")
-            future_to_idx = {
-                executor.submit(process_artifact, row[0]): idx
-                for idx, row in enumerate(data_rows, start=1)
-            }
-            print("Submitted all artifacts to the executor.\n")
+        batch_size = 1000  # Adjust the batch size as needed
 
-            total_futures_completed = 0
+        batches = [
+            data_rows[i : i + batch_size] for i in range(0, len(data_rows), batch_size)
+        ]
 
-            for future in as_completed(future_to_idx):
-                idx = future_to_idx[future]
-                total_futures_completed += 1
+        total_futures_completed = 0
 
-                try:
-                    result = future.result()
-                    if result:
-                        written_artifacts += 1
-                        writer.writerow(result)
-                        if written_artifacts % 1000 == 0:
-                            print(
-                                f"{written_artifacts} artifacts with CVEs written so far."
-                            )
-                except Exception as e:
-                    print(f"Error processing artifact at index {idx}: {e}")
+        for batch_num, batch in enumerate(batches, start=1):
+            print(f"Processing batch {batch_num}/{len(batches)}...\n")
 
-                # Calculate the percentage of artifacts processed
-                percentage_processed = (total_futures_completed / total_artifacts) * 100
+            batch_results = []
 
-                # Calculate the percentage of artifacts with CVEs
-                if total_futures_completed > 0:
-                    cve_percentage = (written_artifacts / total_futures_completed) * 100
-                else:
-                    cve_percentage = 0.0
+            with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+                print(f"ThreadPoolExecutor initialized with {MAX_WORKERS} workers.\n")
+                future_to_idx = {
+                    executor.submit(process_artifact, row[0]): idx
+                    for idx, row in enumerate(batch, start=1)
+                }
+                print("Submitted batch artifacts to the executor.\n")
 
-                # Calculate elapsed time
-                current_time = time.time()
-                elapsed_time = current_time - start_time
+                for future in as_completed(future_to_idx):
+                    idx = future_to_idx[future]
+                    total_futures_completed += 1
 
-                # Estimate total time and ETA
-                if percentage_processed > 0:
-                    estimated_total_time = elapsed_time / (percentage_processed / 100)
-                    remaining_time = estimated_total_time - elapsed_time
-                    eta_time = current_time + remaining_time
-                    eta_formatted = time.strftime(
-                        "%Y-%m-%d %H:%M:%S", time.localtime(eta_time)
+                    try:
+                        result = future.result()
+                        if result:
+                            written_artifacts += 1
+                            batch_results.append(result)
+                    except Exception as e:
+                        print(f"Error processing artifact at index {idx}: {e}")
+
+                    # Calculate the percentage of artifacts processed
+                    percentage_processed = (
+                        total_futures_completed / total_artifacts
+                    ) * 100
+
+                    # Calculate the percentage of artifacts with CVEs
+                    if total_futures_completed > 0:
+                        cve_percentage = (
+                            written_artifacts / total_futures_completed
+                        ) * 100
+                    else:
+                        cve_percentage = 0.0
+
+                    # Calculate elapsed time
+                    current_time = time.time()
+                    elapsed_time = current_time - start_time
+
+                    # Estimate total time and ETA
+                    if percentage_processed > 0:
+                        estimated_total_time = elapsed_time / (
+                            percentage_processed / 100
+                        )
+                        remaining_time = estimated_total_time - elapsed_time
+                        eta_time = current_time + remaining_time
+                        eta_formatted = time.strftime(
+                            "%Y-%m-%d %H:%M:%S", time.localtime(eta_time)
+                        )
+                        remaining_time_formatted = str(
+                            timedelta(seconds=int(remaining_time))
+                        )
+                    else:
+                        estimated_total_time = 0
+                        remaining_time = 0
+                        eta_formatted = "N/A"
+                        remaining_time_formatted = "N/A"
+
+                    # Print the cumulative count, percentage, and ETA
+                    print(
+                        f"{written_artifacts}/{total_futures_completed} artifacts with CVEs ({cve_percentage:.1f}%)"
                     )
-                    remaining_time_formatted = str(
-                        timedelta(seconds=int(remaining_time))
+                    print(
+                        f"Processed {total_futures_completed}/{total_artifacts} artifacts ({percentage_processed:.2f}%), "
+                        f"Elapsed time: {str(timedelta(seconds=int(elapsed_time)))}, "
+                        f"Estimated remaining time: {remaining_time_formatted}, ETA: {eta_formatted}\n"
                     )
-                else:
-                    estimated_total_time = 0
-                    remaining_time = 0
-                    eta_formatted = "N/A"
-                    remaining_time_formatted = "N/A"
 
-                # Print the cumulative count, percentage, and ETA
-                print(
-                    f"{written_artifacts}/{total_futures_completed} artifacts with CVEs ({cve_percentage:.1f}%)"
-                )
-                print(
-                    f"Processed {total_futures_completed}/{total_artifacts} artifacts ({percentage_processed:.2f}%), "
-                    f"Elapsed time: {str(timedelta(seconds=int(elapsed_time)))}, "
-                    f"Estimated remaining time: {remaining_time_formatted}, ETA: {eta_formatted}\n"
-                )
+            # Write the results of the batch
+            if batch_results:
+                writer.writerows(batch_results)
+                batch_results = []
 
-    total_elapsed_time = time.time() - start_time
-    print(f"\nCompleted processing {total_artifacts} artifacts.")
-    print(
-        f"Artifacts with CVEs: {written_artifacts} ({(written_artifacts/total_artifacts)*100:.2f}%)"
-    )
-    print(f"Total elapsed time: {str(timedelta(seconds=int(total_elapsed_time)))}\n")
+            print(f"Completed processing batch {batch_num}/{len(batches)}.\n")
+
+        total_elapsed_time = time.time() - start_time
+        print(f"\nCompleted processing {total_artifacts} artifacts.")
+        print(
+            f"Artifacts with CVEs: {written_artifacts} ({(written_artifacts/total_artifacts)*100:.2f}%)"
+        )
+        print(
+            f"Total elapsed time: {str(timedelta(seconds=int(total_elapsed_time)))}\n"
+        )
