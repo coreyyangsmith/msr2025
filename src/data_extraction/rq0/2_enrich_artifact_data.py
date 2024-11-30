@@ -65,7 +65,9 @@ def process_artifact(artifact_name):
 input_csv_path = RQ0_2_INPUT
 output_csv_path = RQ0_2_OUTPUT_ARTIFACTS_CVES
 
-print("\n\n 2_enrich_artifact_data \n\n")
+print("\n\nStarting 2_enrich_artifact_data...\n")
+print(f"Input CSV Path: {input_csv_path}")
+print(f"Output CSV Path: {output_csv_path}\n")
 
 with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_file:
     reader = csv.reader(input_csv_file)
@@ -76,6 +78,8 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
     # Data for processing
     total_artifacts = len(data_rows)
     written_artifacts = 0
+
+    print(f"Total artifacts to process: {total_artifacts}\n")
 
     # Define new fields to be added
     metadata_fields = [
@@ -102,12 +106,15 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
     ) as output_csv_file:
         writer = csv.writer(output_csv_file)
         writer.writerow(new_headers)
+        print(f"CSV headers written: {new_headers}\n")
 
         with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+            print(f"ThreadPoolExecutor initialized with {MAX_WORKERS} workers.\n")
             future_to_idx = {
                 executor.submit(process_artifact, row[0]): idx
                 for idx, row in enumerate(data_rows, start=1)
             }
+            print("Submitted all artifacts to the executor.\n")
 
             for future in as_completed(future_to_idx):
                 idx = future_to_idx[future]
@@ -116,6 +123,10 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
                     if result:
                         written_artifacts += 1
                         writer.writerow(result)
+                        if written_artifacts % 1000 == 0:
+                            print(
+                                f"{written_artifacts} artifacts with CVEs written so far."
+                            )
                 except Exception as e:
                     print(f"Error processing artifact at index {idx}: {e}")
 
@@ -154,7 +165,14 @@ with open(input_csv_path, mode="r", newline="", encoding="utf-8") as input_csv_f
                     f"{written_artifacts}/{idx} artifacts with CVEs ({cve_percentage:.1f}%)"
                 )
                 print(
-                    f"Processed {idx}/{total_artifacts} artifacts ({percentage_processed:.1f}%), "
+                    f"Processed {idx}/{total_artifacts} artifacts ({percentage_processed:.2f}%), "
                     f"Elapsed time: {str(timedelta(seconds=int(elapsed_time)))}, "
-                    f"Estimated remaining time: {remaining_time_formatted}, ETA: {eta_formatted}"
+                    f"Estimated remaining time: {remaining_time_formatted}, ETA: {eta_formatted}\n"
                 )
+
+    total_elapsed_time = time.time() - start_time
+    print(f"\nCompleted processing {total_artifacts} artifacts.")
+    print(
+        f"Artifacts with CVEs: {written_artifacts} ({(written_artifacts/total_artifacts)*100:.2f}%)"
+    )
+    print(f"Total elapsed time: {str(timedelta(seconds=int(total_elapsed_time)))}\n")
