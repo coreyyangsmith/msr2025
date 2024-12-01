@@ -30,3 +30,5 @@ data/rq3_results_classified.csv
 
 data/*
 src/utils/config.py
+
+data/*.csv
