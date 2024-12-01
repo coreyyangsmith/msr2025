@@ -7,7 +7,7 @@ import requests
 import time
 from datetime import datetime
 
-from ..utils.config import REQ_HEADERS, ARTIFACT_RELEASES_URL, NEO4J_URL, ECOSYSTEM
+from ..utils.config import REQ_HEADERS, ARTIFACT_RELEASES_URL, WEAVER_URL, ECOSYSTEM
 from ..utils.time_conversion import (
     convert_datetime_to_timestamp_numbers,
     convert_timestamp_numbers_to_datetime,
@@ -98,7 +98,7 @@ class EnrichedArtifact:
             "addedValues": [],
         }
         response = requests.post(
-            url=NEO4J_URL, json=query_payload, headers=self.headers
+            url=WEAVER_URL, json=query_payload, headers=self.headers
         )
         data = response.json()
         if "values" in data:

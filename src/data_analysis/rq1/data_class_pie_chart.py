@@ -16,7 +16,7 @@ try:
     class_counts = df["data_class"].value_counts().sort_index()
 
     # Define labels for the pie chart
-    labels = ["Class 0", "Class 1", "Class 2"]
+    labels = ["Class 3", "Class 2", "Class 1"]
 
     # Ensure that all classes (0,1,2) are represented, even if count is 0
     counts = [class_counts.get(i, 0) for i in range(3)]

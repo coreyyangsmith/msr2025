@@ -4,6 +4,7 @@ NEO4J_AUTH = ("neo4j", "Password1")
 NEO4J_BOLT_URL = "bolt://localhost:7687"
 
 ARTIFACT_RELEASES_URL = "http://localhost:8080/artifact/releases"
+WEAVER_URL = "https://localhost:8080/cypher"
 GITHUB_API_URL = "https://api.github.com"
 
 ECOSYSTEM = "Maven"

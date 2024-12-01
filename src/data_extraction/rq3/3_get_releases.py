@@ -1,15 +1,14 @@
 import pandas as pd
-import requests
-import json
 import time
 from datetime import datetime
 from tqdm import tqdm
 import concurrent.futures
 from packaging import version
-from src.utils.config import NEO4J_URL, NEO4J_AUTH, MAX_WORKERS
+from src.utils.config import NEO4J_BOLT_URL, NEO4J_AUTH, MAX_WORKERS
+from neo4j import GraphDatabase
 
 """
-This script analyzes the dependency relationships between artifacts and their releases by querying a local GoblinWeaver API.
+This script analyzes the dependency relationships between artifacts and their releases by querying a Neo4j database using the Bolt protocol.
 It performs the following tasks:
 
 1. Reads the dependency relationships from rq3_2_dependent_artifacts.csv
@@ -18,7 +17,7 @@ It performs the following tasks:
    - Extracts release versions, timestamps, and dependency versions
    - Keeps only the highest version within affected versions
 3. Continuously saves the enriched dependency data to a CSV file
-4. Handles API rate limiting and errors with retries and backoff
+4. Handles retries and backoff for any transient errors
 """
 
 # Constants
@@ -30,24 +29,20 @@ OUTPUT_FILE = "data/rq3_3_release_dependencies.csv"
 # Global counters
 total_relationships_scanned = 0
 
+# Initialize the Neo4j driver
+driver = GraphDatabase.driver(NEO4J_BOLT_URL, auth=NEO4J_AUTH)
+
 
 def test_neo4j_connection():
     """Test the Neo4j connection with a simple query"""
     print("[Test] Testing Neo4j connection...")
     test_query = "MATCH (n) RETURN count(n) as count LIMIT 1"
-    payload = {"statements": [{"statement": test_query}]}
-    headers = {"Content-Type": "application/json"}
 
     try:
-        response = requests.post(
-            NEO4J_URL,
-            auth=NEO4J_AUTH,
-            headers=headers,
-            data=json.dumps(payload),
-            timeout=10,
-        )
-        response.raise_for_status()
-        print("[Test] Neo4j connection successful!")
+        with driver.session() as session:
+            result = session.run(test_query)
+            count = result.single()["count"]
+            print(f"[Test] Neo4j connection successful! Node count: {count}")
         return True
     except Exception as e:
         print(f"[Test] Neo4j connection failed: {str(e)}")
@@ -56,13 +51,12 @@ def test_neo4j_connection():
 
 def query_neo4j(parent_artifact_id, dependent_artifact_id):
     """Query Neo4j for release information about a dependency relationship"""
-    # print(f"[Query] {parent_artifact_id} -> {dependent_artifact_id}")
     global total_relationships_scanned
     total_relationships_scanned += 1
 
-    query = f"""
-    MATCH (parentArtifact:Artifact {{id: "{parent_artifact_id}"}})
-    MATCH (dependentArtifact:Artifact {{id: "{dependent_artifact_id}"}})
+    query = """
+    MATCH (parentArtifact:Artifact {id: $parent_artifact_id})
+    MATCH (dependentArtifact:Artifact {id: $dependent_artifact_id})
     MATCH (dependentRelease:Release)<-[:relationship_AR]-(dependentArtifact)
     MATCH (dependentRelease)-[d:dependency]->(parentArtifact)
     RETURN
@@ -73,28 +67,18 @@ def query_neo4j(parent_artifact_id, dependent_artifact_id):
       parentArtifact.id AS parentArtifactId
     """
 
-    payload = {"statements": [{"statement": query}]}
-    headers = {"Content-Type": "application/json"}
+    parameters = {
+        "parent_artifact_id": parent_artifact_id,
+        "dependent_artifact_id": dependent_artifact_id
+    }
 
     backoff = INITIAL_BACKOFF
     for attempt in range(MAX_RETRIES):
         try:
-            response = requests.post(
-                NEO4J_URL,
-                auth=NEO4J_AUTH,
-                headers=headers,
-                data=json.dumps(payload),
-                timeout=120,
-            )
-
-            if response.status_code == 429:  # Rate limited
-                print(f"[Rate limit] Backing off {backoff}s")
-                time.sleep(backoff)
-                backoff *= BACKOFF_FACTOR
-                continue
-
-            response.raise_for_status()
-            return response.json()
+            with driver.session() as session:
+                result = session.run(query, parameters)
+                data = [record.data() for record in result]
+                return data
 
         except Exception as e:
             if attempt == MAX_RETRIES - 1:
@@ -116,22 +100,21 @@ def process_dependency_pair(row):
     cve_id = row["cve_id"]
 
     result = query_neo4j(parent_id, dependent_id)
-    if not result or "results" not in result or not result["results"][0]["data"]:
+    if not result:
         return None
-    print(f"[Processing] Parent: {parent_id}, Dependent: {dependent_id}")
+    # print(f"[Processing] Parent: {parent_id}, Dependent: {dependent_id}")
 
     releases_affected = {}
     releases_patched = {}
     versions_processed = 0
     versions_skipped = 0
 
-    for record in result["results"][0]["data"]:
-        record_row = record["row"]
-        dep_id = record_row[0]  # This is now just the group_id:artifact_id
-        dep_version = record_row[1]
-        timestamp = record_row[2]
-        parent_version = record_row[3]
-        parent_artifact_id = record_row[4]
+    for record in result:
+        dep_id = record["dependentArtifactId"]
+        dep_version = record["dependentReleaseVersion"]
+        timestamp = record["dependentReleaseTimestamp"]
+        parent_version = record["parentReleaseVersion"]
+        parent_artifact_id = record["parentArtifactId"]
 
         # Case 1: Highest dependent_version for highest parent_version in affected_versions
         if parent_version in affected_versions:
@@ -207,40 +190,58 @@ def process_dependency_pair(row):
     # Process each unique dependent ID
     unique_dep_ids = set(releases_affected.keys()) | set(releases_patched.keys())
 
-    for dep_id in unique_dep_ids:
-        affected = releases_affected.get(dep_id)
-        patched = releases_patched.get(dep_id)
-
-        release_data = {
-            "dependent_artifact_id": dep_id,
-            "affected_parent_artifact_id": affected["parent_id"] if affected else None,
-            "affected_parent_version": str(affected["parent_version"])
-            if affected
-            else None,
-            "affected_dependent_version": affected["version"] if affected else None,
-            "affected_timestamp": affected["timestamp"] if affected else None,
-            "affected_date": datetime.fromtimestamp(
-                affected["timestamp"] / 1000
-            ).strftime("%Y-%m-%d")
-            if affected
-            else None,
-            "patched_parent_artifact_id": patched["parent_id"] if patched else None,
-            "patched_parent_version": str(patched["parent_version"])
-            if patched
-            else None,
-            "patched_dependent_version": patched["version"] if patched else None,
-            "patched_timestamp": patched["timestamp"] if patched else None,
-            "patched_date": datetime.fromtimestamp(
-                patched["timestamp"] / 1000
-            ).strftime("%Y-%m-%d")
-            if patched
-            else None,
+    if not unique_dep_ids:
+        # If no affected or patched versions found, create a row with none_found
+        releases.append({
+            "dependent_artifact_id": dependent_id,
+            "affected_parent_artifact_id": None,
+            "affected_parent_version": None,
+            "affected_dependent_version": None,
+            "affected_timestamp": None,
+            "affected_date": None,
+            "patched_parent_artifact_id": None,
+            "patched_parent_version": None,
+            "patched_dependent_version": None,
+            "patched_timestamp": None,
+            "patched_date": None,
             "cve_id": cve_id,
-        }
+            "none_found": parent_id
+        })
+    else:
+        for dep_id in unique_dep_ids:
+            affected = releases_affected.get(dep_id)
+            patched = releases_patched.get(dep_id)
 
-        releases.append(release_data)
+            release_data = {
+                "dependent_artifact_id": dep_id,
+                "affected_parent_artifact_id": affected["parent_id"] if affected else None,
+                "affected_parent_version": str(affected["parent_version"])
+                if affected
+                else None,
+                "affected_dependent_version": affected["version"] if affected else None,
+                "affected_timestamp": affected["timestamp"] if affected else None,
+                "affected_date": datetime.fromtimestamp(
+                    affected["timestamp"] / 1000
+                ).strftime("%Y-%m-%d")
+                if affected
+                else None,
+                "patched_parent_artifact_id": patched["parent_id"] if patched else None,
+                "patched_parent_version": str(patched["parent_version"])
+                if patched
+                else None,
+                "patched_dependent_version": patched["version"] if patched else None,
+                "patched_timestamp": patched["timestamp"] if patched else None,
+                "patched_date": datetime.fromtimestamp(
+                    patched["timestamp"] / 1000
+                ).strftime("%Y-%m-%d")
+                if patched
+                else None,
+                "cve_id": cve_id,
+                "none_found": None
+            }
 
-    # print(f"[Versions] Processed: {versions_processed} | Skipped: {versions_skipped}")
+            releases.append(release_data)
+
     return releases if releases else None
 
 
@@ -256,6 +257,7 @@ def write_batch_to_csv(results, first_write=False):
 
 
 def main():
+    global driver
     print("[Start] Release Dependency Analysis")
 
     # Test Neo4j connection first
@@ -298,7 +300,7 @@ def main():
                     first_write = False
                     results_buffer = []
 
-                # Log progress every 5 items
+                # Log progress every 3 items
                 if processed_count % 3 == 0:
                     elapsed_time = datetime.now() - start_time
                     avg_time = elapsed_time / processed_count
@@ -337,6 +339,9 @@ def main():
     print(f"Final rate: {final_rate:.1f} pairs/s")
     print(f"Total dependency relationships scanned: {total_relationships_scanned}")
     print("[Done]")
+
+    # Close the driver
+    driver.close()
 
 
 if __name__ == "__main__":
