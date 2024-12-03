@@ -1,7 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from ...utils.config import RQ0_BAR_PLOT_CVE_SEVERITY_INPUT
+from ....utils.config import RQ0_BAR_PLOT_CVE_SEVERITY_INPUT
 
 df = pd.read_csv(RQ0_BAR_PLOT_CVE_SEVERITY_INPUT)
 

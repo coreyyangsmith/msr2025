@@ -29,7 +29,6 @@ df_cve = pd.read_csv("data/rq2_9_trimmed_enriched.csv")
 df_non_cve = pd.read_csv("data/rq2_18_trimmed_enriched.csv")
 
 # Set up the plot style
-plt.style.use("seaborn")
 fig = plt.figure(figsize=(20, 25))
 fig.suptitle(
     "Distribution of Metrics in CVE vs Non-CVE Repositories", fontsize=16, y=0.95

@@ -60,15 +60,15 @@ def process_artifact(combined_name):
                 try:
                     duration_value = float(cve_duration)
                     if cve_patched and duration_value < 0:
-                        data_class = 0
+                        data_class = 0  # fast patch
                     elif cve_patched and duration_value >= 0:
-                        data_class = 1
+                        data_class = 1  # slow patch
                     else:
-                        data_class = 2
+                        data_class = 2  # no patch
                 except ValueError:
-                    data_class = -1
+                    data_class = -1  # invalid data
             else:
-                data_class = -1
+                data_class = -1  # invalid data
 
             # Check for invalid data if the flag is True
             local_total_cve += 1

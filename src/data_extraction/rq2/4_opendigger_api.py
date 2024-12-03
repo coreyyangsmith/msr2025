@@ -2,9 +2,10 @@ import requests
 import csv
 import time
 import os
-from ...utils.config import RQ2_4_INPUT, OPENDIGGER_VALUES
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from ...utils.config import RQ2_4_INPUT, OPENDIGGER_VALUES, MAX_WORKERS
 
-# Define the base URL
+# Define the base URL and max workers
 BASE_URL = "https://oss.x-lab.info/open_digger/github/"
 
 
@@ -75,42 +76,58 @@ def format_time(seconds):
     return f"{hours}h:{minutes}m:{seconds}s"
 
 
-def main():
-    # Replace this with the actual path to your input file
-    file_path = RQ2_4_INPUT
+def process_repo(repo_name):
+    """Process a single repository for all metric types."""
+    for type_ in OPENDIGGER_VALUES:
+        print(f"Processing {repo_name} - {type_}")
+        data = fetch_data(BASE_URL, repo_name, type_)
+        if data:
+            keys, values, acc_values = process_data(data)
+            save_to_csv(keys, values, acc_values, repo_name, type_)
+        else:
+            print(f"Skipping {repo_name} type {type_} due to data retrieval failure.")
+    return repo_name
 
+
+def main():
     try:
-        with open(file_path, "r") as f:
-            # Read all lines, strip whitespace and newlines
-            rows = [line.strip() for line in f if line.strip()]
-            total_rows = len(rows)
-            print(f"Total repositories to process: {total_rows}")
+        with open(RQ2_4_INPUT, "r") as f:
+            repos = [line.strip() for line in f if line.strip()]
+            total_repos = len(repos)
+            print(f"Total repositories to process: {total_repos}")
+
             start_time = time.time()
-            for idx, repo_name in enumerate(rows):
-                print(f"\nProcessing {idx + 1}/{total_rows}: {repo_name}")
-                for type_ in OPENDIGGER_VALUES:
-                    print(f"  Processing type: {type_}")
-                    # Fetch data from the API
-                    data = fetch_data(BASE_URL, repo_name, type_)
-                    if data:
-                        # Process the data
-                        keys, values, acc_values = process_data(data)
-                        # Save the data to a CSV file
-                        save_to_csv(keys, values, acc_values, repo_name, type_)
-                    else:
+            completed = 0
+
+            with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+                # Submit all tasks
+                future_to_repo = {
+                    executor.submit(process_repo, repo): repo for repo in repos
+                }
+
+                # Process completed tasks
+                for future in as_completed(future_to_repo):
+                    repo = future_to_repo[future]
+                    try:
+                        future.result()
+                        completed += 1
+
+                        # Calculate progress and timing
+                        elapsed_time = time.time() - start_time
+                        avg_time_per_repo = elapsed_time / completed
+                        remaining_repos = total_repos - completed
+                        eta = avg_time_per_repo * remaining_repos
+
+                        print(f"\nProgress: {completed}/{total_repos}")
                         print(
-                            f"  Skipping {repo_name} type {type_} due to data retrieval failure."
+                            f"Elapsed time: {format_time(elapsed_time)}, ETA: {format_time(eta)}"
                         )
-                # Calculate elapsed time and estimated time remaining
-                elapsed_time = time.time() - start_time
-                avg_time_per_repo = elapsed_time / (idx + 1)
-                remaining_repos = total_rows - (idx + 1)
-                eta = avg_time_per_repo * remaining_repos
-                print(
-                    f"Elapsed time: {format_time(elapsed_time)}, ETA: {format_time(eta)}"
-                )
+
+                    except Exception as e:
+                        print(f"Error processing {repo}: {e}")
+
     except Exception as e:
-        print(f"Failed to read repo information from {file_path}: {e}")
+        print(f"Failed to read repo information from {RQ2_4_INPUT}: {e}")
 
 
 if __name__ == "__main__":

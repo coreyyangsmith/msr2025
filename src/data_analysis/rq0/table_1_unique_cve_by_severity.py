@@ -17,10 +17,19 @@ def generate_severity_summary(csv_file_path):
         print(f"Error: The file '{csv_file_path}' does not appear to be in CSV format.")
         return
 
-    # Check if 'severity' column exists
-    if "severity" not in df.columns:
-        print("Error: The CSV file does not contain a 'severity' column.")
+    # Check if required columns exist
+    required_columns = ["severity", "data_class"]
+    if not all(col in df.columns for col in required_columns):
+        print(
+            "Error: The CSV file does not contain required columns 'severity' and 'data_class'."
+        )
         return
+
+    # Filter out rows where data_class = -1
+    df = df[df["data_class"] != -1]
+
+    # Save filtered results
+    df.to_csv("data/rq0_4_unique_cves_filtered.csv", index=False)
 
     # Define the order of severity levels
     severity_order = ["LOW", "MODERATE", "HIGH", "CRITICAL"]

@@ -42,7 +42,7 @@ for i, repo in enumerate(valid_repo_dirs, 1):
     if i % 10 == 0:
         print(f"Processing repository {i}/{len(valid_repo_dirs)}")
 
-    repo_path = os.path.join("data/rq2_opendigger", repo)
+    repo_path = os.path.join("data/rq11_opendigger", repo)
     original_name = name_mapping[repo]
 
     # Check each metric file
@@ -67,5 +67,5 @@ print(f"Overall availability: {(total_found/total_possible)*100:.1f}%")
 
 # Save results
 df.to_csv(RQ14_OUTPUT)
-print(f"\nResults saved to data/rq2_5_metrics_availability.csv")
+print(f"\nResults saved to {RQ14_OUTPUT}.csv")
 print(f"Total time elapsed: {time.time() - start_time:.1f} seconds")

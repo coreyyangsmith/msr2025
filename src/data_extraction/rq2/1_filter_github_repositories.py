@@ -5,15 +5,16 @@ import requests
 import time
 import xml.etree.ElementTree as ET
 from urllib.parse import urlparse
-
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from typing import Any, Dict, List, Optional, Tuple
+from functools import wraps
 
 from ...utils.config import (
     RQ2_1_INPUT,
     RQ2_1_OUTPUT,
     RQ2_1_FILTERED_OUTPUT,
     RQ2_1_NON_GITHUB_OUTPUT,
+    RQ2_1_FAILED_OUTPUT,  # New constant for failed artifacts output
 )
 from ...utils.maven import get_pom
 from ...utils.config import MAX_WORKERS
@@ -29,18 +30,84 @@ logging.basicConfig(
     level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
 )
 
+# Constants for rate limiting and retries
+MAX_RETRIES = 5
+BACKOFF_FACTOR = 1  # Base time in seconds
+RATE_LIMIT_STATUS_CODES = [429]  # HTTP status code for Too Many Requests
+
+
+def retry_with_backoff(max_retries=MAX_RETRIES, backoff_factor=BACKOFF_FACTOR):
+    """
+    Decorator for retrying a function with exponential backoff.
+    """
+
+    def retry_decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            retries = 0
+            while True:
+                try:
+                    return func(*args, **kwargs)
+                except requests.exceptions.HTTPError as e:
+                    status_code = e.response.status_code
+                    if status_code in RATE_LIMIT_STATUS_CODES:
+                        retries += 1
+                        if retries > max_retries:
+                            logging.error(
+                                f"Max retries exceeded for function {func.__name__}"
+                            )
+                            raise
+                        sleep_time = backoff_factor * (2 ** (retries - 1))
+                        logging.warning(
+                            f"Rate limit encountered. Sleeping for {sleep_time} seconds before retrying..."
+                        )
+                        time.sleep(sleep_time)
+                    else:
+                        raise
+                except Exception as e:
+                    retries += 1
+                    if retries > max_retries:
+                        logging.error(
+                            f"Max retries exceeded for function {func.__name__}"
+                        )
+                        raise
+                    sleep_time = backoff_factor * (2 ** (retries - 1))
+                    logging.warning(
+                        f"Error encountered: {e}. Retrying in {sleep_time} seconds..."
+                    )
+                    time.sleep(sleep_time)
+
+        return wrapper
+
+    return retry_decorator
+
+
+@retry_with_backoff()
+def safe_get_pom(group_id: str, artifact_id: str, version: str):
+    """
+    Wrapper around get_pom with retry logic.
+    """
+    return get_pom(group_id, artifact_id, version)
+
 
 def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
     """
     Processes a single artifact to determine if it's hosted on GitHub or other SCM.
     Returns a new artifact dictionary with additional keys if applicable.
     """
-    # Create a copy of the artifact to avoid modifying the original
     result_artifact = artifact.copy()
     group_id = artifact.get("group_id")
     artifact_id = artifact.get("artifact_id")
     version = artifact.get("start_version", "").strip()
-    pom = get_pom(group_id, artifact_id, version)
+
+    try:
+        pom = safe_get_pom(group_id, artifact_id, version)
+    except Exception as e:
+        logging.error(f"Failed to get POM for {group_id}:{artifact_id}:{version}: {e}")
+        pom = None
+        # Include the error message in the result artifact
+        result_artifact["processing_error"] = str(e)
+
     if pom:
         scm_url = get_scm_url_from_pom(pom)
         if scm_url:
@@ -73,9 +140,10 @@ def process_artifact(artifact: Dict[str, str]) -> Dict[str, Any]:
 
 def main():
     input_path = RQ2_1_INPUT
-    output_csv = RQ2_1_OUTPUT  # all processed files rq_2_1_by_cve
-    filtered_output_csv = RQ2_1_FILTERED_OUTPUT  # File for artifacts with GitHub URLs rq_2_1_by_cve_filtered
-    non_github_output_csv = RQ2_1_NON_GITHUB_OUTPUT  # New file for non-GitHub SCM URLs rq_2_1_by_cve_non_github
+    output_csv = RQ2_1_OUTPUT
+    filtered_output_csv = RQ2_1_FILTERED_OUTPUT
+    non_github_output_csv = RQ2_1_NON_GITHUB_OUTPUT
+    failed_output_csv = RQ2_1_FAILED_OUTPUT  # New CSV file for failed artifacts
 
     artifacts, fieldnames = read_artifacts_from_csv(input_path)
     if not artifacts:
@@ -84,7 +152,6 @@ def main():
 
     logging.info(f"Total artifacts to process: {len(artifacts)}")
 
-    # Fieldnames for output CSV
     if not fieldnames:
         logging.error("No fieldnames found in input CSV.")
         return
@@ -96,6 +163,7 @@ def main():
         "github_api_url",
         "github_owner",
         "github_repo",
+        "processing_error",  # New field for error messages
     ]:
         if field not in fieldnames:
             fieldnames.append(field)
@@ -110,14 +178,26 @@ def main():
     processed_count = 0
     start_time = time.time()
 
+    # Adjust MAX_WORKERS to control the rate of API requests
+    max_workers = min(
+        MAX_WORKERS, total_artifacts, 10
+    )  # Limit to 10 to prevent rate limiting
+
+    failed_artifacts = []
+
     try:
-        with open(
-            output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_all, open(
-            filtered_output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_filtered, open(
-            non_github_output_csv, mode="w", newline="", encoding="utf-8"
-        ) as csvfile_non_github:
+        with (
+            open(output_csv, mode="w", newline="", encoding="utf-8") as csvfile_all,
+            open(
+                filtered_output_csv, mode="w", newline="", encoding="utf-8"
+            ) as csvfile_filtered,
+            open(
+                non_github_output_csv, mode="w", newline="", encoding="utf-8"
+            ) as csvfile_non_github,
+            open(
+                failed_output_csv, mode="w", newline="", encoding="utf-8"
+            ) as csvfile_failed,
+        ):  # Open the failed artifacts CSV file
             # Initialize the CSV writers
             writer_all = csv.DictWriter(csvfile_all, fieldnames=fieldnames)
             writer_all.writeheader()
@@ -130,14 +210,12 @@ def main():
             )
             writer_non_github.writeheader()
 
-            # Use ThreadPoolExecutor for concurrent processing
-            max_workers = min(MAX_WORKERS, total_artifacts)
+            writer_failed = csv.DictWriter(csvfile_failed, fieldnames=fieldnames)
+            writer_failed.writeheader()
+
             with ThreadPoolExecutor(max_workers=max_workers) as executor:
-                # Submit all tasks
                 future_to_artifact = {
-                    executor.submit(
-                        process_artifact, artifact
-                    ): artifact  # process artifact
+                    executor.submit(process_artifact, artifact): artifact
                     for artifact in artifacts
                 }
                 for future in as_completed(future_to_artifact):
@@ -163,6 +241,13 @@ def main():
                             # Write artifacts with non-GitHub SCM URLs to the third CSV
                             writer_non_github.writerow(result_copy)
                             non_github_link_found_count += 1
+                        elif result.get("processing_error"):
+                            # Write failed artifacts to the failed CSV
+                            writer_failed.writerow(result_copy)
+                            failed_artifacts.append(result_copy)
+                        else:
+                            # Artifacts that didn't fit in any category
+                            github_link_not_found_count += 1
 
                         processed_count += 1
 
@@ -186,15 +271,15 @@ def main():
                             pom_not_found_count += 1
                         if result.get("scmLinkNotFound"):
                             scm_link_not_found_count += 1
-                        if (
-                            result.get("github_url") is None
-                            and result.get("nonGithubLinkFound") is None
-                        ):
-                            github_link_not_found_count += 1
 
                     except Exception as e:
-                        logging.error(f"Error processing artifact: {e}")
+                        logging.error(f"Error processing artifact {artifact}: {e}")
                         processed_count += 1
+                        # Include the error message in the artifact
+                        artifact["processing_error"] = str(e)
+                        # Write failed artifact to the failed CSV
+                        writer_failed.writerow(artifact)
+                        failed_artifacts.append(artifact)
     except Exception as e:
         logging.error(f"Error writing to output CSV: {e}")
 
@@ -208,6 +293,7 @@ def main():
     logging.info(
         f"Total artifacts successfully written with GitHub URLs: {successful_count}"
     )
+    logging.info(f"Total artifacts failed to process: {len(failed_artifacts)}")
 
     # Calculate and display the percentage of successful artifacts
     if total_artifacts > 0:
@@ -223,6 +309,7 @@ def main():
     logging.info(
         f"Artifacts with non-GitHub SCM URLs have been written to {non_github_output_csv}"
     )
+    logging.info(f"Failed artifacts have been written to {failed_output_csv}")
 
 
 if __name__ == "__main__":

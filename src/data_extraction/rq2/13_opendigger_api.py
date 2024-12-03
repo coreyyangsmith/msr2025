@@ -48,7 +48,7 @@ def process_data(data):
 def save_to_csv(keys, values, acc_values, repo_name, type_):
     # Sanitize repo name to make it a valid folder name
     folder_name = repo_name.replace("/", "_")
-    folder_path = os.path.join("data", RQ2_13_OPENDIGGER_OUTPUT, folder_name)
+    folder_path = os.path.join(RQ2_13_OPENDIGGER_OUTPUT, folder_name)
 
     # Create the folder if it doesn't exist
     os.makedirs(folder_path, exist_ok=True)

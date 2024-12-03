@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 # Replace 'data.csv' with your file path
-file_path = "data/rq0_4_unique_cves.csv"
+file_path = "data/rq0_4_unique_cves_filtered.csv"
 
 try:
     # Read the CSV file into a pandas DataFrame
@@ -12,6 +12,9 @@ try:
     if "data_class" not in df.columns:
         raise ValueError("The file does not contain a 'data_class' column.")
 
+    # Filter out rows where data_class = -1
+    df = df[df["data_class"] != -1]
+
     # Count the occurrences of each class
     class_counts = df["data_class"].value_counts().sort_index()
 
@@ -20,6 +23,12 @@ try:
 
     # Ensure that all classes (0,1,2) are represented, even if count is 0
     counts = [class_counts.get(i, 0) for i in range(3)]
+    total = sum(counts)
+
+    # Print the counts and percentages for each class
+    for label, count in zip(labels, counts):
+        percentage = (count / total) * 100
+        print(f"{label}: {count} ({percentage:.2f}%)")
 
     # Define colors for each class (optional)
     colors = ["#ff9999", "#66b3ff", "#99ff99"]

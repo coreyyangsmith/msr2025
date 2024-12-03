@@ -3,13 +3,13 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 import csv
 import time
-import os  # Import os module to handle file paths and directories
+import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
-from ...utils.config import RQ2_OPENDIGGER_INPUT
+from ...utils.config import RQ2_OPENDIGGER_INPUT, MAX_WORKERS
 
 # Define the base URL and default parameters
 base_url = "https://oss.x-lab.info/open_digger/github/"
-# type_ = "attention"  # Default type
 type_ = "participants"
 
 
@@ -45,34 +45,6 @@ def process_data(data):
     return keys, values, acc_values
 
 
-# Function to plot the chart
-def plot_chart(keys, values, acc_values, repo_name, type_):
-    fig, ax1 = plt.subplots(figsize=(12, 6))
-
-    # Plot bar chart on ax1
-    ax1.bar(keys, values, color="skyblue", label="Monthly Value")
-    ax1.set_xlabel("Date")
-    ax1.set_ylabel("Monthly Value", color="blue")
-    ax1.tick_params(axis="y", labelcolor="blue")
-
-    # Create a second y-axis for the accumulated values
-    ax2 = ax1.twinx()
-    ax2.plot(keys, acc_values, color="red", label="Accumulated Value", linewidth=2)
-    ax2.set_ylabel("Accumulated Value", color="red")
-    ax2.tick_params(axis="y", labelcolor="red")
-
-    # Improve the x-axis date formatting
-    ax1.xaxis.set_major_locator(ticker.MaxNLocator(integer=True))
-    plt.xticks(rotation=45)
-
-    # Add title and legends
-    plt.title(f"Index/Metric {type_} for {repo_name}")
-    fig.legend(loc="upper left", bbox_to_anchor=(0.1, 0.9))
-
-    plt.tight_layout()
-    plt.show()
-
-
 def save_to_csv(keys, values, acc_values, repo_name, type_):
     # Sanitize repo_name to make it a valid folder name
     folder_name = repo_name.replace("/", "_")
@@ -102,6 +74,24 @@ def save_to_csv(keys, values, acc_values, repo_name, type_):
         print(f"Failed to save data for {repo_name}: {e}")
 
 
+def process_repository(repo_info):
+    idx, total_rows, github_owner, github_repo = repo_info
+    repo_name = f"{github_owner}/{github_repo}"
+    print(f"\nProcessing {idx + 1}/{total_rows}: {repo_name}")
+
+    # Fetch data from the API
+    data = fetch_data(base_url, repo_name, type_)
+    if data:
+        # Process the data
+        keys, values, acc_values = process_data(data)
+        # Save the data to a CSV file
+        save_to_csv(keys, values, acc_values, repo_name, type_)
+        return True
+    else:
+        print(f"Skipping {repo_name} due to data retrieval failure.")
+        return False
+
+
 # Main execution
 if __name__ == "__main__":
     file_path = RQ2_OPENDIGGER_INPUT
@@ -112,26 +102,32 @@ if __name__ == "__main__":
             rows = list(reader)
             total_rows = len(rows)
             print(f"Total repositories to process: {total_rows}")
+
             start_time = time.time()
-            for idx, row in enumerate(rows):
-                github_owner = row["github_owner"]
-                github_repo = row["github_repo"]
-                repo_name = f"{github_owner}/{github_repo}"
-                print(f"\nProcessing {idx + 1}/{total_rows}: {repo_name}")
-                # Fetch data from the API
-                data = fetch_data(base_url, repo_name, type_)
-                if data:
-                    # Process the data
-                    keys, values, acc_values = process_data(data)
-                    # Save the data to a CSV file
-                    save_to_csv(keys, values, acc_values, repo_name, type_)
-                else:
-                    print(f"Skipping {repo_name} due to data retrieval failure.")
-                # Calculate elapsed time and estimated time remaining
-                elapsed_time = time.time() - start_time
-                avg_time_per_repo = elapsed_time / (idx + 1)
-                remaining_repos = total_rows - (idx + 1)
-                eta = avg_time_per_repo * remaining_repos
-                print(f"Elapsed time: {elapsed_time:.2f}s, " f"ETA: {eta:.2f}s")
+
+            # Create list of repository info tuples
+            repo_infos = [
+                (idx, total_rows, row["github_owner"], row["github_repo"])
+                for idx, row in enumerate(rows)
+            ]
+
+            # Process repositories using thread pool
+            completed = 0
+            with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
+                future_to_repo = {
+                    executor.submit(process_repository, repo_info): repo_info
+                    for repo_info in repo_infos
+                }
+
+                for future in as_completed(future_to_repo):
+                    completed += 1
+                    # Calculate progress and timing info
+                    elapsed_time = time.time() - start_time
+                    avg_time_per_repo = elapsed_time / completed
+                    remaining_repos = total_rows - completed
+                    eta = avg_time_per_repo * remaining_repos
+                    print(f"Completed: {completed}/{total_rows}")
+                    print(f"Elapsed time: {elapsed_time:.2f}s, ETA: {eta:.2f}s")
+
     except Exception as e:
         print(f"Failed to read repo information from {file_path}: {e}")

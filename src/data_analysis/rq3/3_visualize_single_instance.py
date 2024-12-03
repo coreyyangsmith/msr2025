@@ -6,15 +6,27 @@ from datetime import datetime
 # Read the CSV file
 df = pd.read_csv("data/rq3_results_class_split.csv")
 
-# Select a random row
-random_row = df.iloc[random.randint(0, len(df) - 1)]
+cve_id = "CVE-2020-13953"
+dependent_artifact = "org.apache.tapestry:tapestry-kaptcha"
+
+# Allow selecting specific row by CVE ID and dependent artifact, otherwise random
+if cve_id is not None and dependent_artifact is not None:
+    print(
+        f"Selected row for CVE: {cve_id} and dependent artifact: {dependent_artifact}"
+    )
+    selected_row = df[
+        (df["cve_id"] == cve_id) & (df["dependent_artifact_id"] == dependent_artifact)
+    ].iloc[0]
+    print(selected_row)
+else:
+    selected_row = df.iloc[random.randint(0, len(df) - 1)]
 
 # Extract dates and convert to datetime with UTC timezone
 dates = {
-    "Affected Date": pd.to_datetime(random_row["affected_date"], utc=True),
-    "CVE Publish Date": pd.to_datetime(random_row["cve_publish_date"], utc=True),
-    "CVE Patch Date": pd.to_datetime(random_row["cve_patch_date"], utc=True),
-    "Patched Date": pd.to_datetime(random_row["patched_date"], utc=True),
+    "Affected Date": pd.to_datetime(selected_row["affected_date"], utc=True),
+    "CVE Publish Date": pd.to_datetime(selected_row["cve_publish_date"], utc=True),
+    "CVE Patch Date": pd.to_datetime(selected_row["cve_patch_date"], utc=True),
+    "Patched Date": pd.to_datetime(selected_row["patched_date"], utc=True),
 }
 
 # Sort dates
@@ -49,7 +61,7 @@ ax.plot(
 ax.set_ylim(-0.5, 0.5)
 ax.set_yticks([])
 plt.title(
-    f"Timeline for {random_row['dependent_artifact_id']} and {random_row['affected_parent_artifact_id']}\nCVE: {random_row['cve_id']}"
+    f"Timeline for {selected_row['dependent_artifact_id']} and {selected_row['affected_parent_artifact_id']}\nCVE: {selected_row['cve_id']}"
 )
 
 # Adjust layout to prevent label cutoff
