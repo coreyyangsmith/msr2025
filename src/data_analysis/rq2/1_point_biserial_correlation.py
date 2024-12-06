@@ -10,7 +10,7 @@ sns.set_palette("colorblind")
 
 # Flag to filter by stars
 FILTER_BY_STARS = False
-MIN_STARS = 1000
+MIN_STARS = 10000
 
 # Read data and setup metrics
 # Read data and rename accumulated metrics columns

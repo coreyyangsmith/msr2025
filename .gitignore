@@ -29,6 +29,5 @@ data/rq3_results_class_split.csv
 data/rq3_results_classified.csv
 
 data/*
-src/utils/config.py
 
 data/*.csv

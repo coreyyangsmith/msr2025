@@ -4,7 +4,7 @@ from scipy import stats
 
 # Flag to filter by stars
 FILTER_BY_STARS = False
-MIN_STARS = 1000
+MIN_STARS = 10000
 
 # Read data and setup metrics
 df_cve = pd.read_csv("data/rq2_9_trimmed_enriched.csv")
