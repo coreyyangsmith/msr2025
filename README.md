@@ -1,5 +1,6 @@
- // Start of Selection
 # MSR 2025 - Dependency Mining Challenge
+
+Please find our dataset hosted on Zenodo [here](https://zenodo.org/records/14291858).
 
 ## Setup Instructions
 
@@ -12,7 +13,7 @@
 ## Dataset
 Our dataset is hosted on a Neo4j instance and contains 658,078 artifacts. Vulnerability data is extraction from OSV.dev on November 30th, 2024. For our initial data import, we use the `goblin_maven_2024_08_30.dump` dataset provided by the organizers. We run our queries using Neo4j version 4.4.4. We leverage Goblin Weaver API (v2.1.0) to extract additional information about the artifacts and releases, pertaining to CVEs, and use Goblin Weaver 
 
-Our entire dataset and pipeline is hosted on Zenodo and can be found [here]().
+Our entire dataset is hosted on Zenodo and can be found [here](https://zenodo.org/records/14291858).
 
 ## RQ0: Data Extraction and Processing
 RQ0 contains our preliminary data processing and aims to extract high-level statistics and information about our dataset.
