@@ -116,12 +116,12 @@ plt.plot(
 )
 
 # Enhanced styling
-plt.title(
-    "Correlation between GitHub Repository Metrics and CVE Presence",
-    fontsize=16,
-    pad=20,
-    fontweight="bold",
-)
+# plt.title(
+#     "Correlation between GitHub Repository Metrics and CVE Presence",
+#     fontsize=16,
+#     pad=20,
+#     fontweight="bold",
+# )
 plt.xlabel("Point-Biserial Correlation Coefficient", fontsize=14, labelpad=10)
 plt.grid(True, axis="x", linestyle="--", alpha=0.4)
 plt.grid(False, axis="y")

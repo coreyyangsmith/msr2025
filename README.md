@@ -15,8 +15,36 @@ Our dataset is hosted on a Neo4j instance and contains 658,078 artifacts. Vulner
 
 Our entire dataset is hosted on Zenodo and can be found [here](https://zenodo.org/records/14291858).
 
+## Project Structure
+
+The project is structured as follows:
+
+- `data/`: Contains the intermediary datasets, producing by running each script, for the project.
+- `src/`: Contains the source code for the project.
+- `src/classes`: Contains defined helper classes for the project, abstracting away some complexity for vulnerability lifecycle calculations and API calls.
+- `src/data_analysis`: Contains the scripts for the data analysis for the project, split by each RQ.
+- `src/data_extraction`: Contains the scripts for the data extraction and processing for the project, split by each RQ.
+- `src/utils`: Contains the helper functions and configuration for the project.
+- `data_pipeline.drawio`: Contains a visual representation of the data pipeline and metadata information about each dataset. Open with [draw.io](http://draw.io).
+
+Each file (except for those in /utils) contains a prefix that indicates additional information about the script. 
+
+For files in `src/data_extraction`, the prefix indicates the step number in sequence for the data pipeline (i.e. `1_extract_artifact_names_from_api.py` is the first step in the data pipeline for the containing folder RQ0).
+
+For files in `src/data_analysis`, the prefix corresponds to the table or figure number in the report (i.e. `table2_mean_time_to_mitigate.py` corresponds to Table 2 in the report). Finally, there are some extraneous scripts that are not part of the data pipeline or final report, but are useful for debugging or further analysis of the data and dataset. These files are prefixed with `extra_`.
+
+## Running the Scripts
+The scripts are setup as a data pipeline. Each script is designed to be run in sequence, with the output of each script being the input to future steps. For a visual representation of the data pipeline, as well as metadata information about each dataset, please refer to the `data_pipeline.md` file.
+
+Keep in mind that some scripts require a local instance of Neo4j and the Goblin Weaver API to be running. Additionally, some scripts hit external APIs and may be rate limited during execution.
+
+The execution of these scripts will take a few hours to complete in full, and each stage must be started from the terminal. The purpose of breaking down each script was for an easier developer experience, debugging, and analysis during the development of this project.
+
+Finally, `src/utils/config.py` contains the API links and number of workers for each script, which can be adjusted accordingly considering the user's systems available resources. `src/utils/` also contains some helper functions used throughout the project for parsing, conversion, and IO operations.
+
+# Addressing the RQs
 ## RQ0: Data Extraction and Processing
-RQ0 contains our preliminary data processing and aims to extract high-level statistics and information about our dataset.
+RQ0 contains our preliminary data processing and aims to extract high-level statistics and information about the goblin dataset.
 
 After setting up the project by adjusting the API links and number of workers, from the `src/utils/config.py` file, we can run the following scripts in sequence to extract our initial dataset:
 
@@ -26,8 +54,8 @@ Step 1: Extract all Artifacts
 * Uses Neo4J Instance
 
 Step 2: Enrich Artifact Data
-* `python -m src.data_extraction.rq0.2_enrich_artifact_data`p
-* Enrich the artifact data with additional information pertaining to CVEsand save to `data/rq0_2_enriched_artifacts.csv`
+* `python -m src.data_extraction.rq0.2_enrich_artifact_data`
+* Enrich the artifact data with additional information pertaining to CVEsand save to `data/rq0_2_artifacts_cve_releases_count.csv`
 * Uses Neo4J Instance and Goblin Weaver API
 
 Step 3: Extract Releases and CVES
@@ -38,12 +66,13 @@ Step 3: Extract Releases and CVES
 Step 4: Extract Unique CVES
 * `python -m src.data_extraction.rq0.4_extract_unique_cves`
 * Extract all unique CVES and save to `data/rq0_4_unique_cves.csv`
+* Uses Neo4J Instance and Goblin Weaver API
 
 All data processed throughout these scripts is stored in the `data/` directory.
 
 ## RQ1: Life Cycle of Vulnerabilities
 
-RQ1 investigates the life cycle of vulnerabilities in our dataset. We run the following scripts in sequence:
+RQ1 investigates the lifecycle of vulnerabilities in our dataset. We run the following scripts in sequence to analyze the data extracted in RQ0:
 
 Step 1: Calculate Unique CVE by Severity
 * `python -m src.data_analysis.rq0.table_1_unique_cve_by_severity`
@@ -51,11 +80,9 @@ Step 1: Calculate Unique CVE by Severity
 Step 2: Calculate Mean Time to Mitigate
 * `python -m src.data_analysis.rq1.table2_mean_time_to_mitigate`
 
-****
-
 ## RQ2: Project Characteristics Correlation
 
-RQ2 investigates the correlation between project characteristics and vulnerability life cycle. We run the following scripts in sequence for data extraction:
+RQ2 investigates the correlation between project characteristics and vulnerability life cycle. We extract repositories from Maven POM.xml files to find projects hosted on GitHub, and use OpenDigger to get repository metadata for GitHub-hosted repositories. We run the following scripts in sequence for data extraction:
 
 Step 1: Find GitHub-hosted repositories from Maven POM.xml.
 * `python -m src.data_extraction.rq2.1_filter_github_repositories`
@@ -73,6 +100,7 @@ Step 3: Data Cleaning
 * `python -m src.data_extraction.rq2.9_clean_data`
 
 Step 4: Repeat for non-CVE repositories
+* `python -m src.data_extraction.rq0.5_find_non_cve_artifacts`
 * `python -m src.data_extraction.rq2.10_filter_non_cve_github_repositories`
 * `python -m src.data_extraction.rq2.11_opendigger_api`
 * `python -m src.data_extraction.rq2.12_extract_folder_names`
@@ -102,4 +130,4 @@ Step 3: Get Dependent Releases List
 Step 4: Analysis
 * `python -m src.data_analysis.rq3.1_get_class_split`
 * `python -m src.data_analysis.rq3.2_analyze_class_split`
-* `python -m src.data_analsysis.rq3.6_box_plot`
+* `python -m src.data_analsysis.rq3.3_fig2_box_plot`

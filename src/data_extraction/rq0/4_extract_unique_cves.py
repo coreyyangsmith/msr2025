@@ -1,3 +1,29 @@
+"""
+Extracts unique CVE data from a list of Maven artifacts.
+
+This script processes a CSV file containing Maven artifact names and extracts detailed CVE information
+for each artifact. For each CVE found, it records:
+- Data classification (fast patch, slow patch, no patch, or invalid)
+- Artifact metadata (group ID, artifact ID)
+- CVE details (ID, severity, publish date, duration)
+- Version information (start, end, patched versions with timestamps)
+- API information (ID and aliases)
+
+The script uses multithreading to process artifacts concurrently for better performance.
+Progress updates and time estimates are displayed during processing.
+
+Inputs:
+    - CSV file containing Maven artifact names (specified in RQ0_4_INPUT)
+
+Outputs:
+    - CSV file containing detailed CVE data (specified in RQ0_4_OUTPUT_UNIQUE_CVES)
+    - Console output showing progress and statistics
+
+Configuration:
+    - FILTER_FOR_INVALID_DATA: If True, filters out CVEs with missing publish date and duration
+    - MAX_WORKERS: Number of concurrent threads for processing
+"""
+
 import csv
 import time
 from src.classes import EnrichedArtifact
@@ -13,6 +39,15 @@ from ...utils.config import (
 
 
 def format_time(seconds):
+    """
+    Formats a duration in seconds into a human-readable time string.
+
+    Args:
+        seconds (int): Number of seconds to format
+
+    Returns:
+        str: Formatted time string in HH:MM:SS format
+    """
     mins, secs = divmod(int(seconds), 60)
     hours, mins = divmod(mins, 60)
     return f"{hours:02d}:{mins:02d}:{secs:02d}"

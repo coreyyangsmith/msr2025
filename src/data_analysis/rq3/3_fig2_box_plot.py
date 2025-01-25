@@ -21,17 +21,17 @@ def classify_row(row):
         row["cve_publish_date"] <= row["cve_patch_date"]
         and row["cve_patch_date"] <= row["patched_date"]
     ):
-        return "Slow Patch"
+        return "Slow Patch Adoption"
     elif (
         row["cve_patch_date"] <= row["cve_publish_date"]
         and row["cve_publish_date"] <= row["patched_date"]
     ):
-        return "Fast Patch"
+        return "Fast Patch Adoption"
     elif (
         row["cve_patch_date"] <= row["patched_date"]
         and row["patched_date"] <= row["cve_publish_date"]
     ):
-        return "Fast Adoption"
+        return "Adopt before Publish"
     else:
         return "Other"
 
@@ -41,7 +41,9 @@ df["Days to Patch"] = (df["patched_date"] - df["cve_publish_date"]).dt.days
 
 # Filter relevant classes
 df_filtered = df[
-    df["Repository Update Strategy"].isin(["Slow Patch", "Fast Patch", "Fast Adoption"])
+    df["Repository Update Strategy"].isin(
+        ["Slow Patch Adoption", "Fast Patch Adoption", "Adopt before Publish"]
+    )
 ]
 
 # Create figure
@@ -71,11 +73,13 @@ plt.grid(axis="y", linestyle="--", alpha=0.3)
 plt.ylim(-3000, 2000)
 
 # Rotate x-axis labels for better fit
-plt.xticks(rotation=15, fontsize=12)
-plt.yticks(fontsize=12)
+plt.xticks(rotation=15, fontsize=10)
+plt.yticks(fontsize=10)
 
 # Add statistics annotations
-for i, strategy in enumerate(["Slow Patch", "Fast Patch", "Fast Adoption"]):
+for i, strategy in enumerate(
+    ["Slow Patch Adoption", "Fast Patch Adoption", "Adopt before Publish"]
+):
     data = df_filtered[df_filtered["Repository Update Strategy"] == strategy][
         "Days to Patch"
     ]

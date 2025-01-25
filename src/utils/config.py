@@ -1,4 +1,4 @@
-### Generic Parameters ###
+### API CONFIG ###
 NEO4J_URL = "http://localhost:7474/db/neo4j/tx/commit"
 NEO4J_AUTH = ("neo4j", "Password1")
 NEO4J_BOLT_URL = "bolt://localhost:7687"
@@ -11,9 +11,20 @@ ECOSYSTEM = "Maven"
 REQ_HEADERS = {"Content-Type": "application/json", "Accept": "application/json"}
 GITHUB_HEADERS = {"Accept": "application/vnd.github.v3+json"}
 
-### META DATA
-### FILL THIS OUT FOR EACH RUN
-### CURRENT DB RUN Saturday November 3rd 1:36pm MST
+# MAVEN API CONFIG
+MAVEN_POM_RETRIES = 1
+BACKOFF_STARTING_TIME_IN_SECONDS = 1
+BACKOFF_FACTOR = 1
+
+### HARDWARE CONFIG ###
+MAX_WORKERS = 96
+
+### META DATA ###
+### Manually fill this our for each run to keep track of data and versioning
+# Neo4j Version: Desktop Version 4.4.4
+# Goblin Weaver Version: v2.1.0
+# Goblin Dataset Date: 2024-08-30
+# Current DB Run Date: Saturday November 3rd 1:36pm MST
 
 ####################
 ### RQ0 Pipeline ###
@@ -93,7 +104,6 @@ RQ2_7_OUTPUT = "data/rq2_7_combined_datasets.csv"
 RQ2_8_INPUT = RQ2_7_OUTPUT
 RQ2_8_OUTPUT = "data/rq2_8_enriched.csv"
 
-
 # RQ2_10 Filter Non-CVE GitHub Repositories
 RQ2_10_INPUT = "data/rq0_2_non_cve_artifacts.csv"
 RQ2_10_OUTPUT = "data/rq2_10_github_repositories_no_cve.csv"
@@ -157,22 +167,13 @@ OPENDIGGER_VALUES = [
 
 # RQ3_1
 
+#####################
+### Data Analysis ###
+#####################
 
 ### DATA ANALYSIS
 RQ0_BAR_PLOT_CVE_SEVERITY_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
 
-
 ## RQ1 - MEAN TIME TO MITIGATE BY SEVERITY
 MTTM_UNIT = "days"
 RQ1_MTTM_INPUT = RQ0_4_OUTPUT_UNIQUE_CVES
-
-
-# MAVEN API CONFIG
-MAVEN_POM_RETRIES = 1
-# BACKOFF IS EXPONENTIAL backoff=*2
-BACKOFF_STARTING_TIME_IN_SECONDS = 1
-BACKOFF_FACTOR = 1
-
-
-# HARDWARE CONFIG
-MAX_WORKERS = 96
