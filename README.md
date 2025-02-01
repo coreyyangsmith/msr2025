@@ -112,7 +112,7 @@ Step 4: Repeat for non-CVE repositories
 * `python -m src.data_extraction.rq2.18_clean_data`
 
 Step 5: Calculate Correlation between Project Characteristics and Vulnerability Life Cycle
-* `python -m src.data_analysis.rq2.1_point_biserial_correlation`
+* `python -m src.data_analysis.rq2.1_rank_biserial_bootstrap`
 
 ## RQ3: Dependent Package Patching Strategy
 

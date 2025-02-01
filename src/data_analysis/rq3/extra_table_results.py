@@ -17,17 +17,17 @@ def classify_row(row):
         row["cve_publish_date"] <= row["cve_patch_date"]
         and row["cve_patch_date"] <= row["patched_date"]
     ):
-        return "slow_patch"
+        return "reactive_adoption"
     elif (
         row["cve_patch_date"] <= row["patched_date"]
         and row["patched_date"] <= row["cve_publish_date"]
     ):
-        return "fast_adoption"
+        return "proactive_adoption"
     elif (
         row["cve_patch_date"] <= row["cve_publish_date"]
         and row["cve_publish_date"] <= row["patched_date"]
     ):
-        return "fast_patch"
+        return "available_patch_adoption"
     else:
         return "other_type"
 

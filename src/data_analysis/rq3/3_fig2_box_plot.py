@@ -1,10 +1,11 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import numpy as np
 
 # Set style for publication-quality plot
 plt.style.use("seaborn-v0_8-paper")
-plt.rcParams.update({"font.family": "Arial", "font.size": 12})
+sns.set_palette("colorblind")
 
 # Read and prepare data
 df = pd.read_csv("data/rq3_results_class_split.csv")
@@ -47,46 +48,78 @@ df_filtered = df[
 ]
 
 # Create figure
-plt.figure(figsize=(4, 4))
+plt.figure(figsize=(8, 5))
 
 # Create boxplot
-sns.boxplot(
-    data=df_filtered,
-    x="Repository Update Strategy",
-    y="Days to Patch",
-    palette="Set2",
-    width=0.5,
-    showfliers=True,
+bp = plt.boxplot(
+    [
+        df_filtered[df_filtered["Repository Update Strategy"] == strategy][
+            "Days to Patch"
+        ]
+        for strategy in [
+            "Slow Patch Adoption",
+            "Fast Patch Adoption",
+            "Adopt before Publish",
+        ]
+    ],
+    labels=["Slow Patch Adoption", "Fast Patch Adoption", "Adopt before Publish"],
+    patch_artist=True,
+    flierprops={
+        "marker": "o",
+        "markerfacecolor": "#2C3E50",
+        "markeredgecolor": "#2C3E50",
+        "alpha": 0.4,
+        "markersize": 4,
+    },
+    boxprops={
+        "facecolor": "#3498db",
+        "alpha": 0.7,
+        "edgecolor": "#2C3E50",
+        "linewidth": 1.5,
+    },
+    medianprops={"color": "#2C3E50", "linewidth": 2},
+    whiskerprops={"color": "#2C3E50", "linewidth": 1.5},
+    capprops={"color": "#2C3E50", "linewidth": 1.5},
 )
 
-# Customize plot
-plt.title(
-    "Time to Patch Distribution by\nRepository Update Strategy", fontsize=14, pad=15
-)
-plt.xlabel("Repository Update Strategy", fontsize=12)
-plt.ylabel(
-    "Days Between CVE Publication and Patch\n(Negative = Early Patch)", fontsize=12
-)
-
-# Add grid and adjust limits
-plt.grid(axis="y", linestyle="--", alpha=0.3)
-plt.ylim(-3000, 2000)
-
-# Rotate x-axis labels for better fit
-plt.xticks(rotation=15, fontsize=10)
-plt.yticks(fontsize=10)
-
-# Add statistics annotations
+# Add mean points
 for i, strategy in enumerate(
     ["Slow Patch Adoption", "Fast Patch Adoption", "Adopt before Publish"]
 ):
     data = df_filtered[df_filtered["Repository Update Strategy"] == strategy][
         "Days to Patch"
     ]
-    median = data.median()
-    q1, q3 = data.quantile([0.25, 0.75])
+    mean = data.mean()
+    plt.plot(i + 1, mean, marker="D", color="#e74c3c", markersize=8, alpha=0.9)
 
+plt.xlabel("Repository Update Strategy", fontsize=14, labelpad=5)
+plt.ylabel(
+    "Days Between CVE Publication and Patch\n(Negative = Early Patch)", fontsize=14
+)
+
+plt.grid(True, axis="y", linestyle="--", alpha=0.4)
+plt.grid(False, axis="x")
+
+plt.xticks(
+    range(1, 4),
+    ["Reactive \nAdoption", "Available Patch \nAdoption", "Proactive \nAdoption"],
+    fontsize=14,
+    fontweight="medium",
+)
+plt.yticks(fontsize=14)
+
+# Add zero line
+plt.axhline(y=0, color="#7f8c8d", linestyle="-", linewidth=1.2, alpha=0.6)
+
+# Set y-axis minimum to -300
+plt.ylim(bottom=-3000)
+plt.ylim(top=2000)
 
 plt.tight_layout()
-plt.savefig("data/rq3_time_to_patch_boxplot.png", dpi=300, bbox_inches="tight")
+plt.savefig(
+    "data/rq3_time_to_patch_boxplot.png",
+    dpi=600,
+    bbox_inches="tight",
+    format="pdf",
+)
 plt.show()

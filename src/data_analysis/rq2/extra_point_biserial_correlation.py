@@ -12,6 +12,8 @@ sns.set_palette("colorblind")
 FILTER_BY_STARS = False
 MIN_STARS = 10000
 
+N_SAMPLES = 10000
+
 # Read data and setup metrics
 # Read data and rename accumulated metrics columns
 df_cve = pd.read_csv("data/rq2_9_trimmed_enriched.csv")
@@ -51,7 +53,7 @@ metrics = [
 
 # Bootstrap correlations
 n_iterations, num_cve_samples = (
-    10000,
+    N_SAMPLES,
     len(df_cve),
 )  # Increased iterations for more robust results
 bootstrap_correlations = {metric: [] for metric in metrics}
@@ -78,7 +80,7 @@ labels = [
 ]
 
 # Create publication-quality figure
-plt.figure(figsize=(12, 8))
+plt.figure(figsize=(15, 7))
 bp = plt.boxplot(
     plot_data,
     labels=labels,
@@ -115,28 +117,21 @@ plt.plot(
     alpha=0.9,
 )
 
-# Enhanced styling
-# plt.title(
-#     "Correlation between GitHub Repository Metrics and CVE Presence",
-#     fontsize=16,
-#     pad=20,
-#     fontweight="bold",
-# )
-plt.xlabel("Point-Biserial Correlation Coefficient", fontsize=14, labelpad=10)
+plt.xlabel("Point-Biserial Correlation Coefficient", fontsize=14, labelpad=5)
 plt.grid(True, axis="x", linestyle="--", alpha=0.4)
 plt.grid(False, axis="y")
 plt.yticks(
     range(1, len(labels) + 1),
     labels,
-    fontsize=12,
+    fontsize=14,
     fontweight="medium",
 )
-plt.xticks(fontsize=12)
+plt.xticks(fontsize=14)
 plt.legend(
     loc="upper right",
     frameon=True,
     framealpha=0.95,
-    fontsize=12,
+    fontsize=14,
     edgecolor="black",
 )
 
