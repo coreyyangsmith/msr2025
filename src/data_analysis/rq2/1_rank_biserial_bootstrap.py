@@ -205,16 +205,21 @@ if __name__ == "__main__":
         alpha=0.9,
     )
 
-    plt.xlabel("Rank Biserial Correlation Coefficient", fontsize=14, labelpad=5)
+    plt.xlabel(
+        "Rank Biserial Correlation Coefficient",
+        fontsize=14,
+        labelpad=5,
+        fontweight="bold",
+    )
     plt.grid(True, axis="x", linestyle="--", alpha=0.4)
     plt.grid(False, axis="y")
     plt.yticks(
         range(1, len(labels) + 1),
         labels,
         fontsize=14,
-        fontweight="medium",
+        fontweight="bold",
     )
-    plt.xticks(fontsize=14)
+    plt.xticks(fontsize=14, fontweight="bold")
     plt.legend(
         [Line2D([0], [0], marker="D", color="#e74c3c", linestyle="none", alpha=0.9)],
         ["Mean"],

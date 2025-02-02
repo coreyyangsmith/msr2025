@@ -96,9 +96,11 @@ for i, strategy in enumerate(
     )[0]
     mean_points.append(mean_point)
 
-plt.xlabel("Repository Update Strategy", fontsize=14, labelpad=5)
+plt.xlabel("Repository Update Strategy", fontsize=14, labelpad=5, fontweight="bold")
 plt.ylabel(
-    "Days Between CVE Publication and Patch\n(Negative = Early Patch)", fontsize=14
+    "Days Between CVE Publication and Patch\n(Negative = Early Patch)",
+    fontsize=14,
+    fontweight="bold",
 )
 
 plt.grid(True, axis="y", linestyle="--", alpha=0.4)
@@ -108,9 +110,9 @@ plt.xticks(
     range(1, 4),
     ["Reactive \nAdoption", "Available Patch \nAdoption", "Proactive \nAdoption"],
     fontsize=14,
-    fontweight="medium",
+    fontweight="bold",
 )
-plt.yticks(fontsize=14)
+plt.yticks(fontsize=14, fontweight="bold")
 
 # Add zero line
 plt.axhline(y=0, color="#7f8c8d", linestyle="-", linewidth=1.2, alpha=0.6)
