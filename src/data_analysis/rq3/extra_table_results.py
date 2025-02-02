@@ -64,6 +64,9 @@ percentages = df["data_class"].value_counts(normalize=True).mul(100).round(1)
 for class_name in counts.index:
     print(f"{class_name}: {counts[class_name]} ({percentages[class_name]}%)")
 
+# Print total count
+print(f"\nTotal number of cases: {len(df)}")
+
 # Convert to more readable format
 stats_df = stats_df.reset_index()
 stats_df.columns = ["Data Class", "Statistic", "Value"]

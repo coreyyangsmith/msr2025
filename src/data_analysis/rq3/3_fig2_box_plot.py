@@ -82,7 +82,8 @@ bp = plt.boxplot(
     capprops={"color": "#2C3E50", "linewidth": 1.5},
 )
 
-# Add mean points
+# Add mean points and collect for legend
+mean_points = []
 for i, strategy in enumerate(
     ["Slow Patch Adoption", "Fast Patch Adoption", "Adopt before Publish"]
 ):
@@ -90,7 +91,10 @@ for i, strategy in enumerate(
         "Days to Patch"
     ]
     mean = data.mean()
-    plt.plot(i + 1, mean, marker="D", color="#e74c3c", markersize=8, alpha=0.9)
+    mean_point = plt.plot(
+        i + 1, mean, marker="D", color="#e74c3c", markersize=8, alpha=0.9
+    )[0]
+    mean_points.append(mean_point)
 
 plt.xlabel("Repository Update Strategy", fontsize=14, labelpad=5)
 plt.ylabel(
@@ -114,6 +118,17 @@ plt.axhline(y=0, color="#7f8c8d", linestyle="-", linewidth=1.2, alpha=0.6)
 # Set y-axis minimum to -300
 plt.ylim(bottom=-3000)
 plt.ylim(top=2000)
+
+# Add legend
+legend_elements = [
+    mean_points[0],
+]
+plt.legend(
+    legend_elements,
+    ["Mean"],
+    loc="upper right",
+    fontsize=12,
+)
 
 plt.tight_layout()
 plt.savefig(
