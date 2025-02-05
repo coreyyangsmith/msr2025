@@ -1,6 +1,40 @@
-# MSR 2025 - Dependency Mining Challenge
+# Tracing Vulnerabilities in Maven: A Study of CVE Lifecycles and Dependency Networks
+## MSR 2025 - Dependency Mining Challenge
 
-Please find our dataset hosted on Zenodo [here](https://zenodo.org/records/14291858).
+Please find our dataset hosted on Zenodo [10.5281/zenodo.14810459](https://zenodo.org/records/14810459). 
+
+## Metrics
+The original source for these metrics can be explored more in the [OpenDigger Documentation](https://open-digger.cn/en/docs/user_docs/intro). Note we have excluded Developer Metrics from our analysis, and focused on solely on Repository Metrics.
+
+| Metric                             | Source | Kept? | Description                                                                     |
+| ---------------------------------- | ------ | ----- | ------------------------------------------------------------------------------- |
+| Repo Global OpenRank               | X-lab  | No    | A comprehensive metric measuring repository influence based on multiple factors |
+| Repo Community OpenRank            | X-lab  | No    | Repository influence within its specific community                              |
+| Repo Activity                      | X-lab  | Yes   | Overall repository activity level                                               |
+| Stars                              | X-lab  | Yes   | Number of repository stars                                                      |
+| Technical Fork                     | CHAOSS | Yes   | Number of repository forks                                                      |
+| Attention                          | X-lab  | Yes   | Repository attention/popularity metric                                          |
+| Active Dates and Times             | CHAOSS | No    | Temporal patterns of repository activity                                        |
+| New Contributors                   | CHAOSS | Yes   | Count of new contributors over time                                             |
+| Contributors                       | CHAOSS | No    | Total contributor metrics                                                       |
+| Inactive Contributors              | CHAOSS | Yes   | Count of inactive contributors                                                  |
+| Participants                       | X-lab  | Yes   | Number of unique participants                                                   |
+| Contributor Absence Factor         | CHAOSS | Yes   | Bus factor/contributor risk metric                                              |
+| Issues New                         | CHAOSS | Yes   | Count of new issues                                                             |
+| Issues Closed                      | CHAOSS | Yes   | Count of closed issues                                                          |
+| Issue Comments                     | X-lab  | Yes   | Count of issue comments                                                         |
+| Issue Response Time                | CHAOSS | No    | Time to first response on issues                                                |
+| Issue Resolution Duration          | CHAOSS | No    | Time to resolve issues                                                          |
+| Issue Age                          | CHAOSS | No    | Age of open issues                                                              |
+| Change Requests                    | CHAOSS | Yes   | Count of pull requests                                                          |
+| Change Requests Accepted           | CHAOSS | Yes   | Count of merged pull requests                                                   |
+| Change Requests Reviews            | CHAOSS | Yes   | Count of pull request reviews                                                   |
+| Change Request Response Time       | CHAOSS | No    | Time to first response on PRs                                                   |
+| Change Request Resolution Duration | CHAOSS | No    | Time to merge/close PRs                                                         |
+| Change Request Age                 | CHAOSS | No    | Age of open PRs                                                                 |
+| Code Change Lines Add              | CHAOSS | Yes   | Lines added in changes                                                          |
+| Code Change Lines Remove           | CHAOSS | Yes   | Lines removed in changes                                                        |
+| Code Change Lines Sum              | CHAOSS | Yes   | Total lines changed (added + removed)                                           |
 
 ## Setup Instructions
 
@@ -112,7 +146,7 @@ Step 4: Repeat for non-CVE repositories
 * `python -m src.data_extraction.rq2.18_clean_data`
 
 Step 5: Calculate Correlation between Project Characteristics and Vulnerability Life Cycle
-* `python -m src.data_analysis.rq2.1_rank_biserial_bootstrap`
+* `python -m src.data_analysis.rq2.1_rank_biserial`
 
 ## RQ3: Dependent Package Patching Strategy
 

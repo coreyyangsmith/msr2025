@@ -1,74 +1,74 @@
-Rank Biserial Correlation Results (with bootstrap 95% CIs):
-----------------------------------------------------------------------
+Rank Biserial Correlation Results:
+--------------------------------------------------
 
 issues_new_acc:
-Observed Rank Biserial Correlation: 0.657
+Rank Biserial Correlation: 0.657
 Mann-Whitney U p-value: 3.096e-125
 
 issues_closed_acc:
-Observed Rank Biserial Correlation: 0.660
+Rank Biserial Correlation: 0.660
 Mann-Whitney U p-value: 2.762e-126
 
 issue_comments_acc:
-Observed Rank Biserial Correlation: 0.679
+Rank Biserial Correlation: 0.679
 Mann-Whitney U p-value: 1.620e-133
 
 code_change_lines_add_acc:
-Observed Rank Biserial Correlation: 0.448
+Rank Biserial Correlation: 0.448
 Mann-Whitney U p-value: 3.423e-59
 
 code_change_lines_remove_acc:
-Observed Rank Biserial Correlation: 0.390
+Rank Biserial Correlation: 0.390
 Mann-Whitney U p-value: 2.882e-45
 
 code_change_lines_sum_acc:
-Observed Rank Biserial Correlation: 0.452
+Rank Biserial Correlation: 0.452
 Mann-Whitney U p-value: 3.944e-60
 
 change_requests_acc:
-Observed Rank Biserial Correlation: 0.464
+Rank Biserial Correlation: 0.464
 Mann-Whitney U p-value: 2.288e-63
 
 change_requests_accepted_acc:
-Observed Rank Biserial Correlation: 0.297
+Rank Biserial Correlation: 0.297
 Mann-Whitney U p-value: 6.061e-27
 
 change_requests_reviews_acc:
-Observed Rank Biserial Correlation: 0.336
+Rank Biserial Correlation: 0.336
 Mann-Whitney U p-value: 4.821e-34
 
 bus_factor_acc:
-Observed Rank Biserial Correlation: 0.660
+Rank Biserial Correlation: 0.660
 Mann-Whitney U p-value: 3.059e-126
 
 inactive_contributors_acc:
-Observed Rank Biserial Correlation: 0.149
+Rank Biserial Correlation: 0.149
 Mann-Whitney U p-value: 6.999e-08
 
 activity_acc:
-Observed Rank Biserial Correlation: 0.645
+Rank Biserial Correlation: 0.645
 Mann-Whitney U p-value: 1.459e-120
 
 new_contributors_acc:
-Observed Rank Biserial Correlation: 0.512
+Rank Biserial Correlation: 0.512
 Mann-Whitney U p-value: 7.982e-77
 
 attention_acc:
-Observed Rank Biserial Correlation: 0.539
+Rank Biserial Correlation: 0.539
 Mann-Whitney U p-value: 8.979e-85
 
 stars_acc:
-Observed Rank Biserial Correlation: 0.474
+Rank Biserial Correlation: 0.474
 Mann-Whitney U p-value: 6.135e-66
 
 technical_fork_acc:
-Observed Rank Biserial Correlation: 0.629
+Rank Biserial Correlation: 0.629
 Mann-Whitney U p-value: 6.004e-115
 
 participants_acc:
-Observed Rank Biserial Correlation: 0.651
+Rank Biserial Correlation: 0.651
 Mann-Whitney U p-value: 4.549e-123
 
 openrank_acc:
-Observed Rank Biserial Correlation: 0.632
+Rank Biserial Correlation: 0.632
 Mann-Whitney U p-value: 4.104e-116
